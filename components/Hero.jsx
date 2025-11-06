@@ -47,10 +47,22 @@ const Hero = () => {
     fetchSlides();
   }, []);
 
+  // ✅ Smart Cloudinary optimization
+  const getOptimizedUrl = (url) => {
+    if (!url) return "";
+    if (!url.includes("res.cloudinary.com")) return url;
+    return url.replace(
+      "/upload/",
+      "/upload/c_fit,g_auto,q_auto:best,f_auto,dpr_auto/"
+    );
+  };
+
   const getMediaUrl = (slide) => {
     const base = process.env.NEXT_PUBLIC_API_URL || "";
-    const url = isMobile && slide.mobileMediaUrl ? slide.mobileMediaUrl : slide.mediaUrl;
-    return url?.startsWith("http") ? url : `${base}${url}`;
+    const url =
+      isMobile && slide.mobileMediaUrl ? slide.mobileMediaUrl : slide.mediaUrl;
+    const fullUrl = url?.startsWith("http") ? url : `${base}${url}`;
+    return getOptimizedUrl(fullUrl);
   };
 
   if (loading)
@@ -101,21 +113,19 @@ const Hero = () => {
             <SwiperSlide key={slide.id}>
               <div className="relative w-full h-full overflow-hidden">
                 {/* 🌈 Ambient blurred background */}
-                {!isMobile && (
-                  <div
-                    className="absolute inset-0 z-0 ambient-bg"
-                    style={{
-                      backgroundImage: `url(${mediaUrl})`,
-                    }}
-                  ></div>
-                )}
+                <div
+                  className="absolute inset-0 z-0 ambient-bg"
+                  style={{
+                    backgroundImage: `url(${mediaUrl})`,
+                  }}
+                ></div>
 
                 {/* 🖼 Main image / video */}
                 {slide.type === "VIDEO" ? (
                   <video
                     className={`absolute inset-0 w-full h-full z-10 ${
                       isMobile ? "object-cover" : "object-contain"
-                    } kenburns`}
+                    } slide-media`}
                     src={mediaUrl}
                     autoPlay
                     muted
@@ -128,24 +138,26 @@ const Hero = () => {
                     alt={slide.title}
                     className={`absolute inset-0 w-full h-full z-10 ${
                       isMobile ? "object-cover" : "object-contain"
-                    } kenburns`}
+                    } slide-media`}
+                    loading="lazy"
+                    decoding="async"
                   />
                 )}
 
                 {/* 🖋 Text Overlay */}
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white z-20 px-6">
-                  <h2 className="text-3xl sm:text-5xl font-semibold mb-3 drop-shadow-xl">
+                  <h2 className="text-3xl sm:text-5xl font-semibold mb-3 drop-shadow-xl text-overlay">
                     {slide.title}
                   </h2>
                   {slide.subtitle && (
-                    <p className="text-base sm:text-lg font-light max-w-md drop-shadow-md">
+                    <p className="text-base sm:text-lg font-light max-w-md drop-shadow-md text-overlay">
                       {slide.subtitle}
                     </p>
                   )}
                 </div>
 
                 {/* 🌑 Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-15 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent z-15 pointer-events-none"></div>
               </div>
             </SwiperSlide>
           );
@@ -186,30 +198,51 @@ const Hero = () => {
           position: relative;
         }
 
-        /* Ambient blurred background */
         .ambient-bg {
           background-size: cover;
           background-position: center;
-          filter: blur(50px) saturate(1.4) brightness(0.9);
-          transform: scale(1.2);
-          opacity: 0.8;
+          filter: blur(40px) saturate(1.2) brightness(0.9);
+          transform: scale(1.1);
+          opacity: 0.7;
         }
 
-        /* Ken Burns slow zoom */
-        .kenburns {
-          animation: kenburnsZoom 15s ease-in-out infinite alternate;
+        .slide-media {
+          animation: fadeZoom 1s ease-in-out;
+          object-fit: contain;
         }
 
-        @keyframes kenburnsZoom {
+        @keyframes fadeZoom {
           from {
-            transform: scale(1) translate(0, 0);
+            opacity: 0;
+            transform: scale(1.05);
           }
           to {
-            transform: scale(1.08) translate(0, -2%);
+            opacity: 1;
+            transform: scale(1);
           }
         }
 
-        /* Swiper pagination */
+        .text-overlay {
+          background: rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(6px);
+          border-radius: 12px;
+          padding: 0.5rem 1.25rem;
+          display: inline-block;
+        }
+
+        .hero-section::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            circle,
+            transparent 65%,
+            rgba(0, 0, 0, 0.35) 100%
+          );
+          pointer-events: none;
+          z-index: 15;
+        }
+
         .custom-bullet {
           background: rgba(255, 255, 255, 0.4);
           width: 10px;
@@ -218,20 +251,20 @@ const Hero = () => {
           margin: 0 4px;
           transition: all 0.3s ease;
         }
+
         .custom-bullet.swiper-pagination-bullet-active {
           background: linear-gradient(45deg, #ec4899, #8b5cf6);
           transform: scale(1.3);
           box-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
         }
 
-        /* 🟢 Navigation Buttons */
         .swiper-button-prev-custom,
         .swiper-button-next-custom {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           z-index: 30;
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(6px);
           border: 1px solid rgba(255, 255, 255, 0.3);
           width: 44px;
@@ -243,34 +276,28 @@ const Hero = () => {
           color: white;
           cursor: pointer;
           transition: all 0.3s ease;
+          opacity: 0.7;
         }
 
         .swiper-button-prev-custom:hover,
         .swiper-button-next-custom:hover {
-          background: rgba(255, 255, 255, 0.4);
+          opacity: 1;
+          background: rgba(255, 255, 255, 0.3);
           transform: translateY(-50%) scale(1.1);
           box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
         }
 
         .swiper-button-prev-custom {
-          left: 25px;
+          left: 10px;
         }
+
         .swiper-button-next-custom {
-          right: 25px;
+          right: 10px;
         }
 
         @media (max-width: 768px) {
-          .hero-section {
-            height: 100vh;
-          }
-          .kenburns {
-            animation: none;
-          }
-          .swiper-button-prev-custom,
-          .swiper-button-next-custom {
-            width: 36px;
-            height: 36px;
-            opacity: 0.8;
+          .slide-media {
+            object-fit: cover;
           }
         }
       `}</style>
