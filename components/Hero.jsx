@@ -4,14 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Autoplay,
   Pagination,
-  Parallax,
   EffectFade,
   Navigation,
 } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "swiper/css/parallax";
 import "swiper/css/effect-fade";
 import axiosInstance from "@/libs/axios-instance";
 
@@ -22,10 +20,10 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const fetchSlides = async () => {
@@ -37,7 +35,7 @@ const Hero = () => {
       setSlides(activeSlides);
     } catch (err) {
       console.error("Hero fetch error:", err);
-      setError("Failed to load slides. Please refresh.");
+      setError("Unable to load gallery at the moment.");
     } finally {
       setLoading(false);
     }
@@ -47,13 +45,12 @@ const Hero = () => {
     fetchSlides();
   }, []);
 
-  // ✅ Smart Cloudinary optimization
   const getOptimizedUrl = (url) => {
     if (!url) return "";
     if (!url.includes("res.cloudinary.com")) return url;
     return url.replace(
       "/upload/",
-      "/upload/c_fit,g_auto,q_auto:best,f_auto,dpr_auto/"
+      "/upload/c_fill,g_auto,q_auto:good,f_auto,dpr_auto/"
     );
   };
 
@@ -67,103 +64,88 @@ const Hero = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-[100vh] bg-gradient-to-br from-purple-50 to-pink-50">
-        <div className="text-lg text-gray-600 animate-pulse">
-          Loading beautiful moments...
-        </div>
+      <div className="flex items-center justify-center h-screen bg-gray-900 text-white text-lg">
+        Capturing moments...
       </div>
     );
 
   if (error)
     return (
-      <div className="flex flex-col items-center justify-center h-[100vh] bg-gradient-to-br from-red-50 to-pink-50 text-center p-6">
-        <p className="text-red-600 mb-4">{error}</p>
+      <div className="flex flex-col items-center justify-center h-screen bg-red-50 text-center p-6">
+        <p className="text-red-600 mb-3">{error}</p>
         <button
           onClick={fetchSlides}
-          className="px-6 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg shadow hover:scale-105 transition-transform"
+          className="px-6 py-3 bg-gradient-to-r from-rose-500 to-fuchsia-500 text-white rounded-lg shadow-md hover:shadow-lg transition-transform hover:scale-105"
         >
-          Try Again
+          Retry
         </button>
       </div>
     );
 
   return (
-    <section className="relative w-full hero-section overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden">
       <Swiper
-        modules={[Autoplay, Pagination, Parallax, EffectFade, Navigation]}
-        parallax
+        modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
         speed={1000}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{
           clickable: true,
-          renderBullet: (index, className) =>
-            `<span class="${className} custom-bullet"></span>`,
+          bulletClass: "swiper-pagination-bullet custom-bullet",
+          bulletActiveClass:
+            "swiper-pagination-bullet-active custom-bullet-active",
         }}
         navigation={{
           nextEl: ".swiper-button-next-custom",
           prevEl: ".swiper-button-prev-custom",
         }}
         loop={slides.length > 1}
-        className="w-full h-full"
+        className="h-full"
       >
         {slides.map((slide) => {
           const mediaUrl = getMediaUrl(slide);
           return (
             <SwiperSlide key={slide.id}>
-              <div className="relative w-full h-full overflow-hidden">
-                {/* 🌈 Ambient blurred background */}
-                <div
-                  className="absolute inset-0 z-0 ambient-bg"
-                  style={{
-                    backgroundImage: `url(${mediaUrl})`,
-                  }}
-                ></div>
-
-                {/* 🖼 Main image / video */}
+              <div className="relative h-full w-full">
+                {/* Main Image or Video */}
                 {slide.type === "VIDEO" ? (
                   <video
-                    className={`absolute inset-0 w-full h-full z-10 ${
-                      isMobile ? "object-cover" : "object-contain"
-                    } slide-media`}
                     src={mediaUrl}
                     autoPlay
                     muted
                     loop
                     playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 ) : (
                   <img
                     src={mediaUrl}
                     alt={slide.title}
-                    className={`absolute inset-0 w-full h-full z-10 ${
-                      isMobile ? "object-cover" : "object-contain"
-                    } slide-media`}
+                    className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
-                    decoding="async"
                   />
                 )}
 
-                {/* 🖋 Text Overlay */}
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white z-20 px-6">
-                  <h2 className="text-3xl sm:text-5xl font-semibold mb-3 drop-shadow-xl text-overlay">
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70 z-10"></div>
+
+                {/* Content */}
+                <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6">
+                  <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-xl tracking-tight mb-3 leading-tight animate-fadeInUp">
                     {slide.title}
-                  </h2>
+                  </h1>
                   {slide.subtitle && (
-                    <p className="text-base sm:text-lg font-light max-w-md drop-shadow-md text-overlay">
+                    <p className="text-lg md:text-2xl text-gray-200 font-light max-w-2xl animate-fadeInUp delay-100">
                       {slide.subtitle}
                     </p>
                   )}
                 </div>
-
-                {/* 🌑 Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent z-15 pointer-events-none"></div>
               </div>
             </SwiperSlide>
           );
         })}
 
-        {/* 🟣 Navigation buttons */}
+        {/* Navigation */}
         <div className="swiper-button-prev-custom">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -190,72 +172,20 @@ const Hero = () => {
         </div>
       </Swiper>
 
-      {/* ✨ Styles */}
+      {/* Styles */}
       <style jsx>{`
-        .hero-section {
-          height: 100vh;
-          max-height: 900px;
-          position: relative;
-        }
-
-        .ambient-bg {
-          background-size: cover;
-          background-position: center;
-          filter: blur(40px) saturate(1.2) brightness(0.9);
-          transform: scale(1.1);
-          opacity: 0.7;
-        }
-
-        .slide-media {
-          animation: fadeZoom 1s ease-in-out;
-          object-fit: contain;
-        }
-
-        @keyframes fadeZoom {
-          from {
-            opacity: 0;
-            transform: scale(1.05);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        .text-overlay {
-          background: rgba(0, 0, 0, 0.35);
-          backdrop-filter: blur(6px);
-          border-radius: 12px;
-          padding: 0.5rem 1.25rem;
-          display: inline-block;
-        }
-
-        .hero-section::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(
-            circle,
-            transparent 65%,
-            rgba(0, 0, 0, 0.35) 100%
-          );
-          pointer-events: none;
-          z-index: 15;
-        }
-
         .custom-bullet {
-          background: rgba(255, 255, 255, 0.4);
           width: 10px;
           height: 10px;
+          margin: 0 5px;
+          background: rgba(255, 255, 255, 0.4);
           border-radius: 50%;
-          margin: 0 4px;
           transition: all 0.3s ease;
         }
-
-        .custom-bullet.swiper-pagination-bullet-active {
-          background: linear-gradient(45deg, #ec4899, #8b5cf6);
+        .custom-bullet-active {
+          background: linear-gradient(90deg, #ec4899, #8b5cf6);
           transform: scale(1.3);
-          box-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
+          box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
         }
 
         .swiper-button-prev-custom,
@@ -264,40 +194,56 @@ const Hero = () => {
           top: 50%;
           transform: translateY(-50%);
           z-index: 30;
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(6px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
           width: 44px;
           height: 44px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.25);
           color: white;
           cursor: pointer;
           transition: all 0.3s ease;
-          opacity: 0.7;
         }
 
         .swiper-button-prev-custom:hover,
         .swiper-button-next-custom:hover {
-          opacity: 1;
           background: rgba(255, 255, 255, 0.3);
           transform: translateY(-50%) scale(1.1);
-          box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         .swiper-button-prev-custom {
-          left: 10px;
+          left: 1rem;
+        }
+        .swiper-button-next-custom {
+          right: 1rem;
         }
 
-        .swiper-button-next-custom {
-          right: 10px;
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fadeInUp {
+          animation: fadeInUp 1.2s ease forwards;
         }
 
         @media (max-width: 768px) {
-          .slide-media {
-            object-fit: cover;
+          .swiper-button-prev-custom,
+          .swiper-button-next-custom {
+            display: none;
+          }
+          .text-lg {
+            font-size: 1rem;
           }
         }
       `}</style>
