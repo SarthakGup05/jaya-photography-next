@@ -1,6 +1,44 @@
+/* ======================================================
+   Tailwind + AnimateCSS Base Imports
+====================================================== */
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* ======================================================
+   Raleway & Belista Fonts
+====================================================== */
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/Raleway-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/Raleway-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/Raleway-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Belista Script";
+  src: url("/fonts/Belista.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ======================================================
+   Tailwind Theme Variables & Color System
+====================================================== */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -112,11 +150,108 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ======================================================
+   Base Layer — Tailwind + Font Overrides
+====================================================== */
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    font-family: "Raleway", system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+    color: var(--foreground);
+    background-color: var(--background);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Belista Script", cursive;
+    font-weight: normal;
+    letter-spacing: 0.1px;
+    line-height: 1.4;
+    margin-bottom: 0.6em;
+  }
+
+  h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+
+  h2 { font-size: 2.2rem; }
+  h3 { font-size: 1.8rem; }
+  h4, h5, h6 { font-size: 1.4rem; }
+
+  p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-bottom: 1em;
+  }
+
+  blockquote {
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+  }
+
+  a {
+    font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  a:hover { opacity: 0.7; }
+}
+
+/* ======================================================
+   LightGallery Customization
+====================================================== */
+.lg-custom-gallery .lg-outer {
+  background-color: rgba(0, 0, 0, 0.95);
+  font-family: "Raleway", sans-serif;
+}
+
+.lg-custom-gallery .lg-toolbar {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.lg-custom-gallery .lg-counter {
+  color: #fff;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.lg-custom-gallery .lg-sub-html {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 40px 40px 20px;
+}
+
+.lg-custom-gallery .lg-sub-html h4 {
+  color: #fff;
+  font-size: 24px;
+  font-family: "Belista Script", cursive;
+}
+
+.lg-custom-gallery .lg-sub-html p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  font-family: "Raleway", sans-serif;
+}
+
+/* ======================================================
+   Responsive Typography
+====================================================== */
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.5rem; }
+
+  .lg-custom-gallery .lg-sub-html {
+    padding: 20px 20px 10px;
   }
 }
