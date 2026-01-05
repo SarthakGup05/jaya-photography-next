@@ -21,7 +21,7 @@ const Hero = () => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
+    handleResize(); // Check on mount
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -45,69 +45,72 @@ const Hero = () => {
     fetchSlides();
   }, []);
 
-  const getOptimizedUrl = (url) => {
+  const getOptimizedUrl = (url, isMobileDevice) => {
     if (!url) return "";
     if (!url.includes("res.cloudinary.com")) return url;
-    return url.replace(
-      "/upload/",
-      "/upload/c_fill,g_auto,q_auto:good,f_auto,dpr_auto/"
-    );
+
+    // 1. Desktop: Full width (2560px), original aspect ratio
+    // 2. Mobile: Square crop (ar_1:1) at 1200px width for high quality
+    const transformation = isMobileDevice 
+      ? "c_fill,ar_1:1,g_auto,w_1200,q_auto,f_auto" 
+      : "c_fill,w_2560,g_auto,q_auto,f_auto";
+
+    return url.replace("/upload/", `/upload/${transformation}/`);
   };
 
   const getMediaUrl = (slide) => {
     const base = process.env.NEXT_PUBLIC_API_URL || "";
-    const url =
-      isMobile && slide.mobileMediaUrl ? slide.mobileMediaUrl : slide.mediaUrl;
+    // Prioritize mobile specific image if available, else fallback to main image
+    const url = isMobile && slide.mobileMediaUrl ? slide.mobileMediaUrl : slide.mediaUrl;
     const fullUrl = url?.startsWith("http") ? url : `${base}${url}`;
-    return getOptimizedUrl(fullUrl);
+    return getOptimizedUrl(fullUrl, isMobile);
   };
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-900 text-white text-lg">
-        Capturing moments...
+      <div className="flex items-center justify-center h-screen bg-gray-900 text-white text-lg font-light tracking-widest">
+        CAPTURING MOMENTS...
       </div>
     );
 
   if (error)
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-red-50 text-center p-6">
-        <p className="text-red-600 mb-3">{error}</p>
-        <button
-          onClick={fetchSlides}
-          className="px-6 py-3 bg-gradient-to-r from-rose-500 to-fuchsia-500 text-white rounded-lg shadow-md hover:shadow-lg transition-transform hover:scale-105"
-        >
+        <p className="text-red-600 mb-3 font-medium">{error}</p>
+        <button onClick={fetchSlides} className="px-6 py-3 bg-gray-900 text-white rounded-lg">
           Retry
         </button>
       </div>
     );
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    // ✅ Container: 
+    // - Desktop (md:h-screen): Full viewport height
+    // - Mobile (aspect-square): Forces 1:1 box
+    <section className="relative w-full aspect-square md:aspect-auto md:h-screen overflow-hidden bg-gray-900">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
-        speed={1000}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        speed={1500}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
         pagination={{
           clickable: true,
           bulletClass: "swiper-pagination-bullet custom-bullet",
-          bulletActiveClass:
-            "swiper-pagination-bullet-active custom-bullet-active",
+          bulletActiveClass: "swiper-pagination-bullet-active custom-bullet-active",
         }}
         navigation={{
           nextEl: ".swiper-button-next-custom",
           prevEl: ".swiper-button-prev-custom",
         }}
         loop={slides.length > 1}
-        className="h-full"
+        className="h-full w-full"
       >
-        {slides.map((slide) => {
+        {slides.map((slide, index) => {
           const mediaUrl = getMediaUrl(slide);
+
           return (
             <SwiperSlide key={slide.id}>
               <div className="relative h-full w-full">
-                {/* Main Image or Video */}
                 {slide.type === "VIDEO" ? (
                   <video
                     src={mediaUrl}
@@ -122,20 +125,20 @@ const Hero = () => {
                     src={mediaUrl}
                     alt={slide.title}
                     className="absolute inset-0 w-full h-full object-cover"
-                    loading="lazy"
+                    loading={index === 0 ? "eager" : "lazy"}
                   />
                 )}
 
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70 z-10"></div>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none"></div>
 
-                {/* Content */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6">
-                  <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-xl tracking-tight mb-3 leading-tight animate-fadeInUp">
+                {/* Text Content */}
+                <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-4 md:px-6">
+                  <h1 className="text-3xl md:text-7xl font-bold text-white drop-shadow-2xl mb-2 animate-fadeInUp">
                     {slide.title}
                   </h1>
                   {slide.subtitle && (
-                    <p className="text-lg md:text-2xl text-gray-200 font-light max-w-2xl animate-fadeInUp delay-100">
+                    <p className="text-sm md:text-2xl text-gray-100 font-light max-w-[80%] drop-shadow-md animate-fadeInUp delay-200">
                       {slide.subtitle}
                     </p>
                   )}
@@ -145,107 +148,65 @@ const Hero = () => {
           );
         })}
 
-        {/* Navigation */}
-        <div className="swiper-button-prev-custom">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
+        {/* Navigation Arrows (Desktop Only) */}
+        <div className="swiper-button-prev-custom group hidden md:flex">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </div>
-        <div className="swiper-button-next-custom">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
+        <div className="swiper-button-next-custom group hidden md:flex">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </div>
       </Swiper>
 
-      {/* Styles */}
-      <style jsx>{`
+      <style jsx global>{`
+        /* Bullet Styles */
         .custom-bullet {
-          width: 10px;
-          height: 10px;
-          margin: 0 5px;
+          width: 8px;
+          height: 8px;
+          margin: 0 4px !important;
           background: rgba(255, 255, 255, 0.4);
           border-radius: 50%;
-          transition: all 0.3s ease;
+          cursor: pointer;
+          transition: all 0.3s;
         }
         .custom-bullet-active {
-          background: linear-gradient(90deg, #ec4899, #8b5cf6);
-          transform: scale(1.3);
-          box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
+          background: #fff;
+          transform: scale(1.2);
         }
 
+        /* Nav Buttons */
         .swiper-button-prev-custom,
         .swiper-button-next-custom {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           z-index: 30;
-          width: 44px;
-          height: 44px;
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.25);
+          background: rgba(0, 0, 0, 0.2);
+          backdrop-filter: blur(4px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           color: white;
           cursor: pointer;
-          transition: all 0.3s ease;
         }
-
-        .swiper-button-prev-custom:hover,
-        .swiper-button-next-custom:hover {
-          background: rgba(255, 255, 255, 0.3);
-          transform: translateY(-50%) scale(1.1);
-          box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        .swiper-button-prev-custom {
-          left: 1rem;
-        }
-        .swiper-button-next-custom {
-          right: 1rem;
-        }
+        .swiper-button-prev-custom { left: 20px; }
+        .swiper-button-next-custom { right: 20px; }
 
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-
         .animate-fadeInUp {
-          animation: fadeInUp 1.2s ease forwards;
+          animation: fadeInUp 0.8s ease-out forwards;
         }
-
-        @media (max-width: 768px) {
-          .swiper-button-prev-custom,
-          .swiper-button-next-custom {
-            display: none;
-          }
-          .text-lg {
-            font-size: 1rem;
-          }
-        }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
       `}</style>
     </section>
   );
