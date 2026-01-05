@@ -11,10 +11,8 @@ import dynamic from "next/dynamic";
 const LightGallery = dynamic(() => import("lightgallery/react"), { ssr: false });
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
-import lgAutoplay from "lightgallery/plugins/autoplay";
 import lgFullscreen from "lightgallery/plugins/fullscreen";
-import lgShare from "lightgallery/plugins/share";
-import lgRotate from "lightgallery/plugins/rotate";
+
 
 // ✅ LightGallery CSS
 import "lightgallery/css/lightgallery.css";
@@ -265,7 +263,7 @@ const PhotographyPortfolio = () => {
                     height="400"
                     className="w-full h-full object-cover transition-transform duration-500"
                     loading={index < 4 ? "eager" : "lazy"}
-                    fetchpriority={index < 2 ? "high" : "auto"}
+                    fetchPriority={index < 2 ? "high" : "auto"}
                     decoding={index < 4 ? "sync" : "async"}
                     onLoad={() => handleImageLoad(item.id)}
                     onError={(e) => {

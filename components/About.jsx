@@ -13,7 +13,7 @@ const JayaAbout = () => {
     preloadLink.rel = "preload";
     preloadLink.as = "image";
     preloadLink.href = "/bg/1.jpg";
-    preloadLink.fetchpriority = "high";
+    preloadLink.fetchPriority = "high";
     document.head.appendChild(preloadLink);
 
     return () => {

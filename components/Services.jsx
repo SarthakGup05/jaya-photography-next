@@ -54,7 +54,7 @@ const Services = () => {
         preloadLink.rel = "preload";
         preloadLink.as = "image";
         preloadLink.href = firstService.coverImage || firstService.mainImage;
-        preloadLink.fetchpriority = "high";
+        preloadLink.fetchPriority = "high";
         document.head.appendChild(preloadLink);
 
         return () => {
@@ -284,7 +284,7 @@ const Services = () => {
                     height="500"
                     className="service-img w-full h-full object-cover transition-transform duration-300"
                     loading={index < 3 ? "eager" : "lazy"}
-                    fetchpriority={index < 2 ? "high" : "auto"}
+                    fetchPriority={index < 2 ? "high" : "auto"}
                     decoding={index < 3 ? "sync" : "async"}
                     onLoad={() => handleImageLoad(service.id)}
                     style={{ aspectRatio: "4/5" }}
