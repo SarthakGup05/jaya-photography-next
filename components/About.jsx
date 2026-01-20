@@ -73,9 +73,9 @@ const JayaAbout = () => {
                 Photographer
               </div>
 
-              <h1 className="text-4xl sm:text-5xl font-bold text-black leading-tight">
+              <h2 className="text-4xl sm:text-5xl font-bold text-black leading-tight">
                 Meet Jaya — Professional Photographer in Lucknow
-              </h1>
+              </h2>
 
               <div className="space-y-4 text-gray-700 text-lg leading-relaxed font-semibold">
                 <p>

@@ -220,12 +220,12 @@ const PhotographyPortfolio = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16 header-content">
-          <h1 className="text-3xl md:text-4xl font-bold text-black mb-2 tracking-tight leading-relaxed">
+          <h2 className="text-3xl md:text-4xl font-bold text-black mb-2 tracking-tight leading-relaxed">
             Capturing Life&apos;s <br />
             <span className="bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent">
               Beautiful Moments
             </span>
-          </h1>
+          </h2>
           <p className="text-purple-700 font-medium text-sm uppercase tracking-wide mb-3">
             Newborn | Maternity | Baby | Toddler | Family | Fashion Photography
           </p>
