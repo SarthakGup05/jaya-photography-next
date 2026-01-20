@@ -29,7 +29,7 @@ const ServiceUI = ({ service }) => {
           <h2 className="text-xl font-bold text-gray-800 mb-2">Service Not Found</h2>
           <button
             onClick={() => router.push("/services")}
-            className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition"
+            className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition cursor-pointer"
           >
             Back to Services
           </button>
@@ -148,7 +148,7 @@ const ServiceUI = ({ service }) => {
             <Suspense fallback={<div className="text-center text-gray-500">Loading form...</div>}>
               <Modal
                 trigger={
-                  <button className="w-full group bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-500 transform hover:scale-105 shadow-lg">
+                  <button className="w-full group bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-500 transform hover:scale-105 shadow-lg cursor-pointer">
                     <span className="flex items-center justify-center gap-2">
                       <span>Book This Session</span>
                       <Camera className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />

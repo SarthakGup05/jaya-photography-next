@@ -197,7 +197,7 @@ const PhotographyPortfolio = () => {
           <p className="text-gray-600 text-sm mb-6">{error}</p>
           <button
             onClick={fetchPortfolioImages}
-            className="animated-button text-black border-b border-black hover:border-gray-600 transition-colors duration-200 text-sm"
+            className="animated-button text-black border-b border-black hover:border-gray-600 transition-colors duration-200 text-sm cursor-pointer"
           >
             Try Again
           </button>
@@ -226,10 +226,30 @@ const PhotographyPortfolio = () => {
               Beautiful Moments
             </span>
           </h1>
-          <p className="text-gray-700 max-w-md mx-auto text-base font-medium leading-relaxed mt-4">
-            A curated selection of our finest work showcasing newborn, maternity,
-            and fashion photography.
+          <p className="text-purple-700 font-medium text-sm uppercase tracking-wide mb-3">
+            Newborn | Maternity | Baby | Toddler | Family | Fashion Photography
           </p>
+          <p className="text-gray-700 max-w-md mx-auto text-base font-medium leading-relaxed mt-4">
+            A curated selection of our finest work showcasing newborn photography, maternity photoshoots, baby milestones, and fashion portrait photography in Lucknow.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-600">
+            <span className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Soft, elegant portraits
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Artistic themes & premium setups
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Baby-safe environment & props
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Personal styling support for moms
+            </span>
+          </div>
         </div>
 
         {/* Portfolio Grid */}

@@ -135,7 +135,7 @@ const Packages = () => {
           <p className="text-gray-700">{fetchError}</p>
           <button
             onClick={fetchPackages}
-            className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+            className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 cursor-pointer"
           >
             Try Again
           </button>

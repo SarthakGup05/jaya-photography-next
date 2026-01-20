@@ -261,7 +261,7 @@ const ReviewForm = () => {
               onClick={() => handleRatingClick(star)}
               onMouseEnter={() => setHoverRating(star)}
               onMouseLeave={() => setHoverRating(0)}
-              className="focus:outline-none transition-transform hover:scale-110 p-0.5"
+              className="focus:outline-none transition-transform hover:scale-110 p-0.5 cursor-pointer"
             >
               <Star
                 className={`w-8 h-8 transition-colors duration-200 ${
@@ -303,7 +303,7 @@ const ReviewForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full group relative flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transform transition-all hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
+        className="w-full group relative flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transform transition-all hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
       >
         {isSubmitting ? (
           <>

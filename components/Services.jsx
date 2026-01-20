@@ -194,7 +194,7 @@ const Services = () => {
           <p className="text-red-600 text-lg mb-4">{error}</p>
           <button
             onClick={fetchServices}
-            className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full hover:scale-105 transition-all duration-300"
+            className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             Try Again
           </button>
@@ -231,16 +231,16 @@ const Services = () => {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16 header-content">
           <span className="inline-block text-sm font-medium text-purple-600 bg-purple-100 px-4 py-2 rounded-full uppercase tracking-wider mb-4">
-            Our Services
+            Our Photography Services in Lucknow
           </span>
-          <h2 className="text-5xl text-gray-800 mb-6 font-bold leading-tight">
+          <h2 className="text-4xl md:text-5xl text-gray-800 mb-6 font-bold leading-tight">
             Capturing Life&apos;s{" "}
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-light">
               Most Precious Moments
             </span>
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-            With artistry and emotion, we transform fleeting moments into timeless memories.
+            With passion, creativity, and emotion, we turn fleeting moments into timeless memories you will treasure forever.
           </p>
         </div>
 

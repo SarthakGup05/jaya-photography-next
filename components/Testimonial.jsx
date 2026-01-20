@@ -101,10 +101,10 @@ const Testimonials = () => {
       <div className="w-full max-w-3xl text-center relative z-10">
         {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-3 text-[#0f1419]">
-          What People Are Saying
+          What Our Clients Say
         </h2>
         <p className="text-[#5a5a5a] mb-12 text-base md:text-lg">
-          Hear from our wonderful clients and their experiences.
+          Real Experiences, Real Emotions
         </p>
 
         {/* Tweet-Style Testimonial Card */}
@@ -167,7 +167,7 @@ const Testimonials = () => {
           <div className="flex justify-center items-center mt-10 gap-6">
             <button
               onClick={prev}
-              className="p-2 rounded-full border border-gray-300 hover:bg-[#1DA1F2] hover:text-white transition"
+              className="p-2 rounded-full border border-gray-300 hover:bg-[#1DA1F2] hover:text-white transition cursor-pointer"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -186,14 +186,14 @@ const Testimonials = () => {
                     i === current
                       ? "bg-[#1DA1F2] scale-110"
                       : "bg-gray-300 hover:bg-[#1DA1F2]/50"
-                  }`}
+                  } cursor-pointer`}
                 />
               ))}
             </div>
 
             <button
               onClick={next}
-              className="p-2 rounded-full border border-gray-300 hover:bg-[#1DA1F2] hover:text-white transition"
+              className="p-2 rounded-full border border-gray-300 hover:bg-[#1DA1F2] hover:text-white transition cursor-pointer"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />

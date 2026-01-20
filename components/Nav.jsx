@@ -222,7 +222,7 @@ const Nav = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         title={isOpen ? "Close Menu" : "Open Menu"}
-        className="fixed top-5 right-5 z-[110] bg-[#e9d9c4] p-2.5 rounded-full text-gray-800 shadow-md md:hidden hover:scale-105 transition-transform"
+        className="fixed top-5 right-5 z-[110] bg-[#e9d9c4] p-2.5 rounded-full text-gray-800 shadow-md md:hidden hover:scale-105 transition-transform cursor-pointer"
       >
         {isOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
@@ -256,7 +256,7 @@ const Nav = () => {
                 <>
                   <button
                     onClick={() => toggleMobileDropdown(idx)}
-                    className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-800 hover:bg-[#e7d7c3] transition-all font-medium text-sm"
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-800 hover:bg-[#e7d7c3] transition-all font-medium text-sm cursor-pointer"
                   >
                     <span className="flex items-center gap-3">
                       {link.icon}

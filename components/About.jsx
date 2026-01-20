@@ -74,38 +74,34 @@ const JayaAbout = () => {
               </div>
 
               <h1 className="text-4xl sm:text-5xl font-bold text-black leading-tight">
-                About Jaya
+                Meet Jaya — Professional Photographer in Lucknow
               </h1>
 
               <div className="space-y-4 text-gray-700 text-lg leading-relaxed font-semibold">
                 <p>
-                  Hi, I'm <span className="text-black font-bold">Jaya Agnihotri</span>. My
-                  journey in photography began in college with fashion, food, and product
-                  shoots. But my heart always belonged to babies—I've loved them since
-                  childhood and share a special connection with them.
+                  Hi, I'm <span className="text-black font-bold">Jaya Agnihotri</span>, founder of Jaya Photography.
+                  Photography has been my passion since college — I began with fashion, food, and product shoots, but my heart always belonged to babies and mothers.
                 </p>
                 <p>
-                  In 2018, I followed my passion and started baby and maternity photography.
-                  Since then, I've captured over 500 beautiful stories, creating artistic
-                  setups, styling themes, and helping moms feel confident and radiant.
+                  In 2018, I followed my calling and began specializing in newborn, maternity, baby milestone, and family portraits.
+                  Today, after <span className="font-bold">500+ successful sessions</span> and a <span className="font-bold">Masters in Photography</span>, I bring an artistic vision and baby-safe expertise to every session.
                 </p>
                 <p>
-                  I hold a <span className="font-bold">Masters in Photography</span>, which
-                  has strengthened my vision and creativity. For me, every shoot is about
-                  love, artistry, and celebrating life's most precious moments.
+                  For me, every shoot is about love, patience, comfort, and storytelling.
+                  I create a warm, girl-friendly environment with professional studio lighting and creative styling.
                 </p>
               </div>
 
               {/* Action buttons */}
               <div className="flex gap-4 pt-4 flex-wrap">
                 <Link href="/gallery">
-                  <button className="px-6 py-3 bg-black text-white hover:bg-gray-800 transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl">
+                  <button className="px-6 py-3 bg-black text-white hover:bg-gray-800 transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl cursor-pointer">
                     View Portfolio
                   </button>
                 </Link>
 
                 <Link href="/contact-us">
-                  <button className="px-6 py-3 border-2 border-black text-black hover:bg-black hover:text-white transition-all duration-300 rounded-lg">
+                  <button className="px-6 py-3 border-2 border-black text-black hover:bg-black hover:text-white transition-all duration-300 rounded-lg cursor-pointer">
                     Book Session
                   </button>
                 </Link>
@@ -114,19 +110,19 @@ const JayaAbout = () => {
               {/* Minimal stats */}
               <div className="grid grid-cols-3 gap-6 mt-10 pt-6 border-t border-gray-300">
                 <div className="text-center">
-                  <div className="text-lg font-light text-black mb-1">10+</div>
-                  <div className="text-xs text-gray-600 uppercase tracking-wide">Years</div>
+                  <div className="text-lg font-light text-black mb-1">10+ Years</div>
+                  <div className="text-xs text-gray-600 uppercase tracking-wide">Experience</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-light text-black mb-1">500+</div>
+                  <div className="text-lg font-light text-black mb-1">500+ Shoots</div>
                   <div className="text-xs text-gray-600 uppercase tracking-wide">
                     Sessions
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-light text-black mb-1">Masters</div>
+                  <div className="text-lg font-light text-black mb-1">Masters In</div>
                   <div className="text-xs text-gray-600 uppercase tracking-wide">
-                    Degree
+                    Photography
                   </div>
                 </div>
               </div>

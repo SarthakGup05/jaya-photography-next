@@ -137,7 +137,7 @@ const Footer = () => {
                     <button
                       key={service.id}
                       onClick={() => handleServiceClick(service)}
-                      className="group flex items-center justify-between w-full text-left text-gray-300 hover:text-white transition-colors duration-200 py-1"
+                      className="group flex items-center justify-between w-full text-left text-gray-300 hover:text-white transition-colors duration-200 py-1 cursor-pointer"
                     >
                       <span className="text-sm font-light">{service.name}</span>
                       <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform translate-x-1 group-hover:translate-x-0 transition-all duration-200" />
@@ -225,7 +225,7 @@ const Footer = () => {
 
               <button
                 onClick={handleContactClick}
-                className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 rounded-none py-3 px-4 text-sm font-light transition-all duration-200 hover:scale-[1.02]"
+                className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30 rounded-none py-3 px-4 text-sm font-light transition-all duration-200 hover:scale-[1.02] cursor-pointer"
               >
                 Book a Consultation
               </button>

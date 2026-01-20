@@ -292,7 +292,7 @@ const CTASection = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-600 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-600 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none cursor-pointer"
             >
               <span className="flex items-center justify-center gap-2">
                 {submitting ? (
@@ -319,36 +319,37 @@ const CTASection = () => {
         </div>
 
         {/* Simple Feature List */}
-        <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
-          <div className="p-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Camera className="w-5 h-5 text-purple-600" />
+        {/* Why Parents Trust Our Studio */}
+        <div className="mt-16 pt-10 border-t border-gray-200">
+          <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
+            Why Parents Trust Our Studio
+          </h3>
+          <div className="grid md:grid-cols-3 gap-8 text-center px-4">
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto text-purple-600">
+                <Camera className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold text-gray-800">Professional Quality</h4>
+              <p className="text-sm text-gray-600">Premium setups & high-end equipment</p>
             </div>
-            <h3 className="font-semibold text-gray-800 mb-1">
-              Professional Quality
-            </h3>
-            <p className="text-sm text-gray-600">
-              High-end equipment and expert techniques
-            </p>
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto text-pink-600">
+                <User className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold text-gray-800">Baby-First Approach</h4>
+              <p className="text-sm text-gray-600">Safe, hygienic & comfortable environment</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto text-blue-600">
+                <MapPin className="w-6 h-6" />
+              </div>
+              <h4 className="font-semibold text-gray-800">Flexible & Friendly</h4>
+              <p className="text-sm text-gray-600">Guidance on posing & outfits, flexible dates</p>
+            </div>
           </div>
-          <div className="p-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Phone className="w-5 h-5 text-purple-600" />
-            </div>
-            <h3 className="font-semibold text-gray-800 mb-1">Quick Response</h3>
-            <p className="text-sm text-gray-600">
-              We'll get back to you within 24 hours
-            </p>
-          </div>
-          <div className="p-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <MapPin className="w-5 h-5 text-purple-600" />
-            </div>
-            <h3 className="font-semibold text-gray-800 mb-1">
-              Flexible Location
-            </h3>
-            <p className="text-sm text-gray-600">
-              Studio or on-location shoots available
+          <div className="text-center mt-8">
+            <p className="text-gray-500 italic">
+              "Because every moment of childhood and motherhood deserves to be remembered beautifully."
             </p>
           </div>
         </div>

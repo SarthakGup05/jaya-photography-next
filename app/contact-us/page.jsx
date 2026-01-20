@@ -458,7 +458,7 @@ const ContactUsPage = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="hover-btn w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+                  className="hover-btn w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed text-lg cursor-pointer"
                 >
                   <span className="flex items-center justify-center gap-3">
                     {submitting ? (

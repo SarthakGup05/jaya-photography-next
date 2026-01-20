@@ -12,12 +12,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import axiosInstance from "@/libs/axios-instance";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -77,7 +79,7 @@ const Hero = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-red-50 text-center p-6">
         <p className="text-red-600 mb-3 font-medium">{error}</p>
-        <button onClick={fetchSlides} className="px-6 py-3 bg-gray-900 text-white rounded-lg">
+        <button onClick={fetchSlides} className="px-6 py-3 bg-gray-900 text-white rounded-lg cursor-pointer">
           Retry
         </button>
       </div>
@@ -87,7 +89,7 @@ const Hero = () => {
     // ✅ Container: 
     // - Desktop (md:h-screen): Full viewport height
     // - Mobile (aspect-square): Forces 1:1 box
-    <section className="relative w-full aspect-square md:aspect-auto md:h-screen overflow-hidden bg-gray-900">
+    <section className="relative w-full aspect-square md:aspect-auto md:h-screen overflow-hidden bg-gray-900 mt-0 md:mt-20">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
@@ -129,19 +131,67 @@ const Hero = () => {
                   />
                 )}
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none"></div>
+                {/* Gradient Overlay - Cinematic */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 pointer-events-none"></div>
 
-                {/* Text Content */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-4 md:px-6">
-                  <h1 className="text-3xl md:text-7xl font-bold text-white drop-shadow-2xl mb-2 animate-fadeInUp">
-                    {slide.title}
-                  </h1>
-                  {slide.subtitle && (
-                    <p className="text-sm md:text-2xl text-gray-100 font-light max-w-[80%] drop-shadow-md animate-fadeInUp delay-200">
-                      {slide.subtitle}
+                {/* Content Container */}
+                <div className="absolute inset-x-0 bottom-0 top-0 p-6 md:p-12 lg:p-16 z-20 flex flex-col justify-end md:justify-center items-start">
+                  <div className="max-w-4xl w-full animate-fadeInUp">
+                    
+                    {/* Eyebrow */}
+                    <p className="text-purple-200 font-medium tracking-[0.2em] text-xs md:text-sm mb-3 uppercase">
+                      Welcome to Jaya Photography
                     </p>
-                  )}
+
+                    {/* Main H1 */}
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-2xl font-serif">
+                      Best Maternity & <br />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
+                        Newborn Photographer
+                      </span> <br />
+                      in Lucknow
+                    </h1>
+
+                    {/* Desktop: Grid Layout for Intro Text & CTA */}
+                    <div className="hidden md:grid grid-cols-[auto_1fr] gap-8 items-end mt-6 border-t border-white/20 pt-6">
+                      {/* Left: CTA */}
+                      <div>
+                        <button 
+                          onClick={() => router.push("/contact-us")}
+                        className=" cursor-pointer group flex items-center gap-3 px-6 py-3 bg-white text-black rounded-full font-medium transition-all hover:bg-purple-50"
+                        >
+                          Book a Session
+                          <span className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                            →
+                          </span>
+                        </button>
+                      </div>
+
+                      {/* Right: Description Text (Editorial Style) */}
+                      <div className="text-gray-200 font-light text-sm lg:text-base leading-relaxed max-w-lg">
+                        <p className="mb-2">
+                          We believe every moment of life is precious — especially the tiny smiles, tender touches, and glowing emotions of motherhood.
+                        </p>
+                        <p className="text-white/60 text-xs italic">
+                          "We capture feelings, love, and unforgettable moments."
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Mobile: Simplified View */}
+                    <div className="md:hidden mt-4 space-y-6">
+                      <p className="text-gray-200 font-light text-sm leading-relaxed mb-4 line-clamp-3">
+                        We believe every moment of life is precious — the tiny smiles, tender touches, and glowing emotions. We don’t just take photos, we capture feelings.
+                      </p>
+                      <button 
+                        onClick={() => router.push("/contact-us")}
+                        className="w-full py-3 bg-white text-black rounded-full font-medium shadow-lg active:scale-95 transition-transform cursor-pointer"
+                      >
+                        Book a Session
+                      </button>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </SwiperSlide>

@@ -167,7 +167,7 @@ const Gallery = () => {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${
+                  className={`px-6 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                     activeCategory === cat
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md"
                       : "bg-white border border-gray-200 hover:bg-gray-50 text-gray-700"
@@ -183,7 +183,7 @@ const Gallery = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-purple-400"
+                className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-purple-400 cursor-pointer"
               >
                 <option value="newest">Newest</option>
                 <option value="title">Title</option>
@@ -239,7 +239,7 @@ const Gallery = () => {
                     />
                     <button
                       onClick={(e) => toggleFavorite(img.id, e)}
-                      className="absolute top-3 right-3 bg-white/80 p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+                      className="absolute top-3 right-3 bg-white/80 p-2 rounded-full opacity-0 group-hover:opacity-100 transition cursor-pointer"
                     >
                       <Heart
                         className={`w-4 h-4 ${
@@ -274,7 +274,7 @@ const Gallery = () => {
           </p>
           <Modal
             trigger={
-              <Button className="rounded-full px-10 py-5 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:scale-105 transition">
+              <Button className="rounded-full px-10 py-5 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg hover:scale-105 transition cursor-pointer">
                 <Camera className="w-5 h-5 mr-2" /> Start Your Session
               </Button>
             }
@@ -301,7 +301,7 @@ const Gallery = () => {
         <button
           onClick={scrollToTop}
           title="Scroll to top"
-          className="fixed bottom-16 right-8 p-4 bg-white rounded-full shadow-lg text-purple-600 hover:bg-purple-50 transition"
+          className="fixed bottom-16 right-8 p-4 bg-white rounded-full shadow-lg text-purple-600 hover:bg-purple-50 transition cursor-pointer"
         >
           <ArrowUp className="w-5 h-5" />
         </button>
