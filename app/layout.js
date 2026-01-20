@@ -13,9 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://jayaphotography.in"),
   title: "Baby Photography | Newborn Baby Photoshoot in Lucknow",
   description:
     "Jaya photography best photographer in Lucknow for baby shoot. Book for infants, kids photography & babyshoot. Specialised in baby photography. 10 years of experience.",
+  alternates: {
+    canonical: "./",
+  },
 };
 
 export default function RootLayout({ children }) {

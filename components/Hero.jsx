@@ -135,21 +135,26 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 pointer-events-none"></div>
 
                 {/* Content Container */}
-                <div className="absolute inset-x-0 bottom-0 top-0 p-6 md:p-12 lg:p-16 z-20 flex flex-col justify-end md:justify-center items-start">
+                <div className="absolute inset-x-0 bottom-0 top-0 p-6 pt-20 md:p-12 lg:p-16 z-20 flex flex-col justify-end md:justify-center items-start bg-gradient-to-t from-black/90 via-black/40 to-transparent md:bg-none">
                   <div className="max-w-4xl w-full animate-fadeInUp">
                     
                     {/* Eyebrow */}
-                    <p className="text-purple-200 font-medium tracking-[0.2em] text-xs md:text-sm mb-3 uppercase">
-                      Welcome to Jaya Photography
-                    </p>
+                    <div className="flex items-center gap-3 mb-3 md:mb-3">
+                      <span className="h-[1px] w-8 bg-purple-300/50 md:hidden"></span>
+                      <p className="text-purple-200 font-medium tracking-[0.2em] text-[10px] md:text-sm uppercase shadow-black drop-shadow-md">
+                        Jaya Photography
+                      </p>
+                    </div>
 
                     {/* Main H1 */}
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-2xl font-serif">
+                    <h1 className="text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] md:leading-[1.1] mb-4 md:mb-6 drop-shadow-2xl font-serif">
                       Best Maternity & <br />
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-pink-200 to-white animate-gradient-x bg-[length:200%_auto]">
                         Newborn Photographer
                       </span> <br />
-                      in Lucknow
+                      <span className="text-xl sm:text-2xl md:text-5xl lg:text-6xl font-light text-white/90 mt-1 block md:inline">
+                        in Lucknow
+                      </span>
                     </h1>
 
                     {/* Desktop: Grid Layout for Intro Text & CTA */}
@@ -178,17 +183,29 @@ const Hero = () => {
                       </div>
                     </div>
 
-                    {/* Mobile: Simplified View */}
-                    <div className="md:hidden mt-4 space-y-6">
-                      <p className="text-gray-200 font-light text-sm leading-relaxed mb-4 line-clamp-3">
-                        We believe every moment of life is precious — the tiny smiles, tender touches, and glowing emotions. We don’t just take photos, we capture feelings.
+                    {/* Mobile: Premium Simplified View */}
+                    <div className="md:hidden mt-4 space-y-5">
+                      <p className="text-gray-100/90 font-light text-sm leading-relaxed mb-4 line-clamp-3 drop-shadow-sm">
+                        Capturing the tiny smiles, tender touches, and glowing emotions. We don’t just take photos, we preserve your most beautiful memories.
                       </p>
-                      <button 
-                        onClick={() => router.push("/contact-us")}
-                        className="w-full py-3 bg-white text-black rounded-full font-medium shadow-lg active:scale-95 transition-transform cursor-pointer"
-                      >
-                        Book a Session
-                      </button>
+                      
+                      <div className="flex flex-col gap-3">
+                        <button 
+                          onClick={() => router.push("/contact-us")}
+                          className="w-full py-3.5 bg-white/95 backdrop-blur-sm text-gray-900 rounded-2xl font-semibold text-sm shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+                        >
+                          <span>Book Your Session</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+                        </button>
+                        
+                        <div className="flex items-center justify-center gap-4 text-[10px] text-white/60 font-medium tracking-wide">
+                          <span className="flex items-center gap-1">
+                            <span className="text-yellow-400">★</span> 4.9/5 Rating
+                          </span>
+                          <span className="w-1 h-1 rounded-full bg-white/30"></span>
+                          <span>500+ Happy Families</span>
+                        </div>
+                      </div>
                     </div>
 
                   </div>
@@ -257,6 +274,15 @@ const Hero = () => {
           animation: fadeInUp 0.8s ease-out forwards;
         }
         .delay-200 { animation-delay: 0.2s; opacity: 0; }
+
+        @keyframes gradient-x {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-x {
+          animation: gradient-x 3s ease infinite;
+        }
       `}</style>
     </section>
   );
