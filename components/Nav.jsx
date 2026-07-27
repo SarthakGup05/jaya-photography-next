@@ -54,10 +54,10 @@ const Nav = () => {
       } catch (err) {
         console.error("Error fetching services:", err);
         setPhotographyServices([
-          { name: "Baby Photography", href: "/services/baby-photography" },
-          { name: "Maternity Photography", href: "/services/maternity-photography" },
-          { name: "Fashion Photography", href: "/services/fashion-photography" },
-          { name: "Family Photography", href: "/services/family-photography" },
+          { name: "Baby Photography", href: "/service/baby-milestone-photoshoot-lucknow" },
+          { name: "Maternity Photography", href: "/service/maternity-photoshoot-lucknow" },
+          { name: "Fashion Photography", href: "/service/fashion-photographer-lucknow" },
+          { name: "Family Photography", href: "/service/family-photoshoot" },
         ]);
       } finally {
         setServicesLoading(false);
