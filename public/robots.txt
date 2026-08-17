@@ -1,8 +1,4 @@
 User-agent: *
-
-Disallow: /admin/
-Disallow: /api/
-Disallow: /login/
-Disallow: /register/
-
-Sitemap: https://jayaphotography.in/sitemap.xml
+Disallow: 
+Disallow: /cgi-bin/
+Sitemap: https://jayaphotography.in/
