@@ -194,13 +194,22 @@ const Footer = () => {
               </h4>
 
               <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm text-gray-300 leading-relaxed">
-                    <p>Sushant Golf City</p>
-                    <p>Lucknow</p>
+                <a
+                  href="https://share.google/3OhKy5swv2nxYiOMG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start space-x-3 group text-gray-300 hover:text-white transition-colors cursor-pointer"
+                  title="Open Jaya Photography location on Google Maps"
+                >
+                  <MapPin className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0 group-hover:text-purple-300 transition-colors" />
+                  <div className="text-sm leading-relaxed">
+                    <p className="font-semibold text-white">Jaya Agnihotri Photography</p>
+                    <p className="text-gray-300">Sushant Golf City, Lucknow</p>
+                    <span className="text-xs text-purple-400 group-hover:underline font-medium inline-block mt-0.5">
+                      View on Google Maps →
+                    </span>
                   </div>
-                </div>
+                </a>
 
                 <div className="flex items-center space-x-3">
                   <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />

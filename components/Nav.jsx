@@ -19,6 +19,7 @@ import {
   Phone,
   ChevronDown,
   PhoneCall,
+  BookOpen,
 } from "lucide-react";
 
 const Nav = () => {
@@ -76,13 +77,14 @@ const Nav = () => {
     },
     { name: "Gallery", href: "/gallery", icon: <ImageIcon className="w-4 h-4" /> },
     {
-      name: "Photography",
+      name: "Services",
       href: "#",
       icon: <Camera className="w-4 h-4" />,
       dropdown: photographyServices,
       loading: servicesLoading,
     },
     { name: "Packages", href: "/packages", icon: <Star className="w-4 h-4" /> },
+    { name: "Blog", href: "/blogs", icon: <BookOpen className="w-4 h-4" /> },
     { name: "Contact", href: "/contact-us", icon: <Phone className="w-4 h-4" /> },
   ];
 
@@ -125,6 +127,7 @@ const Nav = () => {
             alt="Logo"
             width={scrolled ? 110 : 130}
             height={45}
+            style={{ height: "auto" }}
             className="transition-all duration-300"
           />
         </Link>
@@ -243,6 +246,7 @@ const Nav = () => {
               alt="Logo"
               width={140}
               height={45}
+              style={{ height: "auto" }}
               className="rounded-md"
             />
           </Link>
@@ -256,7 +260,7 @@ const Nav = () => {
                 <>
                   <button
                     onClick={() => toggleMobileDropdown(idx)}
-                    className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-800 hover:bg-[#e7d7c3] transition-all font-medium text-sm cursor-pointer"
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-800 hover:bg-[#e7d7c3] hover:text-[#5a4633] transition-all font-medium text-sm cursor-pointer"
                   >
                     <span className="flex items-center gap-3">
                       {link.icon}
