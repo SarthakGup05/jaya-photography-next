@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { Camera, Heart, Sparkles } from "lucide-react";
+import { Camera, Heart } from "lucide-react";
 
 const Welcome = () => {
   const sectionRef = useRef(null);

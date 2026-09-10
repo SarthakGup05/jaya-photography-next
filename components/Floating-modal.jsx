@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { X, Sparkles } from "lucide-react";
+import { X, Star } from "lucide-react";
 import ReviewForm from "./ReviewForm"; 
 
 const FloatingModal = ({ buttonText = "Feedback" }) => {
@@ -57,7 +57,7 @@ const FloatingModal = ({ buttonText = "Feedback" }) => {
           className="relative z-10 flex items-center gap-3 bg-gray-900 text-white pl-5 pr-6 py-4 rounded-full shadow-[0_10px_40px_-10px_rgba(79,70,229,0.5)] border border-white/10 overflow-hidden group transition-all hover:scale-105 active:scale-95 cursor-pointer"
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 opacity-90 transition-opacity group-hover:opacity-100"></div>
-          <Sparkles className="w-5 h-5 text-yellow-200 relative z-30 fill-yellow-200/20" />
+          <Star className="w-5 h-5 text-yellow-200 relative z-30 fill-yellow-200/20" />
           <span className="font-medium text-sm tracking-wide relative z-30">{buttonText}</span>
         </button>
       </div>

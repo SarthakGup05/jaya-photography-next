@@ -131,17 +131,6 @@ const JayaAbout = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        img {
-          max-width: 100%;
-          height: auto;
-          display: block;
-        }
-
-        .w-80 {
-          contain: layout style paint;
-        }
-      `}</style>
     </div>
   );
 };

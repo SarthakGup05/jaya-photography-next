@@ -1,36 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { Camera, Loader2, AlertCircle, ArrowRight } from "lucide-react";
-import { toast } from "react-hot-toast";
-import axiosInstance from "@/libs/axios-instance";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
-
-// ✅ LightGallery (client only)
-const LightGallery = dynamic(() => import("lightgallery/react"), { ssr: false });
-import lgThumbnail from "lightgallery/plugins/thumbnail";
-import lgZoom from "lightgallery/plugins/zoom";
-import lgFullscreen from "lightgallery/plugins/fullscreen";
-
-
-// ✅ LightGallery CSS
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
-import "lightgallery/css/lg-autoplay.css";
-import "lightgallery/css/lg-fullscreen.css";
-import "lightgallery/css/lg-share.css";
-import "lightgallery/css/lg-rotate.css";
+import { ArrowRight, Camera, ArrowUpRight, AlertCircle } from "lucide-react";
+import axiosInstance from "@/libs/axios-instance";
 
 const PhotographyPortfolio = () => {
   const [portfolioItems, setPortfolioItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [imagesLoaded, setImagesLoaded] = useState(new Set());
 
   const router = useRouter();
-  const containerRef = useRef(null);
 
   /* -----------------------------------------------------
    * Fetch Portfolio Data
@@ -54,134 +36,49 @@ const PhotographyPortfolio = () => {
       if (imagesData && imagesData.length > 0) {
         const transformedItems = imagesData
           .map((image) => ({
-            id: image.id,
-            title: image.title || "Untitled",
+            id: image.id || image._id,
+            title: image.title || "Studio Portrait",
             category: image.category || "Photography",
             image: image.thumb || image.src,
             fullImage: image.src,
-            alt: image.alt || image.title || "Portfolio image",
+            alt: image.alt || image.title || "Portfolio photograph",
             description: image.description || "",
-            featured: image.featured,
           }))
-          .filter((item) => item.fullImage && item.image);
+          .filter((item) => item.fullImage || item.image);
 
         setPortfolioItems(transformedItems);
       } else {
         setError("No portfolio images available");
       }
-    } catch (error) {
+    } catch (err) {
       console.error("Error fetching portfolio images:", error);
       setError("Failed to load portfolio images");
-      toast.error("Failed to load portfolio images");
     } finally {
       setLoading(false);
     }
   };
 
-  /* -----------------------------------------------------
-   * GSAP Animations (Lazy loaded)
-   * --------------------------------------------------- */
   useEffect(() => {
     fetchPortfolioImages();
   }, []);
-
-  useEffect(() => {
-    if (loading || error) return;
-
-    (async () => {
-      try {
-        const gsapModule = await import("gsap");
-        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-        const gsap = gsapModule.default;
-        gsap.registerPlugin(ScrollTrigger);
-
-        let ctx = gsap.context(() => {
-          gsap.set([".header-content", ".gallery-item", ".cta-content"], {
-            opacity: 1,
-          });
-
-          // Header
-          gsap.fromTo(
-            ".header-content",
-            { opacity: 0, scale: 0.95 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: ".header-content",
-                start: "top 85%",
-              },
-            }
-          );
-
-          // Gallery items
-          gsap.utils.toArray(".gallery-item").forEach((item, index) => {
-            gsap.fromTo(
-              item,
-              { opacity: 0, scale: 0.95 },
-              {
-                opacity: 1,
-                scale: 1,
-                duration: 0.6,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: item,
-                  start: "top 85%",
-                },
-                delay: index * 0.05,
-              }
-            );
-          });
-
-          // CTA
-          gsap.fromTo(
-            ".cta-content",
-            { opacity: 0, scale: 0.95 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: ".cta-content",
-                start: "top 85%",
-              },
-            }
-          );
-        }, containerRef);
-
-        return () => {
-          ctx.revert();
-          ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-        };
-      } catch (error) {
-        console.warn("GSAP failed to load:", error);
-      }
-    })();
-  }, [loading, error, portfolioItems]);
-
-  const handleImageLoad = (id) => {
-    setImagesLoaded((prev) => new Set([...prev, id]));
-  };
 
   /* -----------------------------------------------------
    * Loading State
    * --------------------------------------------------- */
   if (loading) {
     return (
-      <div className="min-h-screen py-20 px-4 bg-[#FAF0DC]">
-        <div className="max-w-6xl mx-auto text-center mb-16">
-          <div className="h-12 w-64 bg-gray-200 rounded mx-auto mb-4 animate-pulse"></div>
-          <div className="h-4 w-96 bg-gray-200 rounded mx-auto animate-pulse"></div>
+      <section className="py-20 px-6 bg-[#F0E7E5]">
+        <div className="max-w-6xl mx-auto text-center mb-12 space-y-3">
+          <div className="h-4 w-36 bg-gray-300/60 rounded-full mx-auto animate-pulse"></div>
+          <div className="h-10 w-80 bg-gray-300/60 rounded-xl mx-auto animate-pulse"></div>
+          <div className="h-4 w-full max-w-md bg-gray-300/60 rounded mx-auto animate-pulse"></div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {[...Array(8)].map((_, i) => (
-            <div key={i} className="aspect-square bg-gray-200 rounded-lg animate-pulse" />
+            <div key={i} className="aspect-square bg-gray-300/60 rounded-xl animate-pulse" />
           ))}
         </div>
-      </div>
+      </section>
     );
   }
 
@@ -190,156 +87,122 @@ const PhotographyPortfolio = () => {
    * --------------------------------------------------- */
   if (error) {
     return (
-      <div className="min-h-screen py-20 px-4 flex items-center justify-center bg-[#FAF0DC]">
-        <div className="text-center max-w-sm">
-          <AlertCircle className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-          <h2 className="text-xl font-light text-black mb-2">Portfolio Unavailable</h2>
-          <p className="text-gray-600 text-sm mb-6">{error}</p>
+      <section className="py-16 px-6 bg-[#F0E7E5] text-center">
+        <div className="max-w-sm mx-auto space-y-4">
+          <AlertCircle className="w-10 h-10 text-gray-600 mx-auto" />
+          <p className="text-gray-700 text-sm font-medium">{error}</p>
           <button
             onClick={fetchPortfolioImages}
-            className="animated-button text-black border-b border-black hover:border-gray-600 transition-colors duration-200 text-sm cursor-pointer"
+            className="px-6 py-2 bg-black text-white text-xs font-semibold uppercase rounded-full hover:bg-gray-800 transition-colors cursor-pointer"
           >
             Try Again
           </button>
         </div>
-      </div>
+      </section>
     );
   }
 
   /* -----------------------------------------------------
-   * Main Content
+   * Main Content (Preserving Signature #F0E7E5 Color Palette)
    * --------------------------------------------------- */
   return (
-    <div ref={containerRef} className="relative py-20 px-4 bg-[#F0E7E5] overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-black/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 bg-black/3 rounded-full blur-2xl" />
-      </div>
+    <section className="relative py-20 px-6 bg-[#F0E7E5] text-gray-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10 space-y-12">
+        {/* 🌟 3-Line Header Layout */}
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          {/* Line 1: Eyebrow Badge */}
+          <p className="text-purple-700 font-bold text-xs uppercase tracking-widest">
+            Newborn | Maternity | Baby Milestone | Family | Fashion
+          </p>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 header-content">
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-2 tracking-tight leading-relaxed">
-            Capturing Life&apos;s <br />
-            <span className="bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent">
-              Beautiful Moments
-            </span>
+          {/* Line 2: Headline */}
+          <h2 className="text-3xl sm:text-5xl font-bold text-black leading-tight tracking-tight">
+            Capturing Life's <span className="bg-gradient-to-r from-black to-purple-800 bg-clip-text text-transparent">Beautiful Moments</span>
           </h2>
-          <p className="text-purple-700 font-medium text-sm uppercase tracking-wide mb-3">
-            Newborn | Maternity | Baby | Toddler | Family | Fashion Photography
+
+          {/* Line 3: Description (Strict 3 lines max) */}
+          <p className="text-gray-700 text-sm sm:text-base font-medium leading-relaxed line-clamp-3 max-w-xl mx-auto">
+            A curated selection of our finest work showcasing newborn photography, maternity photoshoots, baby milestones, and portrait photography in Lucknow.
           </p>
-          <p className="text-gray-700 max-w-md mx-auto text-base font-medium leading-relaxed mt-4">
-            A curated selection of our finest work showcasing newborn photography, maternity photoshoots, baby milestones, and fashion portrait photography in Lucknow.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-600">
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-              Soft, elegant portraits
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-              Artistic themes & premium setups
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-              Baby-safe environment & props
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-              Personal styling support for moms
-            </span>
-          </div>
         </div>
 
-        {/* Portfolio Grid */}
+        {/* 📷 1080x1080 Square Photo Grid (No Lightbox) */}
         {portfolioItems.length > 0 ? (
-          <LightGallery
-            speed={400}
-            plugins={[lgThumbnail, lgZoom, lgFullscreen]}
-            mode="lg-fade"
-            thumbnail={true}
-            showThumbByDefault={false}
-            counter={true}
-            addClass="lg-minimal-gallery"
-            selector=".gallery-item"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2">
-              {portfolioItems.map((item, index) => (
-                <div
-                  key={item.id || index}
-                  className="gallery-item group cursor-pointer overflow-hidden relative rounded-lg shadow-lg"
-                  style={{ aspectRatio: "1/1" }}
-                  data-src={item.fullImage || item.image}
-                  data-sub-html={`<div class="text-center"><h4 class="text-lg font-light mb-2">${item.title}</h4><p class="text-sm opacity-80">${item.category}</p></div>`}
-                >
-                  {!imagesLoaded.has(item.id) && (
-                    <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-                  )}
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    width="400"
-                    height="400"
-                    className="w-full h-full object-cover transition-transform duration-500"
-                    loading={index < 4 ? "eager" : "lazy"}
-                    fetchPriority={index < 2 ? "high" : "auto"}
-                    decoding={index < 4 ? "sync" : "async"}
-                    onLoad={() => handleImageLoad(item.id)}
-                    onError={(e) => {
-                      if (e.target.src !== item.fullImage && item.fullImage) {
-                        e.target.src = item.fullImage;
-                      } else {
-                        e.target.closest(".gallery-item").style.display = "none";
-                      }
-                    }}
-                    style={{ aspectRatio: "1/1" }}
-                  />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+            {portfolioItems.map((item, index) => (
+              <div
+                key={item.id || index}
+                onClick={() => router.push("/gallery")}
+                className="group relative aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-2xl border border-[#e0d0b8] transition-all duration-500 cursor-pointer bg-white"
+              >
+                {/* 1080x1080 Square Image */}
+                <Image
+                  src={item.image || item.fullImage}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  priority={index < 4}
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                />
+
+                {/* Dark Overlay on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                {/* Top Category Badge */}
+                <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="bg-black/70 backdrop-blur-md text-white text-[10px] font-semibold px-2.5 py-1 rounded-md uppercase tracking-wider border border-white/20">
+                    {item.category}
+                  </span>
                 </div>
-              ))}
-            </div>
-          </LightGallery>
+
+                {/* Top Right Action Icon */}
+                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </div>
+                </div>
+
+                {/* Bottom Details (Max 3 lines total) */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 space-y-1">
+                  <h4 className="text-sm font-bold text-white line-clamp-1">
+                    {item.title}
+                  </h4>
+                  {item.description && (
+                    <p className="text-[11px] text-gray-200 font-normal line-clamp-2 leading-tight">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
-          <div className="text-center py-20">
-            <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-light text-black mb-2">No Portfolio Items</h3>
-            <p className="text-gray-600 text-sm">Portfolio images will appear here once uploaded.</p>
+          <div className="text-center py-16 bg-white/80 rounded-2xl border border-[#e0d0b8] space-y-3">
+            <Camera className="w-10 h-10 text-gray-400 mx-auto" />
+            <h3 className="text-base font-bold text-gray-800">No Portfolio Images</h3>
+            <p className="text-gray-500 text-xs">Portfolio images will appear here once uploaded.</p>
           </div>
         )}
 
-        {/* CTA Section */}
-        <div className="text-center mt-16 space-y-4 cta-content">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-            <button
-              onClick={() => router.push("/gallery")}
-              className="animated-button group flex items-center gap-2 text-black transition-all duration-300 cursor-pointer hover:text-gray-700"
-            >
-              <span className="font-bold text-lg">View Complete Gallery</span>
-              <ArrowRight className="arrow w-5 h-5 transition-all duration-300" />
+        {/* 🔗 CTA Section */}
+        <div className="text-center pt-4 flex flex-col sm:flex-row items-center justify-center gap-6">
+          <Link href="/gallery">
+            <button className="flex items-center gap-2 text-black font-bold text-base hover:text-purple-700 transition-colors cursor-pointer group">
+              <span>View Complete Gallery</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <div className="w-px h-6 bg-gray-300 hidden sm:block"></div>
-            <button
-              onClick={() => router.push("/contact-us")}
-              className="animated-button text-black font-bold text-lg transition-all duration-300 cursor-pointer border-b-2 border-transparent hover:border-black"
-            >
+          </Link>
+
+          <div className="w-px h-6 bg-gray-400/50 hidden sm:block"></div>
+
+          <Link href="/contact-us">
+            <button className="text-black font-bold text-base hover:text-purple-700 border-b-2 border-black hover:border-purple-700 transition-colors cursor-pointer pb-0.5">
               Book a Session
             </button>
-          </div>
+          </Link>
         </div>
       </div>
-
-      {/* Extra styles */}
-      <style jsx>{`
-        img {
-          max-width: 100%;
-          height: auto;
-          display: block;
-        }
-        .gallery-item {
-          contain: layout style paint;
-        }
-      `}</style>
-    </div>
+    </section>
   );
 };
 
