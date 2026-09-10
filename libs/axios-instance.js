@@ -1,10 +1,19 @@
 import axios from "axios";
 
-// Ensure this points to your backend URL
-const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://backend.jayaphotography.in/api/v1";
+// Ensure this points to backend URL (relative in browser to proxy via Next.js rewrites & bypass CORS; absolute on server)
+const getBaseURL = () => {
+  if (typeof window !== "undefined") {
+    return "/api/v1";
+  }
+  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (envUrl && envUrl.startsWith("http")) {
+    return envUrl;
+  }
+  return "https://oriera-admin-main-1.onrender.com/api/v1";
+};
 
 const axiosInstance = axios.create({
-  baseURL: baseURL,
+  baseURL: getBaseURL(),
   withCredentials: true,
 });
 

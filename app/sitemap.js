@@ -34,10 +34,16 @@ export default async function sitemap() {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${SITE_URL}/blogs`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
   try {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL || "https://backend.jayaphotography.in/api/v1";
+    const apiURL = process.env.NEXT_PUBLIC_API_URL || "https://oriera-admin-main-1.onrender.com/api/v1";
     
     // Fetch all active services
     const response = await axios.get(`${apiURL}/services/get-services`, {

@@ -8,7 +8,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
-        pathname: "**", // allow all paths from Cloudinary
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "**",
       },
     ],
   },
@@ -60,6 +65,16 @@ const nextConfig = {
         source: "/services/maternity-photography",
         destination: "/service/maternity-photoshoot-lucknow",
         permanent: true,
+      },
+    ];
+  },
+
+  // ✅ Reverse proxy to bypass CORS in browser
+  async rewrites() {
+    return [
+      {
+        source: "/api/v1/:path*",
+        destination: "https://oriera-admin-main-1.onrender.com/api/v1/:path*",
       },
     ];
   },
