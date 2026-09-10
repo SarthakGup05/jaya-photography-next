@@ -6,7 +6,7 @@ import axiosInstance from "@/libs/axios-instance";
 import toast from "react-hot-toast";
 import Modal from "@/components/modal";
 import ContactForm from "@/components/Form";
-import { Camera, Check, X, Loader2, Star, Sparkles, Crown } from "lucide-react";
+import { Camera, Check, X, Loader2, Star, Crown } from "lucide-react";
 
 const Packages = () => {
   const headingRef = useRef();
@@ -108,7 +108,7 @@ const Packages = () => {
     const icons = [
       <Camera className="w-12 h-12" />,
       <Crown className="w-12 h-12" />,
-      <Sparkles className="w-12 h-12" />,
+      <Star className="w-12 h-12" />,
       <Star className="w-12 h-12" />
     ];
     return icons[index % icons.length];
@@ -116,12 +116,29 @@ const Packages = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#f3e6fa] to-[#F0E7E5] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-8 h-8 animate-spin text-purple-600" />
-          <span className="text-lg font-medium text-gray-700">Loading packages...</span>
+      <main className="min-h-screen bg-[#F0E7E5] pt-28 pb-20 px-6">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <div className="h-4 w-40 bg-gray-300/60 rounded-full mx-auto animate-pulse"></div>
+            <div className="h-10 w-80 bg-gray-300/60 rounded-xl mx-auto animate-pulse"></div>
+            <div className="h-4 w-full bg-gray-300/60 rounded mx-auto animate-pulse"></div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="h-[480px] bg-white/80 rounded-2xl border border-[#e0d0b8] p-8 space-y-6 animate-pulse">
+                <div className="w-16 h-16 rounded-full bg-gray-200 mx-auto"></div>
+                <div className="h-6 w-32 bg-gray-200 rounded mx-auto"></div>
+                <div className="h-10 w-40 bg-gray-200 rounded-xl mx-auto"></div>
+                <div className="space-y-3 pt-4">
+                  <div className="h-4 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
+                  <div className="h-4 w-4/6 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 
@@ -249,7 +266,6 @@ const Packages = () => {
                   >
                     <span className="flex items-center justify-center gap-2">
                       <span>Book {pkg.title}</span>
-                      <Sparkles className="w-4 h-4" />
                     </span>
                   </Button>
                   }
@@ -286,9 +302,6 @@ const Packages = () => {
                 </Modal>
 
                 {/* Floating Elements */}
-                <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-30 transition-opacity duration-500">
-                  <Sparkles className="w-6 h-6 text-purple-400 animate-pulse" />
-                </div>
                 <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-30 transition-opacity duration-700 delay-200">
                   <Star className="w-5 h-5 text-pink-400 animate-pulse" />
                 </div>
