@@ -1,6 +1,9 @@
 import BlogsUI from "./BlogsUI";
 import { getBlogs, getBlogCategories } from "@/lib/blogsData";
 
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Blog & Photography Tips | Jaya Photography Lucknow",
   description: "Read expert photography tips for newborn sessions, maternity photoshoots, baby milestones, and family portraits in Lucknow by Jaya Agnihotri.",

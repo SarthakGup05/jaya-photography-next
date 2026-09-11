@@ -10,6 +10,7 @@ import {
   Share2,
   Check,
   Facebook,
+  Twitter,
   MessageCircle,
   ArrowRight,
 } from "lucide-react";

@@ -2,6 +2,9 @@ import BlogSingleUI from "./BlogSingleUI";
 import { getBlogBySlug, getBlogs } from "@/lib/blogsData";
 import { notFound } from "next/navigation";
 
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(props) {
   const params = await props.params;
   const data = await getBlogBySlug(params.slug);
