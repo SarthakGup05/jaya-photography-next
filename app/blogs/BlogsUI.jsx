@@ -22,9 +22,17 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
 
   const filteredBlogs = useMemo(() => {
     return initialBlogs.filter((blog) => {
+      if (
+        blog.isDeleted ||
+        blog.isActive === false ||
+        (blog.status && blog.status !== "published")
+      ) {
+        return false;
+      }
+
       const matchesSearch =
-        blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (blog.title && blog.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (blog.excerpt && blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (blog.category && blog.category.toLowerCase().includes(searchQuery.toLowerCase()));
 
       const matchesCategory =
@@ -35,12 +43,17 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
   }, [initialBlogs, searchQuery, selectedCategory]);
 
   const featuredBlog = useMemo(() => {
-    return initialBlogs.find((b) => b.featured) || initialBlogs[0];
-  }, [initialBlogs]);
+    if (filteredBlogs.length === 0) return null;
+    return filteredBlogs.find((b) => b.featured) || filteredBlogs[0];
+  }, [filteredBlogs]);
 
   const remainingBlogs = useMemo(() => {
     if (!featuredBlog) return filteredBlogs;
-    return filteredBlogs.filter((b) => b.id !== featuredBlog.id);
+    const featuredId = featuredBlog._id || featuredBlog.id || featuredBlog.slug;
+    return filteredBlogs.filter((b) => {
+      const bId = b._id || b.id || b.slug;
+      return bId !== featuredId;
+    });
   }, [filteredBlogs, featuredBlog]);
 
   return (
@@ -209,7 +222,7 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {remainingBlogs.map((blog) => (
                 <article
-                  key={blog.id || blog.slug}
+                  key={blog._id || blog.id || blog.slug}
                   className="group bg-white rounded-xl overflow-hidden border border-[#e0d0b8] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>

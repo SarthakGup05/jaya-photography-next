@@ -50,15 +50,15 @@ const FloatingModal = ({ buttonText = "Feedback" }) => {
       `}</style>
 
       {/* --- Trigger Button --- */}
-      <div className="fixed bottom-8 right-8 z-40" ref={buttonRef}>
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-40" ref={buttonRef}>
         <div className="pulse-ring absolute inset-0 rounded-full bg-indigo-500/30 blur-sm z-0"></div>
         <button
           onClick={() => setOpen(true)}
-          className="relative z-10 flex items-center gap-3 bg-gray-900 text-white pl-5 pr-6 py-4 rounded-full shadow-[0_10px_40px_-10px_rgba(79,70,229,0.5)] border border-white/10 overflow-hidden group transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          className="relative z-10 flex items-center gap-2 sm:gap-3 bg-gray-900 text-white pl-3.5 pr-4 py-2.5 sm:pl-5 sm:pr-6 sm:py-3.5 rounded-full shadow-[0_10px_40px_-10px_rgba(79,70,229,0.5)] border border-white/10 overflow-hidden group transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs sm:text-sm"
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 opacity-90 transition-opacity group-hover:opacity-100"></div>
-          <Star className="w-5 h-5 text-yellow-200 relative z-30 fill-yellow-200/20" />
-          <span className="font-medium text-sm tracking-wide relative z-30">{buttonText}</span>
+          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-200 relative z-30 fill-yellow-200/20" />
+          <span className="font-medium tracking-wide relative z-30">{buttonText}</span>
         </button>
       </div>
 

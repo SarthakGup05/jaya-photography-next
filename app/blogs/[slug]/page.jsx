@@ -38,7 +38,11 @@ export default async function BlogPage(props) {
   }
 
   const allBlogs = allBlogsData?.blogs || [];
-  const relatedBlogs = allBlogs.filter((b) => b.slug !== blog.slug);
+  const currentId = blog._id || blog.id || blog.slug;
+  const relatedBlogs = allBlogs.filter((b) => {
+    const bId = b._id || b.id || b.slug;
+    return bId !== currentId && b.slug !== blog.slug;
+  });
 
   return <BlogSingleUI blog={blog} relatedBlogs={relatedBlogs} />;
 }

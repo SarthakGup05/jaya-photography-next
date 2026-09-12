@@ -8,7 +8,7 @@ import {
   Compass,
   Search,
   MessageCircle,
-  FolderImage,
+  Images,
   Sparkles,
 } from "lucide-react";
 
@@ -75,7 +75,7 @@ export default function NotFound() {
             href="/gallery"
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-gray-900 font-bold text-sm border border-[#e0d0b8] hover:bg-purple-50 hover:border-purple-600 hover:text-purple-900 shadow-xs transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
           >
-            <FolderImage className="w-4 h-4 text-purple-700" />
+            <Images className="w-4 h-4 text-purple-700" />
             Browse Portfolio
           </Link>
         </div>
@@ -89,7 +89,7 @@ export default function NotFound() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { label: "Home", href: "/", icon: Home, desc: "Main Showcase" },
-              { label: "Gallery", href: "/gallery", icon: FolderImage, desc: "Our Work" },
+              { label: "Gallery", href: "/gallery", icon: Images, desc: "Our Work" },
               { label: "Journal", href: "/blogs", icon: Compass, desc: "Tips & Stories" },
               { label: "Contact", href: "/contact-us", icon: MessageCircle, desc: "Get in Touch" },
             ].map((item) => {
