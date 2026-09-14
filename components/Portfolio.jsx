@@ -36,8 +36,8 @@ const DEFAULT_PORTFOLIO_ITEMS = [
     id: "p4",
     title: "Luxury Family Portrait",
     category: "Family",
-    image: "/file_ho8tds.jpg",
-    fullImage: "/file_ho8tds.jpg",
+    image: "/bg/1.jpg",
+    fullImage: "/bg/1.jpg",
     alt: "Family Portrait Lucknow",
   },
 ];

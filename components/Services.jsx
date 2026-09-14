@@ -44,7 +44,7 @@ const DEFAULT_SERVICES = [
     slug: "fashion-photographer-lucknow",
     category: "Portrait",
     subtitle: "Elegant fashion shoots & memorable family portraits in studio.",
-    coverImage: "/file_ho8tds.jpg",
+    coverImage: "/bg/2.JPG",
   },
 ];
 
