@@ -42,8 +42,46 @@ export default function BlogSingleUI({ blog, relatedBlogs = [] }) {
   const shareUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
   const shareTitle = encodeURIComponent(blog.title);
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: blog.subtitle || blog.excerpt,
+    image: blog.coverImage ? [blog.coverImage] : [],
+    datePublished: blog.createdAt || "2025-09-10T08:00:00+05:30",
+    dateModified: blog.updatedAt || blog.createdAt || "2025-09-10T08:00:00+05:30",
+    author: {
+      "@type": "Person",
+      name: blog.author?.name || "Jaya Agnihotri",
+      jobTitle: blog.author?.role || "Lead Photographer",
+      worksFor: {
+        "@type": "Organization",
+        name: "Jaya Photography Lucknow",
+      },
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Jaya Photography Lucknow",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://jayaphotography.in/logo.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://jayaphotography.in/blogs/${blog.slug}`,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[#F0E7E5] text-gray-900 pt-20">
+      {/* 🏷️ ARTICLE JSON-LD SCHEMA */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* 📏 READING PROGRESS BAR */}
       <div className="fixed top-0 left-0 w-full h-1.5 bg-gray-200 z-50">
         <div

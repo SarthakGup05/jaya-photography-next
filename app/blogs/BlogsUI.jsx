@@ -1,27 +1,32 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, Clock, Calendar, ArrowRight, BookOpen } from "lucide-react";
+import { useBlogStore } from "@/store/useBlogStore";
 
 export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const {
+    blogs: storedBlogs,
+    categories: storedCategories,
+    selectedCategory,
+    searchQuery,
+    setSearchQuery,
+    setSelectedCategory,
+    resetFilters,
+    setInitialData,
+  } = useBlogStore();
 
-  const categories = useMemo(() => {
-    if (categoriesList && categoriesList.length > 0) {
-      return categoriesList.includes("All") ? categoriesList : ["All", ...categoriesList];
-    }
-    const set = new Set(["All"]);
-    initialBlogs.forEach((blog) => {
-      if (blog.category) set.add(blog.category);
-    });
-    return Array.from(set);
-  }, [initialBlogs, categoriesList]);
+  useEffect(() => {
+    setInitialData({ blogs: initialBlogs, categoriesList });
+  }, [initialBlogs, categoriesList, setInitialData]);
+
+  const activeBlogs = storedBlogs.length > 0 ? storedBlogs : initialBlogs;
+  const categories = storedCategories.length > 0 ? storedCategories : ["All", ...categoriesList];
 
   const filteredBlogs = useMemo(() => {
-    return initialBlogs.filter((blog) => {
+    return activeBlogs.filter((blog) => {
       if (
         blog.isDeleted ||
         blog.isActive === false ||
@@ -40,7 +45,7 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
 
       return matchesSearch && matchesCategory;
     });
-  }, [initialBlogs, searchQuery, selectedCategory]);
+  }, [activeBlogs, searchQuery, selectedCategory]);
 
   const featuredBlog = useMemo(() => {
     if (filteredBlogs.length === 0) return null;
@@ -294,7 +299,7 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
                 Ready to Book Your Session in Lucknow?
               </h3>
               <p className="text-gray-700 text-sm sm:text-base font-medium">
-                Whether it's a newborn, maternity, or family milestone shoot, let's create timeless art together.
+                Whether it&apos;s a newborn, maternity, or family milestone shoot, let&apos;s create timeless art together.
               </p>
             </div>
 
