@@ -42,18 +42,17 @@ export default async function sitemap() {
     },
   ];
 
-  try {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL || "https://oriera-admin-main-1.onrender.com/api/v1";
-    
-    // Fetch all active services
-    const response = await axios.get(`${apiURL}/services/get-services`, {
-      params: { isActive: "true", sortBy: "sortOrder", sortOrder: "asc" },
-      timeout: 10000, // 10-second timeout
-    });
+  const apiURL = process.env.NEXT_PUBLIC_API_URL || "https://oriera-admin-main-1.onrender.com/api/v1";
+  const dynamicRoutes = [];
 
-    const services = response.data || [];
-    
-    const dynamicRoutes = services
+  // Fetch active services
+  try {
+    const servicesRes = await axios.get(`${apiURL}/services/get-services`, {
+      params: { isActive: "true", sortBy: "sortOrder", sortOrder: "asc" },
+      timeout: 5000,
+    });
+    const services = servicesRes.data || [];
+    const serviceRoutes = services
       .filter((service) => service && service.slug && service.isActive !== false)
       .map((service) => ({
         url: `${SITE_URL}/service/${service.slug}`,
@@ -61,10 +60,48 @@ export default async function sitemap() {
         changeFrequency: "weekly",
         priority: 0.8,
       }));
-
-    return [...staticRoutes, ...dynamicRoutes];
-  } catch (error) {
-    console.error("[Sitemap Generation Error] Falling back to static routes:", error.message);
-    return staticRoutes;
+    dynamicRoutes.push(...serviceRoutes);
+  } catch (e) {
+    console.warn("Sitemap services fetch warning:", e.message);
   }
+
+  // Fetch active blog posts
+  try {
+    const blogsRes = await axios.get(`${apiURL}/blogs`, {
+      params: { status: "published", isActive: "true", isDeleted: "false" },
+      timeout: 5000,
+    });
+    const blogs = blogsRes.data?.blogs || [];
+    const blogRoutes = blogs
+      .filter((blog) => blog && blog.slug)
+      .map((blog) => ({
+        url: `${SITE_URL}/blogs/${blog.slug}`,
+        lastModified: blog.updatedAt ? new Date(blog.updatedAt) : new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      }));
+    dynamicRoutes.push(...blogRoutes);
+  } catch (e) {
+    console.warn("Sitemap blogs fetch warning:", e.message);
+  }
+
+  // Fallback blog routes if API didn't return any
+  if (!dynamicRoutes.some((r) => r.url.includes("/blogs/"))) {
+    const fallbackBlogSlugs = [
+      "newborn-photography-session-preparation-guide",
+      "maternity-photoshoot-outfit-and-styling-tips",
+      "baby-milestones-cake-smash-photoshoot-ideas",
+      "family-portrait-photography-lucknow-tips",
+    ];
+    fallbackBlogSlugs.forEach((slug) => {
+      dynamicRoutes.push({
+        url: `${SITE_URL}/blogs/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
+    });
+  }
+
+  return [...staticRoutes, ...dynamicRoutes];
 }
