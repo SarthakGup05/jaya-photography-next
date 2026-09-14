@@ -4,7 +4,7 @@ import PhotographyPortfolio from "@/components/Portfolio";
 import Services from "@/components/Services";
 import JayaAbout from "@/components/About";
 import Testimonial from "@/components/Testimonial";
-import BookSession from "@/components/Cta";
+import HomeBlogSection from "@/components/HomeBlogSection";
 import CTASection from "@/components/Cta";
 import HomeJsonLd from "@/components/schema/HomeJsonLd";
 
@@ -17,6 +17,7 @@ export default function Home() {
       <Services />
       <JayaAbout />
       <Testimonial />
+      <HomeBlogSection />
       <CTASection />
     </>
   );
