@@ -13,9 +13,44 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
+const DEFAULT_SERVICES = [
+  {
+    id: "s1",
+    title: "Newborn Photography",
+    slug: "baby-milestone-photoshoot-lucknow",
+    category: "Newborn",
+    subtitle: "Safety-first luxury newborn photography in Sushant Golf City, Lucknow.",
+    coverImage: "/bg/1.jpg",
+  },
+  {
+    id: "s2",
+    title: "Maternity Photoshoot",
+    slug: "maternity-photoshoot-lucknow",
+    category: "Maternity",
+    subtitle: "Celebrate your maternity journey with artistic fine-art portraits.",
+    coverImage: "/bg/2.JPG",
+  },
+  {
+    id: "s3",
+    title: "Baby Milestone & Cake Smash",
+    slug: "toddler-photoshoot-lucknow",
+    category: "Baby Milestone",
+    subtitle: "Capturing sitting, crawling, and cake smash celebration milestones.",
+    coverImage: "/bg/lavender.jpg",
+  },
+  {
+    id: "s4",
+    title: "Fashion & Family Photography",
+    slug: "fashion-photographer-lucknow",
+    category: "Portrait",
+    subtitle: "Elegant fashion shoots & memorable family portraits in studio.",
+    coverImage: "/file_ho8tds.jpg",
+  },
+];
+
 const Services = () => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState(DEFAULT_SERVICES);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [imagesLoaded, setImagesLoaded] = useState(new Set());
   const [selectedTab, setSelectedTab] = useState("All");
@@ -27,13 +62,13 @@ const Services = () => {
   ------------------------------------------------*/
   const fetchServices = async () => {
     try {
-      setLoading(true);
-      setError(null);
       const response = await axiosInstance.get("/services/get-services");
-      setServices(response.data || []);
+      if (response.data && response.data.length > 0) {
+        setServices(response.data);
+      }
     } catch (err) {
       console.error("Error fetching services:", err);
-      setError("Failed to load services. Please try again later.");
+      // Keep default services gracefully
     } finally {
       setLoading(false);
     }
@@ -62,7 +97,7 @@ const Services = () => {
   /* -----------------------------------------------
    ✅ Loading Skeleton
   ------------------------------------------------*/
-  if (loading) {
+  if (loading && services.length === 0) {
     return (
       <section className="py-24 bg-[#FDFBF7] text-gray-900">
         <div className="max-w-7xl mx-auto px-6 text-center mb-16 space-y-4">
@@ -166,7 +201,8 @@ const Services = () => {
                     src={service.coverImage || service.mainImage || "/bg/1.jpg"}
                     alt={service.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 360px, (max-width: 1024px) 320px, 280px"
+                    quality={70}
                     priority={index < 2}
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     onLoad={() => handleImageLoad(service.id)}

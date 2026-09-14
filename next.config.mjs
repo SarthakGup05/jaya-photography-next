@@ -2,8 +2,12 @@
 const nextConfig = {
   reactCompiler: true,
 
-  // ✅ Allow Cloudinary images
+  // ✅ Image Optimization Config
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
+    deviceSizes: [360, 480, 640, 750, 828, 1080, 1200, 1600],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 320, 384, 450, 512],
     remotePatterns: [
       {
         protocol: "https",

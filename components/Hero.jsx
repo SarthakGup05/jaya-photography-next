@@ -11,9 +11,19 @@ import axiosInstance from "@/libs/axios-instance";
 import { useRouter } from "next/navigation";
 import { Camera, Star, ChevronLeft, ChevronRight, ArrowRight, ShieldCheck } from "lucide-react";
 
+const DEFAULT_SLIDES = [
+  {
+    id: "default-hero",
+    mediaUrl: "https://res.cloudinary.com/ddbqkfmrf/image/upload/v1757014131/slider/images/mobile/file_aycjlv.jpg",
+    mobileMediaUrl: "https://res.cloudinary.com/ddbqkfmrf/image/upload/v1757014131/slider/images/mobile/file_aycjlv.jpg",
+    title: "Best Maternity & Newborn Photographer in Lucknow",
+    type: "IMAGE",
+  },
+];
+
 const Hero = () => {
-  const [slides, setSlides] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [slides, setSlides] = useState(DEFAULT_SLIDES);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
@@ -31,10 +41,12 @@ const Hero = () => {
       const activeSlides = (data.data || data || [])
         .filter((s) => s.isActive)
         .sort((a, b) => (a.order || 0) - (b.order || 0));
-      setSlides(activeSlides);
+      if (activeSlides.length > 0) {
+        setSlides(activeSlides);
+      }
     } catch (err) {
       console.error("Hero fetch error:", err);
-      setError("Unable to load gallery at the moment.");
+      // Keep default slide if fetch fails instead of breaking UI
     } finally {
       setLoading(false);
     }
@@ -49,22 +61,21 @@ const Hero = () => {
     if (!url.includes("res.cloudinary.com")) return url;
 
     const transformation = isMobileDevice
-      ? "c_fill,ar_1:1,g_auto,w_1200,q_auto,f_auto"
-      : "c_fill,w_2560,g_auto,q_auto,f_auto";
+      ? "c_fill,g_auto,w_750,q_auto:good,f_auto"
+      : "c_fill,w_1600,g_auto,q_auto:good,f_auto";
 
     return url.replace("/upload/", `/upload/${transformation}/`);
   };
 
-  const getMediaUrl = (slide) => {
+  const getFullUrl = (url) => {
+    if (!url) return "";
     const base = process.env.NEXT_PUBLIC_API_URL || "";
-    const url = isMobile && slide.mobileMediaUrl ? slide.mobileMediaUrl : slide.mediaUrl;
-    const fullUrl = url?.startsWith("http") ? url : `${base}${url}`;
-    return getOptimizedUrl(fullUrl, isMobile);
+    return url.startsWith("http") ? url : `${base}${url}`;
   };
 
-  if (loading) {
+  if (loading && slides.length === 0) {
     return (
-      <div className="relative w-full aspect-square md:aspect-auto md:h-screen bg-[#F0E7E5] flex flex-col items-center justify-center p-8 space-y-4">
+      <div className="relative w-full h-[82vh] min-h-[560px] max-h-[720px] md:h-screen md:min-h-0 md:max-h-none bg-[#F0E7E5] flex flex-col items-center justify-center p-8 space-y-4 mt-0 md:mt-20">
         <div className="w-16 h-16 rounded-full bg-white/70 border border-[#e0d0b8] p-2 flex items-center justify-center shadow-md animate-pulse">
           <Camera className="w-8 h-8 text-purple-700 animate-pulse" />
         </div>
@@ -74,7 +85,7 @@ const Hero = () => {
     );
   }
 
-  if (error) {
+  if (error && slides.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-[#F0E7E5] text-center p-6 space-y-4">
         <p className="text-red-700 font-medium">{error}</p>
@@ -108,14 +119,18 @@ const Hero = () => {
         className="h-full w-full hero-swiper-container"
       >
         {slides.map((slide, index) => {
-          const mediaUrl = getMediaUrl(slide);
+          const desktopUrl = getOptimizedUrl(getFullUrl(slide.mediaUrl), false);
+          const mobileUrl = getOptimizedUrl(
+            getFullUrl(slide.mobileMediaUrl || slide.mediaUrl),
+            true
+          );
 
           return (
             <SwiperSlide key={slide.id || index}>
               <div className="relative h-full w-full">
                 {slide.type === "VIDEO" ? (
                   <video
-                    src={mediaUrl}
+                    src={desktopUrl}
                     autoPlay
                     muted
                     loop
@@ -123,12 +138,17 @@ const Hero = () => {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 ) : (
-                  <img
-                    src={mediaUrl}
-                    alt={slide.title || "Hero Photography Slide"}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading={index === 0 ? "eager" : "lazy"}
-                  />
+                  <picture className="absolute inset-0 w-full h-full">
+                    <source media="(max-width: 768px)" srcSet={mobileUrl} />
+                    <img
+                      src={desktopUrl}
+                      alt={slide.title || "Hero Photography Slide"}
+                      className="w-full h-full object-cover"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchPriority={index === 0 ? "high" : "auto"}
+                      decoding={index === 0 ? "async" : "async"}
+                    />
+                  </picture>
                 )}
 
                 {/* Cinematic Gradient Overlay */}

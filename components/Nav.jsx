@@ -22,12 +22,19 @@ import {
   BookOpen,
 } from "lucide-react";
 
+const DEFAULT_SERVICES_NAV = [
+  { name: "Baby Photography", href: "/service/baby-milestone-photoshoot-lucknow" },
+  { name: "Maternity Photography", href: "/service/maternity-photoshoot-lucknow" },
+  { name: "Fashion Photography", href: "/service/fashion-photographer-lucknow" },
+  { name: "Family Photography", href: "/service/family-photoshoot" },
+];
+
 const Nav = () => {
   const [openDropdown, setOpenDropdown] = useState(null); // For Mobile
   const [hoverDropdown, setHoverDropdown] = useState(null); // For Desktop
   const [isOpen, setIsOpen] = useState(false);
-  const [photographyServices, setPhotographyServices] = useState([]);
-  const [servicesLoading, setServicesLoading] = useState(true);
+  const [photographyServices, setPhotographyServices] = useState(DEFAULT_SERVICES_NAV);
+  const [servicesLoading, setServicesLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -47,19 +54,15 @@ const Nav = () => {
         const res = await axiosInstance.get("/services/get-services", {
           params: { isActive: "true", sortBy: "sortOrder", sortOrder: "asc" },
         });
-        const items = res.data.map((s) => ({
-          name: s.title,
-          href: `/service/${s.slug}`,
-        }));
-        setPhotographyServices(items);
+        if (res.data && res.data.length > 0) {
+          const items = res.data.map((s) => ({
+            name: s.title,
+            href: `/service/${s.slug}`,
+          }));
+          setPhotographyServices(items);
+        }
       } catch (err) {
         console.error("Error fetching services:", err);
-        setPhotographyServices([
-          { name: "Baby Photography", href: "/service/baby-milestone-photoshoot-lucknow" },
-          { name: "Maternity Photography", href: "/service/maternity-photoshoot-lucknow" },
-          { name: "Fashion Photography", href: "/service/fashion-photographer-lucknow" },
-          { name: "Family Photography", href: "/service/family-photoshoot" },
-        ]);
       } finally {
         setServicesLoading(false);
       }

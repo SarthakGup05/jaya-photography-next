@@ -7,9 +7,44 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Camera, ArrowUpRight, AlertCircle } from "lucide-react";
 import axiosInstance from "@/libs/axios-instance";
 
+const DEFAULT_PORTFOLIO_ITEMS = [
+  {
+    id: "p1",
+    title: "Newborn Fine-Art Session",
+    category: "Newborn",
+    image: "/bg/1.jpg",
+    fullImage: "/bg/1.jpg",
+    alt: "Newborn Photography Lucknow",
+  },
+  {
+    id: "p2",
+    title: "Maternity Golden Hour",
+    category: "Maternity",
+    image: "/bg/2.JPG",
+    fullImage: "/bg/2.JPG",
+    alt: "Maternity Photography Lucknow",
+  },
+  {
+    id: "p3",
+    title: "Baby Milestone Portraits",
+    category: "Baby Milestone",
+    image: "/bg/lavender.jpg",
+    fullImage: "/bg/lavender.jpg",
+    alt: "Baby Milestone Photoshoot Lucknow",
+  },
+  {
+    id: "p4",
+    title: "Luxury Family Portrait",
+    category: "Family",
+    image: "/file_ho8tds.jpg",
+    fullImage: "/file_ho8tds.jpg",
+    alt: "Family Portrait Lucknow",
+  },
+];
+
 const PhotographyPortfolio = () => {
-  const [portfolioItems, setPortfolioItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [portfolioItems, setPortfolioItems] = useState(DEFAULT_PORTFOLIO_ITEMS);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const router = useRouter();
@@ -19,9 +54,6 @@ const PhotographyPortfolio = () => {
    * --------------------------------------------------- */
   const fetchPortfolioImages = async () => {
     try {
-      setLoading(true);
-      setError(null);
-
       const response = await axiosInstance.get("/gallery/images", {
         params: {
           isActive: "true",
@@ -47,12 +79,10 @@ const PhotographyPortfolio = () => {
           .filter((item) => item.fullImage || item.image);
 
         setPortfolioItems(transformedItems);
-      } else {
-        setError("No portfolio images available");
       }
     } catch (err) {
-      console.error("Error fetching portfolio images:", error);
-      setError("Failed to load portfolio images");
+      console.error("Error fetching portfolio images:", err);
+      // Keep default portfolio items gracefully
     } finally {
       setLoading(false);
     }
@@ -65,7 +95,7 @@ const PhotographyPortfolio = () => {
   /* -----------------------------------------------------
    * Loading State
    * --------------------------------------------------- */
-  if (loading) {
+  if (loading && portfolioItems.length === 0) {
     return (
       <section className="py-20 px-6 bg-[#F0E7E5]">
         <div className="max-w-6xl mx-auto text-center mb-12 space-y-3">
@@ -140,7 +170,8 @@ const PhotographyPortfolio = () => {
                   src={item.image || item.fullImage}
                   alt={item.alt}
                   fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
+                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 240px, 280px"
+                  quality={70}
                   priority={index < 4}
                   className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
