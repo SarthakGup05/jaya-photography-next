@@ -1,0 +1,54 @@
+"use client";
+
+import React, { useRef, useEffect } from "react";
+import AboutStorySection from '@/components/Story';
+import CTASection from '@/components/Cta';
+import JayaAbout from '@/components/About';
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+export default function AboutUsUI() {
+  const jayaRef = useRef();
+  const storyRef = useRef();
+  const ctaRef = useRef();
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const sections = [
+      { ref: jayaRef, delay: 0 },
+      { ref: storyRef, delay: 0.2 },
+      { ref: ctaRef, delay: 0.4 },
+    ];
+    sections.forEach(({ ref, delay }) => {
+      if (ref.current) {
+        gsap.fromTo(
+          ref.current,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            delay,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ref.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    });
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={jayaRef}><JayaAbout /></div>
+      <div ref={storyRef}><AboutStorySection /></div>
+      <div ref={ctaRef}><CTASection /></div>
+    </>
+  );
+}

@@ -37,7 +37,7 @@ export const metadata = {
   creator: "Jaya Agnihotri",
   publisher: "Jaya Photography Lucknow",
   alternates: {
-    canonical: "/",
+    canonical: "https://jayaphotography.in",
   },
   openGraph: {
     title: "Jaya Photography Lucknow | Luxury Baby, Newborn & Maternity Photoshoot",

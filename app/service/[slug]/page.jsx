@@ -23,12 +23,18 @@ export async function generateMetadata(props) {
     return { title: "Service Not Found | Jaya Photography" };
   }
 
+  const serviceSlug = service.slug || params.slug;
+
   return {
     title: service.metaTitle || `${service.title} | Jaya Photography`,
     description: service.metaDescription || service.description?.slice(0, 160),
+    alternates: {
+      canonical: `https://jayaphotography.in/service/${serviceSlug}`,
+    },
     openGraph: {
       title: service.metaTitle || service.title,
       description: service.metaDescription,
+      url: `https://jayaphotography.in/service/${serviceSlug}`,
       images: [service.mainImage || service.coverImage],
     },
   };

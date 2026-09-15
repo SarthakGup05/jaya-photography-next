@@ -17,9 +17,13 @@ export async function generateMetadata(props) {
   return {
     title: `${blog.title} | Jaya Photography Blog`,
     description: blog.subtitle || blog.excerpt || blog.title,
+    alternates: {
+      canonical: `https://jayaphotography.in/blogs/${blog.slug}`,
+    },
     openGraph: {
       title: blog.title,
       description: blog.excerpt,
+      url: `https://jayaphotography.in/blogs/${blog.slug}`,
       images: blog.coverImage ? [blog.coverImage] : [],
     },
   };

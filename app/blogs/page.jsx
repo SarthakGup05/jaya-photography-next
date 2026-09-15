@@ -7,9 +7,13 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Blog & Photography Tips | Jaya Photography Lucknow",
   description: "Read expert photography tips for newborn sessions, maternity photoshoots, baby milestones, and family portraits in Lucknow by Jaya Agnihotri.",
+  alternates: {
+    canonical: "https://jayaphotography.in/blogs",
+  },
   openGraph: {
     title: "Blog & Photography Tips | Jaya Photography Lucknow",
     description: "Read expert photography tips for newborn sessions, maternity photoshoots, baby milestones, and family portraits.",
+    url: "https://jayaphotography.in/blogs",
     images: ["https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=1200&auto=format&fit=crop"],
   },
 };

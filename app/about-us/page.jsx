@@ -1,55 +1,20 @@
-"use client";
-import AboutStorySection from '@/components/Story'
-import CTASection from '@/components/Cta'
-import JayaAbout from '@/components/About'
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AboutUsUI from "./AboutUsUI";
 
-const About = () => {
-  const jayaRef = useRef();
-  const storyRef = useRef();
-  const ctaRef = useRef();
+export const metadata = {
+  title: "About Us | Jaya Photography Lucknow Fine-Art Studio",
+  description:
+    "Learn about Jaya Agnihotri, Lucknow's premier luxury baby, newborn, maternity, and family portrait photographer with 10+ years of fine-art experience.",
+  alternates: {
+    canonical: "https://jayaphotography.in/about-us",
+  },
+  openGraph: {
+    title: "About Us | Jaya Photography Lucknow Fine-Art Studio",
+    description:
+      "Premier luxury baby, newborn & maternity photography studio in Sushant Golf City, Lucknow.",
+    url: "https://jayaphotography.in/about-us",
+  },
+};
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const sections = [
-      { ref: jayaRef, delay: 0 },
-      { ref: storyRef, delay: 0.2 },
-      { ref: ctaRef, delay: 0.4 },
-    ];
-    sections.forEach(({ ref, delay }) => {
-      if (ref.current) {
-        gsap.fromTo(
-          ref.current,
-          { opacity: 0, y: 60 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.5,
-            delay,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ref.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-    });
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
-
-  return (
-    <>
-      <div ref={jayaRef}><JayaAbout/></div>
-      <div ref={storyRef}><AboutStorySection/></div>
-      <div ref={ctaRef}><CTASection/></div>
-    </>
-  )
+export default function AboutPage() {
+  return <AboutUsUI />;
 }
-
-export default About

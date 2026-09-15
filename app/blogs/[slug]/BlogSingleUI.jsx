@@ -15,6 +15,42 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+function formatBlogContent(content) {
+  if (!content) return "";
+
+  let formatted = content;
+
+  // Convert plain bullet text (lines starting with •, -, *) to <ul><li> if no HTML <ul> tag exists
+  if (!/<ul[\s>]/i.test(formatted) && /[\n^]\s*[•\-\*]\s+/i.test(formatted)) {
+    const lines = formatted.split("\n");
+    let inList = false;
+    const result = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (/^[•\-\*]\s+/.test(trimmed)) {
+        if (!inList) {
+          result.push("<ul>");
+          inList = true;
+        }
+        result.push(`<li>${trimmed.replace(/^[•\-\*]\s+/, "")}</li>`);
+      } else {
+        if (inList) {
+          result.push("</ul>");
+          inList = false;
+        }
+        result.push(line);
+      }
+    }
+    if (inList) {
+      result.push("</ul>");
+    }
+    formatted = result.join("\n");
+  }
+
+  return formatted;
+}
+
 export default function BlogSingleUI({ blog, relatedBlogs = [] }) {
   const [copied, setCopied] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -179,10 +215,10 @@ export default function BlogSingleUI({ blog, relatedBlogs = [] }) {
 
       {/* 📜 ARTICLE BODY */}
       <main className="max-w-4xl mx-auto px-6 pb-16 grid grid-cols-1 gap-12">
-        <article className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-800 prose-p:leading-relaxed prose-blockquote:border-l-4 prose-blockquote:border-purple-700 prose-blockquote:bg-white prose-blockquote:p-6 prose-blockquote:rounded-r-xl prose-blockquote:italic">
+        <article className="max-w-none">
           <div
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-            className="space-y-6 text-gray-800 text-base sm:text-lg leading-relaxed bg-white p-8 sm:p-12 rounded-2xl border border-[#e0d0b8] shadow-xs"
+            dangerouslySetInnerHTML={{ __html: formatBlogContent(blog.content) }}
+            className="blog-content-body space-y-6 bg-white p-8 sm:p-12 rounded-2xl border border-[#e0d0b8] shadow-xs"
           />
         </article>
 
