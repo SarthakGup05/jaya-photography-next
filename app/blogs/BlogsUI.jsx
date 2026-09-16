@@ -22,8 +22,34 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
     setInitialData({ blogs: initialBlogs, categoriesList });
   }, [initialBlogs, categoriesList, setInitialData]);
 
+  const getCatName = (cat) => {
+    if (!cat) return "";
+    if (typeof cat === "string") return cat;
+    return cat.name || cat.title || cat.label || String(cat);
+  };
+
   const activeBlogs = storedBlogs.length > 0 ? storedBlogs : initialBlogs;
-  const categories = storedCategories.length > 0 ? storedCategories : ["All", ...categoriesList];
+
+  const categories = useMemo(() => {
+    const catsSet = new Set(["All"]);
+    if (Array.isArray(categoriesList)) {
+      categoriesList.forEach((c) => {
+        const name = getCatName(c);
+        if (name) catsSet.add(name);
+      });
+    }
+    if (Array.isArray(storedCategories) && storedCategories.length > 0) {
+      storedCategories.forEach((c) => {
+        const name = getCatName(c);
+        if (name) catsSet.add(name);
+      });
+    }
+    activeBlogs.forEach((b) => {
+      const name = getCatName(b.category);
+      if (name) catsSet.add(name);
+    });
+    return Array.from(catsSet);
+  }, [categoriesList, storedCategories, activeBlogs]);
 
   const filteredBlogs = useMemo(() => {
     return activeBlogs.filter((blog) => {
@@ -35,22 +61,29 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
         return false;
       }
 
+      const catName = getCatName(blog.category);
+
       const matchesSearch =
+        !searchQuery ||
         (blog.title && blog.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (blog.excerpt && blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (blog.category && blog.category.toLowerCase().includes(searchQuery.toLowerCase()));
+        (catName && catName.toLowerCase().includes(searchQuery.toLowerCase()));
 
       const matchesCategory =
-        selectedCategory === "All" || blog.category === selectedCategory;
+        !selectedCategory ||
+        selectedCategory === "All" ||
+        catName.toLowerCase().trim() === selectedCategory.toLowerCase().trim();
 
       return matchesSearch && matchesCategory;
     });
   }, [activeBlogs, searchQuery, selectedCategory]);
 
+  const isDefaultView = (selectedCategory === "All" || !selectedCategory) && !searchQuery;
+
   const featuredBlog = useMemo(() => {
-    if (filteredBlogs.length === 0) return null;
+    if (!isDefaultView || filteredBlogs.length === 0) return null;
     return filteredBlogs.find((b) => b.featured) || filteredBlogs[0];
-  }, [filteredBlogs]);
+  }, [filteredBlogs, isDefaultView]);
 
   const remainingBlogs = useMemo(() => {
     if (!featuredBlog) return filteredBlogs;
@@ -105,23 +138,26 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* 🏷️ CATEGORY FILTER PILLS */}
         <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-10 custom-scrollbar scrollbar-none">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer ${
-                selectedCategory === cat
-                  ? "bg-black text-white shadow-md scale-105"
-                  : "bg-white text-gray-800 border border-[#e0d0b8] hover:border-purple-600 hover:bg-purple-50/50 hover:text-purple-700"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const isSelected = selectedCategory?.toLowerCase().trim() === cat.toLowerCase().trim();
+            return (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                  isSelected
+                    ? "bg-black text-white shadow-md scale-105"
+                    : "bg-white text-gray-800 border border-[#e0d0b8] hover:border-purple-600 hover:bg-purple-50/50 hover:text-purple-700"
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
         {/* 🌟 FEATURED ARTICLE */}
-        {!searchQuery && selectedCategory === "All" && featuredBlog && (
+        {!searchQuery && (selectedCategory === "All" || !selectedCategory) && featuredBlog && (
           <section className="mb-14">
             <div className="group relative bg-white rounded-2xl overflow-hidden shadow-md border border-[#e0d0b8] hover:shadow-xl transition-all duration-500 grid lg:grid-cols-12 gap-0">
               <div className="lg:col-span-7 relative h-72 lg:h-auto min-h-[340px] overflow-hidden bg-gray-100">
@@ -141,7 +177,7 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 text-xs text-gray-500 font-medium">
                     <span className="bg-[#F0E7E5] text-purple-800 px-3 py-1 rounded-md font-bold uppercase tracking-wider">
-                      {featuredBlog.category}
+                      {getCatName(featuredBlog.category)}
                     </span>
                     <span className="flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5" />
@@ -240,7 +276,7 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3 bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                        {blog.category}
+                        {getCatName(blog.category)}
                       </div>
                     </div>
 

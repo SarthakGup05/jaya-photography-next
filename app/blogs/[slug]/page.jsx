@@ -11,20 +11,86 @@ export async function generateMetadata(props) {
   const blog = data?.blog;
 
   if (!blog) {
-    return { title: "Blog Article Not Found | Jaya Photography" };
+    return {
+      title: { absolute: "Blog Article Not Found | Jaya Photography" },
+    };
   }
 
+  // 1. Meta Title extraction (prioritizing custom metaTitle/seoTitle fields over default H1 blog title)
+  const metaTitle =
+    blog.metaTitle ||
+    blog.meta_title ||
+    blog.seoTitle ||
+    blog.seo_title ||
+    blog.meta?.title ||
+    blog.seo?.title ||
+    blog.title;
+
+  // 2. Meta Description extraction
+  const metaDescription =
+    blog.metaDescription ||
+    blog.meta_description ||
+    blog.seoDescription ||
+    blog.seo_description ||
+    blog.meta?.description ||
+    blog.seo?.description ||
+    blog.subtitle ||
+    blog.excerpt ||
+    blog.title;
+
+  // 3. Meta Keywords extraction
+  const rawKeywords =
+    blog.metaKeywords ||
+    blog.meta_keywords ||
+    blog.keywords ||
+    blog.seoKeywords ||
+    blog.seo_keywords ||
+    blog.meta?.keywords ||
+    blog.seo?.keywords ||
+    blog.tags;
+
+  let keywords = [];
+  if (Array.isArray(rawKeywords) && rawKeywords.length > 0) {
+    keywords = rawKeywords.map((k) => (typeof k === "string" ? k.trim() : k)).filter(Boolean);
+  } else if (typeof rawKeywords === "string" && rawKeywords.trim()) {
+    keywords = rawKeywords.split(",").map((k) => k.trim()).filter(Boolean);
+  } else {
+    // Fallback blog-specific keywords so homepage keywords are NEVER inherited
+    keywords = [
+      blog.title,
+      blog.category,
+      `${blog.category || "photography"} in lucknow`,
+      "maternity photoshoot lucknow",
+      "newborn photoshoot lucknow",
+      "jaya photography blog",
+    ].filter(Boolean);
+  }
+
+  const canonicalUrl = `https://jayaphotography.in/blogs/${blog.slug}`;
+  const ogImage = blog.coverImage ? [blog.coverImage] : [];
+
   return {
-    title: `${blog.title} | Jaya Photography Blog`,
-    description: blog.subtitle || blog.excerpt || blog.title,
+    // absolute title prevents Next.js layout from appending "%s | Jaya Photography Lucknow"
+    title: {
+      absolute: metaTitle,
+    },
+    description: metaDescription,
+    keywords: keywords,
     alternates: {
-      canonical: `https://jayaphotography.in/blogs/${blog.slug}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      url: `https://jayaphotography.in/blogs/${blog.slug}`,
-      images: blog.coverImage ? [blog.coverImage] : [],
+      title: metaTitle,
+      description: metaDescription,
+      url: canonicalUrl,
+      images: ogImage,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metaTitle,
+      description: metaDescription,
+      images: ogImage,
     },
   };
 }
