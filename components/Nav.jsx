@@ -99,7 +99,7 @@ const Nav = () => {
     },
     {
       icon: Instagram,
-      href: "https://www.instagram.com/jayaagnihotriphotography/",
+      href: "https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg==",
       color: "hover:text-pink-600",
     },
     {

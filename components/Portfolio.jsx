@@ -536,11 +536,16 @@ const PhotographyPortfolio = () => {
          * =================================================== */}
         <div className="text-center max-w-3xl mx-auto space-y-2.5">
           {/* Eyebrow Badge with Instagram Accent */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-purple-200/70 shadow-xs text-xs font-semibold text-purple-900">
+          <a
+            href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-purple-200/70 shadow-xs text-xs font-semibold text-purple-900 hover:bg-white transition-all cursor-pointer group"
+          >
             <span className="flex h-2 w-2 rounded-full bg-purple-600 animate-pulse" />
             <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
-            <span className="tracking-wide">@jayaphotography.lucknow • Instagram Portfolio</span>
-          </div>
+            <span className="tracking-wide group-hover:underline">@jayaagnihotriphotography • Instagram Portfolio</span>
+          </a>
 
           {/* Headline */}
           <h2 className="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-[1.15]">
@@ -817,13 +822,13 @@ const PhotographyPortfolio = () => {
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white text-xs font-bold tracking-wide shadow-md hover:shadow-lg hover:brightness-105 transition-all cursor-pointer"
             >
               <Instagram className="w-4 h-4" />
-              <span>Follow @jayaphotography</span>
+              <span>Follow @jayaagnihotriphotography</span>
             </a>
 
             <Link href="/gallery">
@@ -920,9 +925,14 @@ const PhotographyPortfolio = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-1">
-                        <span className="text-xs font-bold text-stone-900">
-                          jayaphotography.lucknow
-                        </span>
+                        <a
+                          href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-bold text-stone-900 hover:text-purple-700 hover:underline"
+                        >
+                          jayaagnihotriphotography
+                        </a>
                         <span className="text-blue-600 text-xs font-bold">✓</span>
                       </div>
                       <p className="text-[11px] text-stone-500">{activeModalItem.location}</p>

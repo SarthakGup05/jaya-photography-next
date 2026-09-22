@@ -242,7 +242,7 @@ export default function ContactUsUI() {
       icon: <Instagram className="w-5 h-5" />,
       name: "Instagram",
       handle: "@jayaagnihotriphotography",
-      url: "https://www.instagram.com/jayaagnihotriphotography/",
+      url: "https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg==",
       bg: "bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500",
     },
     {

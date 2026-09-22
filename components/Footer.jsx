@@ -97,7 +97,7 @@ const Footer = () => {
               {[
                 {
                   icon: Instagram,
-                  href: "https://www.instagram.com/jayaagnihotriphotography/",
+                  href: "https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg==",
                   label: "Instagram",
                 },
                 {
