@@ -60,14 +60,14 @@ const HomeBlogSection = () => {
   const loading = isLoading && blogs.length === 0;
 
   return (
-    <section className="py-16 sm:py-24 bg-[#f8f4ef] text-gray-900 relative overflow-hidden border-t border-[#e0d0b8]">
+    <section className="pt-10 pb-14 sm:pt-14 sm:pb-18 bg-[#f8f4ef] text-gray-900 relative overflow-hidden border-t border-[#e0d0b8]">
       {/* Background Accent */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/50 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-6">
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eee2d0] text-purple-900 text-xs font-bold uppercase tracking-widest">
               <BookOpen className="w-3.5 h-3.5" />

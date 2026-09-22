@@ -134,10 +134,10 @@ const Services = () => {
   }
 
   return (
-    <section className="relative py-24 bg-[#F0E7E5] text-gray-900 overflow-hidden">
+    <section className="relative pt-10 pb-14 sm:pt-14 sm:pb-18 bg-[#F0E7E5] text-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* 🌟 Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2.5">
           <span className="inline-block text-xs font-bold text-purple-700 bg-purple-100/70 border border-purple-200 px-4 py-1.5 rounded-full uppercase tracking-wider">
             Our Photography Services in Lucknow
           </span>
@@ -152,7 +152,7 @@ const Services = () => {
 
           {/* 🏷️ Optional Category Tabs (If multiple categories exist) */}
           {categories.length > 2 && (
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
               {categories.map((cat) => (
                 <button
                   key={cat}

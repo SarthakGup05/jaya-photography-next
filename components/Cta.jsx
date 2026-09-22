@@ -150,7 +150,7 @@ const CTASection = () => {
   };
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-[#f3e6fa] via-white to-[#F0E7E5]">
+    <section className="pt-10 pb-14 sm:pt-14 sm:pb-16 px-4 bg-gradient-to-br from-[#f3e6fa] via-white to-[#F0E7E5]">
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-20 h-20 bg-purple-200/8 rounded-full blur-2xl"></div>
@@ -159,7 +159,7 @@ const CTASection = () => {
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-100 mb-6">
             <Camera className="w-4 h-4 text-purple-600" />
             <span className="text-sm font-medium text-gray-700">

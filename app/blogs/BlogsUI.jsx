@@ -95,10 +95,10 @@ export default function BlogsUI({ initialBlogs = [], categoriesList = [] }) {
   }, [filteredBlogs, featuredBlog]);
 
   return (
-    <main className="min-h-screen bg-[#F0E7E5] text-gray-900 pt-24 pb-20">
+    <main className="min-h-screen bg-[#F0E7E5] text-gray-900 pt-16 sm:pt-20 pb-16">
       {/* 🌟 HERO BANNER */}
-      <section className="relative bg-[#F0E7E5] py-16 sm:py-20 px-6 mb-10 overflow-hidden border-b border-[#e0d0b8]">
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-5">
+      <section className="relative bg-[#F0E7E5] pt-4 pb-10 sm:pt-6 sm:pb-12 px-6 mb-6 sm:mb-8 overflow-hidden border-b border-[#e0d0b8]">
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-3">
           <p className="text-purple-700 font-bold text-xs uppercase tracking-widest">
             Behind The Lens & Photography Journal
           </p>

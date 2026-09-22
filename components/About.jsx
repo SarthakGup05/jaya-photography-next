@@ -24,9 +24,9 @@ const JayaAbout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black mt-20">
+    <div className="bg-[#F0E7E5] mt-0">
       {/* About Section */}
-      <div className="py-16 bg-[#F0E7E5]">
+      <div className="pt-10 pb-14 sm:pt-12 sm:pb-16 bg-[#F0E7E5]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left - Image */}

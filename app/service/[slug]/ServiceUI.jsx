@@ -66,9 +66,9 @@ const ServiceUI = ({ service }) => {
       </div>
 
       {/* 🏞 Hero Section */}
-      <section className="relative pt-24 pb-12 px-4 text-center">
+      <section className="relative pt-16 pb-8 sm:pt-20 sm:pb-10 px-4 text-center">
         <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full shadow-sm border border-purple-100 mb-6">
+          <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full shadow-sm border border-purple-100 mb-4">
             <span className="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
             <span className="text-xs font-medium text-gray-700">
               {service.featured ? "Featured Service" : "Professional Service"}

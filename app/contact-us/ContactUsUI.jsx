@@ -280,7 +280,7 @@ export default function ContactUsUI() {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-[#F0E7E5] text-gray-900 pt-28 pb-20 relative overflow-hidden"
+      className="min-h-screen bg-[#F0E7E5] text-gray-900 pt-20 sm:pt-24 pb-16 relative overflow-hidden"
     >
       {/* Subtle Luxury Glow Accents */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -289,7 +289,7 @@ export default function ContactUsUI() {
       </div>
 
       {/* 🌟 HERO HEADER */}
-      <section className="animate-section max-w-4xl mx-auto text-center px-6 mb-12 space-y-4 relative z-10">
+      <section className="animate-section max-w-4xl mx-auto text-center px-6 mb-8 space-y-3 relative z-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-purple-800 text-xs font-bold uppercase tracking-widest border border-[#e0d0b8] shadow-xs">
           Book Your Creative Session
         </div>

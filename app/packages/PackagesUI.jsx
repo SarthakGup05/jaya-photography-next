@@ -132,7 +132,7 @@ export default function PackagesUI() {
       {/* ========================================================
           1. HERO & INTRODUCTION SECTION
       ======================================================== */}
-      <section className="relative pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden bg-gradient-to-b from-[#F3ECE5] via-[#FAF7F2] to-[#FAF7F2] border-b border-stone-200/70">
+      <section className="relative pt-24 pb-12 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-[#F3ECE5] via-[#FAF7F2] to-[#FAF7F2] border-b border-stone-200/70">
         {/* Ambient background glow effects */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-br from-amber-200/30 via-rose-100/20 to-transparent blur-3xl pointer-events-none rounded-full"></div>
         <div className="absolute top-20 right-10 w-72 h-72 bg-amber-100/40 rounded-full blur-3xl pointer-events-none"></div>
@@ -140,7 +140,7 @@ export default function PackagesUI() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb & pill */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-5">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-white/80 border border-stone-200/90 text-stone-800 shadow-sm backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
               Fine-Art Studio Collections · Lucknow
@@ -148,7 +148,7 @@ export default function PackagesUI() {
           </div>
 
           {/* Main Headline */}
-          <div className="text-center max-w-4xl mx-auto space-y-4">
+          <div className="text-center max-w-4xl mx-auto space-y-3">
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-stone-900 leading-[1.15]">
               Cherish Every Precious Moment With{" "}
               <span className="relative inline-block text-amber-900 italic">
@@ -163,7 +163,7 @@ export default function PackagesUI() {
           </div>
 
           {/* Studio Trust Bar */}
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
+          <div className="mt-6 sm:mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
             <div className="flex items-center gap-3 bg-white/70 backdrop-blur-md px-4 py-3 rounded-2xl border border-stone-200/80 shadow-sm">
               <div className="p-2 rounded-xl bg-amber-50 text-amber-800 shrink-0">
                 <ShieldCheck className="w-5 h-5" />
@@ -688,7 +688,7 @@ export default function PackagesUI() {
       {/* ========================================================
           7. BOTTOM CONCIERGE & CUSTOM CONSULTATION CTA
       ======================================================== */}
-      <section className="py-16 bg-gradient-to-r from-stone-900 via-stone-950 to-stone-900 text-white relative overflow-hidden">
+      {/* <section className="py-16 bg-gradient-to-r from-stone-900 via-stone-950 to-stone-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.15),transparent_50%)] pointer-events-none"></div>
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
@@ -729,7 +729,7 @@ export default function PackagesUI() {
             Studio Address: Sushant Golf City, Amar Shaheed Path, Lucknow, Uttar Pradesh
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* ========================================================
           8. BOOKING MODAL DIALOG

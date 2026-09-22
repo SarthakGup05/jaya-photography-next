@@ -135,8 +135,8 @@ export default function GalleryUI() {
    * --------------------------------------------------- */
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#F0E7E5] pt-28 pb-20 px-6">
-        <div className="max-w-7xl mx-auto space-y-10">
+      <main className="min-h-screen bg-[#F0E7E5] pt-20 sm:pt-24 pb-16 px-6">
+        <div className="max-w-7xl mx-auto space-y-8">
           <div className="text-center space-y-3 max-w-xl mx-auto">
             <div className="h-4 w-36 bg-gray-300/60 rounded-full mx-auto animate-pulse"></div>
             <div className="h-10 w-72 bg-gray-300/60 rounded-xl mx-auto animate-pulse"></div>
@@ -159,9 +159,9 @@ export default function GalleryUI() {
     selectedImageIndex !== null ? filteredImages[selectedImageIndex] : null;
 
   return (
-    <main className="relative min-h-screen bg-[#F0E7E5] text-gray-900 pt-28 pb-20">
+    <main className="relative min-h-screen bg-[#F0E7E5] text-gray-900 pt-20 sm:pt-24 pb-16">
       {/* 🌟 HERO HEADER */}
-      <section className="max-w-4xl mx-auto text-center px-6 mb-12 space-y-4">
+      <section className="max-w-4xl mx-auto text-center px-6 mb-8 space-y-3">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-purple-800 text-xs font-bold uppercase tracking-widest border border-[#e0d0b8]">
           Fine-Art Portfolio
         </div>

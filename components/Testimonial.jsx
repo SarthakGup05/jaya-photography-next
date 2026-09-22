@@ -91,7 +91,7 @@ const Testimonials = () => {
   const t = testimonials[current];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 py-24 bg-gradient-to-b from-[#faf9fb] to-[#f5f4f6] overflow-hidden">
+    <section className="relative flex items-center justify-center px-6 pt-12 pb-16 sm:pt-16 sm:pb-20 bg-gradient-to-b from-[#faf9fb] to-[#f5f4f6] overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#1DA1F2]/10 rounded-full blur-3xl" />
@@ -100,10 +100,10 @@ const Testimonials = () => {
 
       <div className="w-full max-w-3xl text-center relative z-10">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-3 text-[#0f1419]">
+        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2.5 text-[#0f1419]">
           What Our Clients Say
         </h2>
-        <p className="text-[#5a5a5a] mb-12 text-base md:text-lg">
+        <p className="text-[#5a5a5a] mb-8 text-base md:text-lg">
           Real Experiences, Real Emotions
         </p>
 
