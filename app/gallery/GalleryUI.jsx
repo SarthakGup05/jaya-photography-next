@@ -385,7 +385,7 @@ export default function GalleryUI() {
         <button
           onClick={scrollToTop}
           title="Scroll to top"
-          className="fixed bottom-10 right-6 z-40 p-3.5 bg-black text-white rounded-full shadow-lg hover:bg-purple-700 transition-all cursor-pointer"
+          className="fixed bottom-6 left-6 md:bottom-8 md:left-8 z-40 p-3.5 bg-black text-white rounded-full shadow-lg hover:bg-purple-700 transition-all cursor-pointer"
         >
           <ArrowUp className="w-5 h-5" />
         </button>

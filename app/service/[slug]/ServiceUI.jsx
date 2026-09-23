@@ -793,7 +793,7 @@ const ServiceUI = ({ service }) => {
       {/* ========================================================
           9. MOBILE STICKY BOTTOM FLOATING BAR
       ======================================================== */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 shadow-lg">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs text-stone-500 truncate">{service.title}</p>

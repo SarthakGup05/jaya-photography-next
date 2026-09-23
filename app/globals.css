@@ -399,3 +399,31 @@
   font-weight: 700 !important;
 }
 
+/* ======================================================
+   Smooth Custom Scrollbar Utilities
+====================================================== */
+.custom-scrollbar {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(176, 141, 85, 0.45) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(176, 141, 85, 0.4);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(176, 141, 85, 0.7);
+}
+
+

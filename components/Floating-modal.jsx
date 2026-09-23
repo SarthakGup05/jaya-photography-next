@@ -1,11 +1,19 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { X, Star } from "lucide-react";
 import ReviewForm from "./ReviewForm"; 
 
 const FloatingModal = ({ buttonText = "Feedback" }) => {
+  const pathname = usePathname();
+  const hasBottomBar = Boolean(
+    pathname?.startsWith("/service/") &&
+    pathname !== "/service" &&
+    pathname !== "/service/"
+  );
+
   const [open, setOpen] = useState(false);
   const overlayRef = useRef(null);
   const modalRef = useRef(null);
@@ -50,8 +58,15 @@ const FloatingModal = ({ buttonText = "Feedback" }) => {
       `}</style>
 
       {/* --- Trigger Button --- */}
-      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-40" ref={buttonRef}>
-        <div className="pulse-ring absolute inset-0 rounded-full bg-indigo-500/30 blur-sm z-0"></div>
+      <div
+        className={`fixed z-40 transition-[bottom] duration-300 right-4 md:right-8 ${
+          hasBottomBar
+            ? "bottom-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:bottom-8"
+            : "bottom-4 md:bottom-8"
+        }`}
+        ref={buttonRef}
+      >
+        <div className="pulse-ring pointer-events-none absolute inset-0 rounded-full bg-indigo-500/30 blur-sm z-0"></div>
         <button
           onClick={() => setOpen(true)}
           className="relative z-10 flex items-center gap-2 sm:gap-3 bg-gray-900 text-white pl-3.5 pr-4 py-2.5 sm:pl-5 sm:pr-6 sm:py-3.5 rounded-full shadow-[0_10px_40px_-10px_rgba(79,70,229,0.5)] border border-white/10 overflow-hidden group transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs sm:text-sm"

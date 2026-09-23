@@ -22,12 +22,12 @@ import {
   BookOpen,
 } from "lucide-react";
 
-const DEFAULT_SERVICES_NAV = [
-  { name: "Baby Photography", href: "/service/baby-milestone-photoshoot-lucknow" },
-  { name: "Maternity Photography", href: "/service/maternity-photoshoot-lucknow" },
-  { name: "Fashion Photography", href: "/service/fashion-photographer-lucknow" },
-  { name: "Family Photography", href: "/service/family-photoshoot" },
-];
+import { FALLBACK_SERVICES } from "@/lib/servicesData";
+
+const DEFAULT_SERVICES_NAV = FALLBACK_SERVICES.map((s) => ({
+  name: s.name || s.title,
+  href: `/service/${s.slug}`,
+}));
 
 const Nav = () => {
   const [openDropdown, setOpenDropdown] = useState(null); // For Mobile
@@ -47,16 +47,38 @@ const Nav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ Lock body scroll when mobile sidebar is open to fix mobile scroll jitter/chaining
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      const originalTouchAction = document.body.style.touchAction;
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.touchAction = originalTouchAction;
+      };
+    }
+  }, [isOpen]);
+
+  // ✅ Auto-close mobile menu and dropdown on page navigation
+  useEffect(() => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+  }, [pathname]);
+
   // ✅ Fetch services
   useEffect(() => {
+    let isMounted = true;
     const fetchServices = async () => {
       try {
         const res = await axiosInstance.get("/services/get-services", {
           params: { isActive: "true", sortBy: "sortOrder", sortOrder: "asc" },
         });
-        if (res.data && res.data.length > 0) {
-          const items = res.data.map((s) => ({
-            name: s.title,
+        const rawServices = res.data?.services || res.data;
+        if (isMounted && Array.isArray(rawServices) && rawServices.length > 0) {
+          const items = rawServices.map((s) => ({
+            name: s.title || s.name,
             href: `/service/${s.slug}`,
           }));
           setPhotographyServices(items);
@@ -64,10 +86,13 @@ const Nav = () => {
       } catch (err) {
         console.error("Error fetching services:", err);
       } finally {
-        setServicesLoading(false);
+        if (isMounted) setServicesLoading(false);
       }
     };
     fetchServices();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const navLinks = [
@@ -234,70 +259,116 @@ const Nav = () => {
       </button>
 
       {/* =======================================================
-          📱 MOBILE SIDEBAR (Existing Logic)
+          📱 MOBILE SIDEBAR
       ======================================================= */}
       <aside
-        className={`fixed top-0 right-0 h-screen w-72 z-[100] bg-[#f4e7d4] text-gray-800 shadow-2xl flex flex-col justify-between transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] md:hidden ${
+        className={`fixed top-0 right-0 h-screen h-[100dvh] max-h-[100dvh] w-80 max-w-[85vw] z-[100] bg-[#f4e7d4] text-gray-800 shadow-2xl flex flex-col justify-between transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] md:hidden overscroll-contain ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Logo */}
-        <div className="pt-8 pb-4 flex justify-center border-b border-[#e0d0b8]">
-          <Link href="/" onClick={() => setIsOpen(false)}>
+        {/* Header with Logo and Close Button */}
+        <div className="pt-6 pb-4 px-5 flex items-center justify-between border-b border-[#e0d0b8] shrink-0">
+          <Link href="/" onClick={() => setIsOpen(false)} className="inline-block">
             <Image
               src="/logo.png"
               alt="Logo"
-              width={140}
-              height={45}
+              width={125}
+              height={40}
               style={{ height: "auto" }}
               className="rounded-md"
             />
           </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            aria-label="Close Menu"
+            className="p-2 rounded-full bg-[#e9d9c4] text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
+          >
+            <X size={18} />
+          </button>
         </div>
 
-        {/* Nav Links */}
-        <nav className="flex-1 overflow-y-auto px-4 space-y-2 mt-4 custom-scrollbar">
+        {/* Smooth Scrollable Nav Links */}
+        <nav
+          className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-1.5 custom-scrollbar touch-pan-y"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           {navLinks.map((link, idx) => (
-            <div key={link.name}>
+            <div key={link.name} className="rounded-xl">
               {link.dropdown ? (
                 <>
                   <button
                     onClick={() => toggleMobileDropdown(idx)}
-                    className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-800 hover:bg-[#e7d7c3] hover:text-[#5a4633] transition-all font-medium text-sm cursor-pointer"
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all font-medium text-sm cursor-pointer ${
+                      openDropdown === idx
+                        ? "bg-[#e8d8c0] text-[#5a4633] font-semibold shadow-2xs"
+                        : "text-gray-800 hover:bg-[#e7d7c3] hover:text-[#5a4633]"
+                    }`}
                   >
                     <span className="flex items-center gap-3">
                       {link.icon}
                       {link.name}
                     </span>
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform duration-300 ${
-                        openDropdown === idx ? "rotate-180" : ""
-                      }`}
-                    />
+                    <div className="flex items-center gap-2">
+                      {link.dropdown && (
+                        <span className="text-[11px] text-stone-600 font-normal px-2 py-0.5 rounded-full bg-[#dfceb6]">
+                          {link.dropdown.length}
+                        </span>
+                      )}
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-300 ${
+                          openDropdown === idx ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
                   </button>
+
                   <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      openDropdown === idx ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    className={`transition-all duration-300 ease-in-out ${
+                      openDropdown === idx
+                        ? "max-h-[900px] opacity-100 mt-1.5"
+                        : "max-h-0 opacity-0 overflow-hidden"
                     }`}
                   >
-                    <div className="ml-4 pl-4 border-l border-[#d8c6aa] mt-1 space-y-1">
+                    <div className="ml-3 pl-3 border-l-2 border-[#d8c6aa]/80 space-y-1 py-1">
+                      {link.name === "Services" && (
+                        <Link
+                          href="/service"
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-lg transition-colors mb-1.5 ${
+                            pathname === "/service"
+                              ? "bg-[#d8c6aa] text-white shadow-xs"
+                              : "bg-[#e8d8c0]/70 text-[#7a5c37] hover:bg-[#e8d8c0]"
+                          }`}
+                        >
+                          <span>✨ View All Services</span>
+                          <span className="text-[10px] uppercase tracking-wider">Catalog →</span>
+                        </Link>
+                      )}
+
                       {link.loading ? (
-                        <div className="flex items-center py-2 text-gray-500 text-xs">
-                          <Loader2 className="w-3 h-3 mr-2 animate-spin" />
-                          Loading...
+                        <div className="flex items-center py-2.5 px-3 text-gray-500 text-xs">
+                          <Loader2 className="w-3.5 h-3.5 mr-2 animate-spin text-[#b08d55]" />
+                          Loading services...
                         </div>
                       ) : (
-                        link.dropdown.map((item) => (
-                          <Link
-                            key={item.name}
-                            href={item.href}
-                            onClick={() => setIsOpen(false)}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:text-[#b08d55] rounded-md transition-colors"
-                          >
-                            {item.name}
-                          </Link>
-                        ))
+                        link.dropdown.map((item) => {
+                          const isActive = pathname === item.href;
+                          return (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              onClick={() => setIsOpen(false)}
+                              className={`block px-3.5 py-2 text-sm rounded-lg transition-all ${
+                                isActive
+                                  ? "bg-[#d8c6aa] text-[#433221] font-semibold shadow-2xs"
+                                  : "text-gray-700 hover:text-[#5a4633] hover:bg-[#e8d8c0]/60"
+                              }`}
+                            >
+                              {item.name}
+                            </Link>
+                          );
+                        })
                       )}
                     </div>
                   </div>
@@ -306,10 +377,10 @@ const Nav = () => {
                 <Link
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                     isCurrentPage(link.href)
-                      ? "bg-[#e8d8c0] shadow-sm"
-                      : "hover:bg-[#e7d7c3]"
+                      ? "bg-[#e8d8c0] text-[#5a4633] font-semibold shadow-2xs"
+                      : "text-gray-800 hover:bg-[#e7d7c3] hover:text-[#5a4633]"
                   }`}
                 >
                   {link.icon}
@@ -318,19 +389,31 @@ const Nav = () => {
               )}
             </div>
           ))}
+
+          {/* Quick Booking CTA Button */}
+          <div className="pt-2 pb-1">
+            <Link
+              href="/contact-us"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-stone-900 hover:bg-stone-800 shadow-xs transition-colors"
+            >
+              <span>Book A Session</span>
+            </Link>
+          </div>
         </nav>
 
-        {/* Socials */}
-        <div className="p-6 bg-[#e9dcc7] flex justify-center gap-6">
+        {/* Socials / Footer with Safe Area Support */}
+        <div className="p-4 px-6 bg-[#e9dcc7] flex items-center justify-center gap-6 shrink-0 border-t border-[#e0d0b8] pb-[max(1rem,env(safe-area-inset-bottom,0px))]">
           {socialLinks.map(({ icon: Icon, href, color }) => (
             <a
               key={href}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-gray-700 ${color} transition-transform hover:scale-110`}
+              aria-label="Social Link"
+              className={`text-gray-700 ${color} transition-transform hover:scale-110 p-1`}
             >
-              <Icon size={20} />
+              <Icon size={19} />
             </a>
           ))}
         </div>
