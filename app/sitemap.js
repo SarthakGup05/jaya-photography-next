@@ -23,6 +23,12 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${SITE_URL}/service`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${SITE_URL}/packages`,
       lastModified: new Date(),
       changeFrequency: "monthly",

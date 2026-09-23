@@ -25,11 +25,22 @@ export const Form = ({
   const [submitting, setSubmitting] = useState(false);
   const [loadingServices, setLoadingServices] = useState(true);
 
+  // Sync initialData changes into state
+  useEffect(() => {
+    if (initialData && Object.keys(initialData).length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        ...initialData,
+      }));
+    }
+  }, [initialData]);
+
   // Fetch services for dropdown
   const fetchServices = async () => {
     try {
       const response = await axiosInstance.get("/services/get-services");
-      setServices(response.data || []);
+      const list = response.data?.services || response.data || [];
+      setServices(Array.isArray(list) ? list : []);
     } catch (error) {
       console.error("Error fetching services:", error);
       toast.error("Failed to load services");
@@ -41,6 +52,37 @@ export const Form = ({
   useEffect(() => {
     fetchServices();
   }, []);
+
+  // Auto-match serviceType against fetched services
+  useEffect(() => {
+    if (services.length > 0 && formData.serviceType) {
+      const raw = formData.serviceType.toLowerCase().trim();
+      const matched = services.find((s) => {
+        const sSlug = (s.slug || "").toLowerCase().trim();
+        const sTitle = (s.title || "").toLowerCase().trim();
+        const sName = (s.name || "").toLowerCase().trim();
+        return (
+          sSlug === raw ||
+          sTitle === raw ||
+          sName === raw ||
+          (raw.includes("newborn") && sSlug.includes("newborn")) ||
+          (raw.includes("maternity") && sSlug.includes("maternity")) ||
+          (raw.includes("toddler") && sSlug.includes("toddler")) ||
+          (raw.includes("cake") && sSlug.includes("cake")) ||
+          (raw.includes("baby") && sSlug.includes("baby")) ||
+          (raw.includes("family") && sSlug.includes("family")) ||
+          (raw.includes("fashion") && sSlug.includes("fashion")) ||
+          (raw.includes("theme") && sSlug.includes("theme"))
+        );
+      });
+      if (matched) {
+        const optionVal = matched.slug || matched.title?.toLowerCase().replace(/\s+/g, "-");
+        if (formData.serviceType !== optionVal) {
+          setFormData((prev) => ({ ...prev, serviceType: optionVal }));
+        }
+      }
+    }
+  }, [services, formData.serviceType]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -140,9 +182,22 @@ export const Form = ({
             <option value="">
               {loadingServices ? "Loading services..." : "Select Service Type"}
             </option>
+            {formData.serviceType &&
+              !services.some(
+                (s) =>
+                  (s.slug || s.title?.toLowerCase().replace(/\s+/g, "-")) ===
+                  formData.serviceType
+              ) && (
+                <option value={formData.serviceType}>
+                  {formData.serviceName || formData.serviceType}
+                </option>
+              )}
             {services.map((service) => (
-              <option key={service.id} value={service.slug || service.title?.toLowerCase().replace(/\s+/g, '-')}>
-                {service.title}
+              <option
+                key={service.id || service._id || service.slug}
+                value={service.slug || service.title?.toLowerCase().replace(/\s+/g, "-")}
+              >
+                {service.title || service.name}
               </option>
             ))}
             <option value="other">Other</option>

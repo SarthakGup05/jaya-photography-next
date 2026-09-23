@@ -1,25 +1,34 @@
 import ServiceUI from "./ServiceUI";
 import axiosInstance from "@/libs/axios-instance";
-import { getFallbackServiceBySlug } from "@/lib/servicesData";
+import { getFallbackServiceBySlug, enrichServiceData } from "@/lib/servicesData";
 import { notFound } from "next/navigation";
 
-// Fetch Helper with fallback
+export const revalidate = 60;
+
+// Fetch Helper with API
 async function getService(slug) {
   if (!slug) return null; // Guard against undefined
+
+  let serviceData = null;
+
   try {
-    const response = await axiosInstance.get(`/services/slug/${slug}`);
-    const data = response.data?.service || response.data;
+    const serviceRes = await axiosInstance.get(`/services/slug/${slug}`);
+    const data = serviceRes.data?.service || serviceRes.data;
     if (data && (data.title || data.slug)) {
-      return data;
+      serviceData = data;
     }
   } catch (error) {
-    console.warn(`[Server Fetch] API unavailable or 404 for slug "${slug}". Checking fallback dataset...`);
+    console.warn(`[Server Fetch] API error for slug "${slug}":`, error.message);
+  }
+
+  if (serviceData) {
+    return enrichServiceData(serviceData);
   }
 
   // Fallback lookup
   const fallback = getFallbackServiceBySlug(slug);
   if (fallback) {
-    return fallback;
+    return enrichServiceData(fallback);
   }
 
   return null;
