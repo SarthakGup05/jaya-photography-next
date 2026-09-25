@@ -15,8 +15,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  SlidersHorizontal,
-  Check,
   Calendar,
   MapPin,
 } from "lucide-react";
@@ -62,16 +60,6 @@ const normalizeCategory = (rawCategory, serviceTitle = "") => {
   const trimmed = rawCategory.trim();
   return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
 };
-
-const THEME_CATEGORIES = [
-  { id: "All", label: "All Themes" },
-  { id: "Baby Milestone", label: "Baby Milestones" },
-  { id: "Maternity", label: "Maternity Glow" },
-  { id: "Theme & Cake Smash", label: "Themes & Cake Smash" },
-  { id: "Family", label: "Family & Heritage" },
-  { id: "Fashion & Portrait", label: "Fashion & Portrait" },
-  { id: "Newborn", label: "Newborn Fine-Art" },
-];
 
 const DEFAULT_PORTFOLIO_ITEMS = [
   {
@@ -201,12 +189,6 @@ const PhotographyPortfolio = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Active Theme Filter
-  const [activeTheme, setActiveTheme] = useState("All");
-
-  // Instagram Aspect Ratio Standard (Default: 4:5 vertical portrait standard, toggleable to 1:1 square)
-  const [aspectRatioMode, setAspectRatioMode] = useState("4:5"); // "4:5" or "1:1"
-
   // Interactive Likes state (with double-tap support)
   const [likedItems, setLikedItems] = useState(() => new Set());
   const [heartAnimId, setHeartAnimId] = useState(null);
@@ -281,63 +263,12 @@ const PhotographyPortfolio = () => {
   }, []);
 
   /* -----------------------------------------------------
-   * Live Counts for Each Category
-   * --------------------------------------------------- */
-  const themeCounts = useMemo(() => {
-    const counts = { All: portfolioItems.length };
-    portfolioItems.forEach((item) => {
-      if (item.category) {
-        counts[item.category] = (counts[item.category] || 0) + 1;
-      }
-    });
-    return counts;
-  }, [portfolioItems]);
-
-  /* -----------------------------------------------------
-   * Dynamically Available Themes (Guarantees every pill has photos)
-   * --------------------------------------------------- */
-  const availableThemes = useMemo(() => {
-    const presentCategories = new Set(
-      portfolioItems.map((item) => item.category).filter(Boolean)
-    );
-
-    const filtered = THEME_CATEGORIES.filter(
-      (theme) => theme.id === "All" || presentCategories.has(theme.id)
-    );
-
-    // Any unforeseen category from backend is also added seamlessly
-    presentCategories.forEach((cat) => {
-      if (!THEME_CATEGORIES.some((t) => t.id === cat)) {
-        filtered.push({ id: cat, label: cat });
-      }
-    });
-
-    return filtered;
-  }, [portfolioItems]);
-
-  // Safety fallback: if active theme no longer exists, revert to "All"
-  useEffect(() => {
-    if (activeTheme !== "All") {
-      const exists = availableThemes.some((t) => t.id === activeTheme);
-      if (!exists) {
-        setActiveTheme("All");
-      }
-    }
-  }, [availableThemes, activeTheme]);
-
-  /* -----------------------------------------------------
-   * Filtered & Curated Display Items (Keeps 8–12 pictures)
+   * Curated Display Items (Balanced 8–12 pictures across fine-art themes)
    * --------------------------------------------------- */
   const MAX_DISPLAY_COUNT = 12;
 
-  const filteredItems = useMemo(() => {
-    if (activeTheme !== "All") {
-      return portfolioItems
-        .filter((item) => item.category === activeTheme)
-        .slice(0, MAX_DISPLAY_COUNT);
-    }
-
-    // When "All" is active, curate up to 12 pictures evenly balanced across all categories
+  const displayedItems = useMemo(() => {
+    // Curate up to 12 pictures evenly balanced across all fine-art categories
     const categories = Array.from(
       new Set(portfolioItems.map((item) => item.category).filter(Boolean))
     );
@@ -351,7 +282,7 @@ const PhotographyPortfolio = () => {
     let round = 0;
     let added = true;
 
-    // Round-robin selection across themes
+    // Round-robin selection across themes for maximum visual variety
     while (curated.length < MAX_DISPLAY_COUNT && added) {
       added = false;
       for (const cat of categories) {
@@ -378,7 +309,7 @@ const PhotographyPortfolio = () => {
     }
 
     return curated.slice(0, MAX_DISPLAY_COUNT);
-  }, [portfolioItems, activeTheme]);
+  }, [portfolioItems]);
 
   /* -----------------------------------------------------
    * Like / Favorite Handler with Double Tap
@@ -417,31 +348,31 @@ const PhotographyPortfolio = () => {
    * --------------------------------------------------- */
   const modalIndex = useMemo(() => {
     if (!activeModalItem) return -1;
-    return filteredItems.findIndex((item) => item.id === activeModalItem.id);
-  }, [activeModalItem, filteredItems]);
+    return displayedItems.findIndex((item) => item.id === activeModalItem.id);
+  }, [activeModalItem, displayedItems]);
 
   const handlePrevModal = useCallback(
     (e) => {
       if (e) e.stopPropagation();
       if (modalIndex > 0) {
-        setActiveModalItem(filteredItems[modalIndex - 1]);
+        setActiveModalItem(displayedItems[modalIndex - 1]);
       } else {
-        setActiveModalItem(filteredItems[filteredItems.length - 1]);
+        setActiveModalItem(displayedItems[displayedItems.length - 1]);
       }
     },
-    [modalIndex, filteredItems]
+    [modalIndex, displayedItems]
   );
 
   const handleNextModal = useCallback(
     (e) => {
       if (e) e.stopPropagation();
-      if (modalIndex < filteredItems.length - 1) {
-        setActiveModalItem(filteredItems[modalIndex + 1]);
+      if (modalIndex < displayedItems.length - 1) {
+        setActiveModalItem(displayedItems[modalIndex + 1]);
       } else {
-        setActiveModalItem(filteredItems[0]);
+        setActiveModalItem(displayedItems[0]);
       }
     },
-    [modalIndex, filteredItems]
+    [modalIndex, displayedItems]
   );
 
   // Keyboard navigation for modal
@@ -527,129 +458,82 @@ const PhotographyPortfolio = () => {
   return (
     <section className="relative pt-10 pb-14 sm:pt-14 sm:pb-18 px-4 sm:px-6 lg:px-8 bg-[#F0E7E5] text-gray-900 overflow-hidden">
       {/* 🌸 Ambient Atmosphere Orbs */}
-      <div className="absolute top-10 left-1/4 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl pointer-events-none -z-0" />
-      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-rose-200/30 rounded-full blur-3xl pointer-events-none -z-0" />
+      <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#e6d8ce]/40 rounded-full blur-3xl pointer-events-none -z-0" />
+      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-[#ebdcd3]/40 rounded-full blur-3xl pointer-events-none -z-0" />
 
       <div className="max-w-7xl mx-auto relative z-10 space-y-7">
         {/* ===================================================
-         * 1. Header Section: Instagram Feed & Studio Distinction
+         * 1. Header Section: Curated Studio Showcase
          * =================================================== */}
         <div className="text-center max-w-3xl mx-auto space-y-2.5">
-          {/* Eyebrow Badge with Instagram Accent */}
-          <a
-            href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-purple-200/70 shadow-xs text-xs font-semibold text-purple-900 hover:bg-white transition-all cursor-pointer group"
-          >
-            <span className="flex h-2 w-2 rounded-full bg-purple-600 animate-pulse" />
-            <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
-            <span className="tracking-wide group-hover:underline">@jayaagnihotriphotography • Instagram Portfolio</span>
-          </a>
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#e8ded6] border border-[#d8c8bc] text-[#42352f] text-[11px] font-medium tracking-[0.18em] uppercase shadow-2xs">
+              Signature Photography Themes
+            </span>
+            <a
+              href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-stone-300 shadow-2xs text-xs font-medium text-stone-700 hover:text-stone-950 hover:bg-white transition-all cursor-pointer group"
+            >
+              <Instagram className="w-3.5 h-3.5 text-stone-600" />
+              <span className="tracking-wide group-hover:underline">@jayaagnihotriphotography</span>
+            </a>
+          </div>
 
           {/* Headline */}
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-[1.15]">
-            Signature Photography{" "}
-            <span className="bg-gradient-to-r from-purple-900 via-rose-700 to-amber-700 bg-clip-text text-transparent">
-              Themes
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-stone-900 tracking-tight leading-[1.2]">
+            Fine-Art Baby, Newborn, Maternity & Family Photography{" "}
+            <span className="font-normal italic text-[#6e5445]">
+              in Lucknow
             </span>
           </h2>
 
           {/* Description */}
-          <p className="text-stone-700 text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto">
-            A curated showcase of our finest fine-art concepts captured in Lucknow’s premier portrait studio.
-            Select a theme below to explore newborn, maternity, baby milestone, cake smash, and family sessions.
-          </p>
-        </div>
-
-        {/* ===================================================
-         * 2. Modern Photography Theme Filter Tabs
-         * =================================================== */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-1">
-          {availableThemes.map((theme) => {
-            const isSelected = activeTheme === theme.id;
-            const count =
-              theme.id === "All"
-                ? Math.min(MAX_DISPLAY_COUNT, portfolioItems.length)
-                : themeCounts[theme.id] || 0;
-            return (
-              <button
-                key={theme.id}
-                onClick={() => setActiveTheme(theme.id)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 cursor-pointer flex items-center gap-2 shadow-xs ${
-                  isSelected
-                    ? "bg-black text-white shadow-md scale-105"
-                    : "bg-white/90 text-stone-700 border border-stone-300/80 hover:border-purple-600 hover:text-purple-900 hover:bg-purple-50/50"
-                }`}
-              >
-                <span>{theme.label}</span>
-                {count > 0 && (
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                      isSelected ? "bg-white/20 text-white" : "bg-stone-100 text-stone-600"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* ===================================================
-         * 3. Filter Controls & Instagram Aspect Ratio Switcher
-         * =================================================== */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-y border-stone-300/60 py-3.5 px-2">
-          {/* Active Theme Summary */}
-          <div className="flex items-center gap-2 text-xs font-semibold text-stone-700">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-purple-700" />
-            <span>
-              Showing:{" "}
-              <strong className="text-black">
-                {activeTheme === "All" ? "All Photography Themes" : `${activeTheme} Theme`}
-              </strong>{" "}
-              ({filteredItems.length} {filteredItems.length === 1 ? "shot" : "shots"})
-            </span>
+          <div className="text-stone-700 text-sm sm:text-base font-normal leading-relaxed max-w-3xl mx-auto space-y-2">
+            <p>
+              Explore a curated collection of fine-art photography themes in Lucknow, thoughtfully designed for newborns, babies, maternity portraits, milestone sessions, cake smash and family photography.
+            </p>
+            <p className="hidden md:block">
+              At Jaya Agnihotri Photography, every theme combines creative concepts, professional studio lighting, elegant styling and a baby-friendly approach to create portraits that feel personal, artistic and timeless.
+            </p>
+            <p className="hidden sm:block">
+              Whether you're planning a newborn photoshoot in Lucknow, a beautiful maternity photoshoot, your baby's next milestone, a first birthday cake smash, or a family portrait session, discover a theme that fits your story.
+            </p>
           </div>
 
-          {/* Instagram Standard Ratio Toggle: 4:5 Portrait vs 1:1 Square */}
-          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md p-1 rounded-full border border-stone-300/80 shadow-xs">
-            <span className="text-[11px] font-medium text-stone-500 pl-2 pr-1 hidden xs:inline">
-              Photo Format:
-            </span>
-            <button
-              onClick={() => setAspectRatioMode("4:5")}
-              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
-                aspectRatioMode === "4:5"
-                  ? "bg-black text-white shadow-xs"
-                  : "text-stone-600 hover:text-black hover:bg-stone-100"
-              }`}
+          {/* Action Links */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-1 text-xs sm:text-sm font-medium">
+            <Link
+              href="/gallery"
+              className="text-stone-800 hover:text-stone-950 font-medium underline underline-offset-4 transition-colors"
             >
-              <span className="w-1.5 h-2 rounded-[1px] border border-current" />
-              <span>4:5 Portrait</span>
-              <span className="text-[10px] opacity-75 font-normal">(IG Standard)</span>
-            </button>
-            <button
-              onClick={() => setAspectRatioMode("1:1")}
-              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
-                aspectRatioMode === "1:1"
-                  ? "bg-black text-white shadow-xs"
-                  : "text-stone-600 hover:text-black hover:bg-stone-100"
-              }`}
+              View Full Gallery →
+            </Link>
+            <span className="text-stone-300">|</span>
+            <Link
+              href="/packages"
+              className="text-stone-800 hover:text-stone-950 font-medium underline underline-offset-4 transition-colors"
             >
-              <span className="w-2 h-2 rounded-[1px] border border-current" />
-              <span>1:1 Square</span>
-            </button>
+              Check Packages →
+            </Link>
+            <span className="text-stone-300">|</span>
+            <Link
+              href="/contact-us"
+              className="text-stone-800 hover:text-stone-950 font-medium underline underline-offset-4 transition-colors"
+            >
+              Book Your Session →
+            </Link>
           </div>
         </div>
 
         {/* ===================================================
-         * 4. Photography Showcase Grid (Instagram Standard 4:5 / 1:1)
+         * 2. Photography Showcase Grid (Fine-Art 4:5 Portrait Standard)
          * =================================================== */}
-        {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
-            {filteredItems.map((item, index) => {
+        {displayedItems.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6 pt-2">
+            {displayedItems.map((item, index) => {
               const isLiked = likedItems.has(item.id);
               const isShowingHeartAnim = heartAnimId === item.id;
               const likeCount = (item.likes || 320) + (isLiked ? 1 : 0);
@@ -659,9 +543,7 @@ const PhotographyPortfolio = () => {
                   key={item.id || index}
                   onDoubleClick={(e) => handleDoubleTap(item.id, e)}
                   onClick={() => setActiveModalItem(item)}
-                  className={`group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-stone-200/90 transition-all duration-500 cursor-pointer bg-stone-900 select-none ${
-                    aspectRatioMode === "4:5" ? "aspect-[4/5]" : "aspect-square"
-                  }`}
+                  className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-stone-200/90 transition-all duration-500 cursor-pointer bg-stone-900 select-none aspect-[4/5]"
                 >
                   {/* Photo with Smooth Zoom on Hover */}
                   <Image
@@ -669,7 +551,7 @@ const PhotographyPortfolio = () => {
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    quality={80}
+                    quality={85}
                     priority={index < 4}
                     className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                   />
@@ -723,13 +605,6 @@ const PhotographyPortfolio = () => {
                     </div>
                   )}
 
-                  {/* Standard Ratio Tag at Top (Instagram 4:5 or 1:1) */}
-                  <div className="absolute top-12 left-2.5 sm:left-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
-                    <span className="text-[9px] font-mono tracking-widest text-stone-300 bg-black/50 backdrop-blur-xs px-1.5 py-0.5 rounded-sm border border-white/10">
-                      IG {aspectRatioMode}
-                    </span>
-                  </div>
-
                   {/* Bottom Details & Modern Instagram Overlay */}
                   <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 text-white z-10 space-y-1.5 transition-transform duration-300">
                     {/* Location Pin */}
@@ -774,18 +649,17 @@ const PhotographyPortfolio = () => {
             <Camera className="w-12 h-12 text-stone-400 mx-auto animate-pulse" />
             <div className="space-y-1">
               <h3 className="text-base font-bold text-stone-900">
-                No shots found in “{activeTheme}”
+                Gallery Showcase Loading
               </h3>
               <p className="text-stone-600 text-xs">
-                Switch back to All Themes to browse our complete Lucknow photography collection.
+                Explore our fine-art Lucknow photography collection.
               </p>
             </div>
-            <button
-              onClick={() => setActiveTheme("All")}
-              className="px-5 py-2 bg-black text-white text-xs font-semibold rounded-full hover:bg-purple-900 transition-colors cursor-pointer"
-            >
-              Show All Themes
-            </button>
+            <Link href="/gallery">
+              <button className="px-5 py-2 bg-black text-white text-xs font-semibold rounded-full hover:bg-purple-900 transition-colors cursor-pointer">
+                View Full Gallery
+              </button>
+            </Link>
           </div>
         )}
 
@@ -795,7 +669,7 @@ const PhotographyPortfolio = () => {
         <div className="pt-6 border-t border-stone-300/80 flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Studio Profile Meta */}
           <div className="flex items-center gap-3">
-            <div className="relative w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 shadow-sm shrink-0">
+            <div className="relative w-12 h-12 rounded-full p-[2px] bg-[#d8c8bc] shadow-xs shrink-0">
               <div className="w-full h-full rounded-full overflow-hidden bg-white relative">
                 <Image
                   src="/bg/1.jpg"
@@ -808,8 +682,8 @@ const PhotographyPortfolio = () => {
             </div>
             <div className="text-left">
               <div className="flex items-center gap-1.5">
-                <span className="text-sm font-bold text-stone-900">Jaya Agnihotri Photography</span>
-                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-500 text-white text-[9px] font-bold">
+                <span className="text-sm font-semibold text-stone-900">Jaya Agnihotri Photography</span>
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-stone-700 text-white text-[9px] font-bold">
                   ✓
                 </span>
               </div>
@@ -819,27 +693,27 @@ const PhotographyPortfolio = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          {/* Action Buttons - Mobile First */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 w-full sm:w-auto">
             <a
               href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white text-xs font-bold tracking-wide shadow-md hover:shadow-lg hover:brightness-105 transition-all cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 rounded-full bg-white text-stone-900 border border-stone-300 hover:bg-stone-50 hover:border-stone-400 text-xs font-semibold tracking-wide shadow-2xs transition-all cursor-pointer"
             >
-              <Instagram className="w-4 h-4" />
+              <Instagram className="w-4 h-4 text-stone-700" />
               <span>Follow @jayaagnihotriphotography</span>
             </a>
 
-            <Link href="/gallery">
-              <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-stone-100 text-stone-900 border border-stone-300 text-xs font-bold tracking-wide transition-all shadow-xs cursor-pointer group">
+            <Link href="/gallery" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 rounded-full bg-white hover:bg-stone-50 text-stone-900 border border-stone-300 text-xs font-semibold tracking-wide transition-all shadow-2xs cursor-pointer group">
                 <span>View Full Gallery</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
 
-            <Link href="/contact-us">
-              <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black hover:bg-purple-950 text-white text-xs font-bold tracking-wide transition-all shadow-sm cursor-pointer">
+            <Link href="/contact-us" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 rounded-full bg-[#231b19] hover:bg-[#3a2e2a] text-white text-xs font-semibold tracking-wide transition-all shadow-sm cursor-pointer">
                 <span>Book a Theme Session</span>
               </button>
             </Link>
@@ -912,7 +786,7 @@ const PhotographyPortfolio = () => {
                 {/* Profile Header */}
                 <div className="flex items-center justify-between border-b border-stone-200 pb-3.5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600">
+                    <div className="w-10 h-10 rounded-full p-[2px] bg-[#d8c8bc]">
                       <div className="w-full h-full rounded-full overflow-hidden relative">
                         <Image
                           src="/bg/1.jpg"
@@ -929,27 +803,27 @@ const PhotographyPortfolio = () => {
                           href="https://www.instagram.com/jayaagnihotriphotography?stkn=MXJxMmF1ejhmbzM3Yg=="
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-bold text-stone-900 hover:text-purple-700 hover:underline"
+                          className="text-xs font-semibold text-stone-900 hover:text-stone-700 hover:underline"
                         >
                           jayaagnihotriphotography
                         </a>
-                        <span className="text-blue-600 text-xs font-bold">✓</span>
+                        <span className="text-stone-700 text-xs font-bold">✓</span>
                       </div>
                       <p className="text-[11px] text-stone-500">{activeModalItem.location}</p>
                     </div>
                   </div>
 
-                  <span className="text-[10px] font-bold text-purple-800 bg-purple-100/80 px-2.5 py-1 rounded-full uppercase">
+                  <span className="text-[10px] font-medium text-stone-700 bg-stone-100 border border-stone-200 px-2.5 py-1 rounded-full uppercase tracking-wider">
                     {activeModalItem.category}
                   </span>
                 </div>
 
                 {/* Session Title & Concept */}
                 <div className="space-y-1.5">
-                  <h4 className="text-base font-extrabold text-stone-900 leading-snug">
+                  <h4 className="text-base font-serif font-bold text-stone-900 leading-snug">
                     {activeModalItem.title}
                   </h4>
-                  <p className="text-xs font-semibold text-purple-700">
+                  <p className="text-xs font-medium text-[#6e5445]">
                     Theme: {activeModalItem.themeTitle}
                   </p>
                   <p className="text-xs text-stone-600 leading-relaxed font-normal">
@@ -959,9 +833,9 @@ const PhotographyPortfolio = () => {
 
                 {/* Theme Hashtags */}
                 {activeModalItem.tags && (
-                  <div className="flex flex-wrap gap-1 pt-1">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
                     {activeModalItem.tags.map((tag, i) => (
-                      <span key={i} className="text-[11px] font-medium text-purple-800">
+                      <span key={i} className="text-[11px] font-normal text-stone-600 bg-stone-50 px-2 py-0.5 rounded border border-stone-200">
                         {tag}
                       </span>
                     ))}

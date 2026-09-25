@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import axiosInstance from "@/libs/axios-instance";
-import { ArrowRight, Camera, Star, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Camera, Star, ArrowUpRight, Sparkles, MapPin } from "lucide-react";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -53,7 +54,6 @@ const Services = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [imagesLoaded, setImagesLoaded] = useState(new Set());
-  const [selectedTab, setSelectedTab] = useState("All");
 
   const router = useRouter();
 
@@ -87,12 +87,6 @@ const Services = () => {
   };
 
   const activeServices = services.filter((s) => s.isActive !== false);
-
-  const categories = ["All", ...Array.from(new Set(activeServices.map((s) => s.category).filter(Boolean)))];
-
-  const filteredServices = selectedTab === "All"
-    ? activeServices
-    : activeServices.filter((s) => s.category === selectedTab);
 
   /* -----------------------------------------------
    ✅ Loading Skeleton
@@ -137,37 +131,43 @@ const Services = () => {
     <section className="relative pt-10 pb-14 sm:pt-14 sm:pb-18 bg-[#F0E7E5] text-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* 🌟 Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2.5">
-          <span className="inline-block text-xs font-bold text-purple-700 bg-purple-100/70 border border-purple-200 px-4 py-1.5 rounded-full uppercase tracking-wider">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-3.5">
+          <span className="inline-block text-[11px] font-medium text-[#42352f] bg-[#e8ded6] border border-[#d8c8bc] px-4 py-1.5 rounded-full uppercase tracking-[0.18em] shadow-2xs">
             Our Photography Services in Lucknow
           </span>
 
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
-            Capturing Life's <span className="bg-gradient-to-r from-black to-purple-800 bg-clip-text text-transparent">Precious Moments</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-stone-900 leading-[1.2] tracking-tight">
+            Maternity, Newborn, Baby & Family Photography{" "}
+            <span className="font-normal italic text-[#6e5445]">
+              in Lucknow
+            </span>
           </h2>
 
-          <p className="text-gray-600 text-base sm:text-lg font-light leading-relaxed">
-            Specializing in safety-first newborn sessions, glowing maternity portraits, and interactive baby milestone photography in Lucknow.
+          <p className="text-stone-600 text-sm sm:text-base font-normal max-w-2xl mx-auto leading-relaxed">
+            From maternity portraits to your baby’s first milestones, Jaya Agnihotri Photography offers thoughtfully planned photography sessions in Lucknow for newborns, babies, mothers-to-be, children and families.
           </p>
 
-          {/* 🏷️ Optional Category Tabs (If multiple categories exist) */}
-          {categories.length > 2 && (
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedTab(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer ${
-                    selectedTab === cat
-                      ? "bg-black text-white shadow-md scale-105"
-                      : "bg-white text-gray-700 border border-gray-200 hover:border-purple-600 hover:bg-purple-50/50 hover:text-purple-700"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Quick Action Navigation Links */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-1">
+            <Link
+              href="/service"
+              className="px-4 py-2 rounded-full bg-[#231b19] text-white hover:bg-[#3a2e2a] text-xs font-medium tracking-wide transition-all shadow-2xs"
+            >
+              Explore All Services →
+            </Link>
+            <Link
+              href="/packages"
+              className="px-4 py-2 rounded-full bg-white/90 text-stone-800 border border-stone-300 hover:border-stone-500 text-xs font-medium tracking-wide transition-all shadow-2xs"
+            >
+              Check Packages →
+            </Link>
+            <Link
+              href="/contact-us"
+              className="px-4 py-2 rounded-full bg-white/90 text-stone-800 border border-stone-300 hover:border-stone-500 text-xs font-medium tracking-wide transition-all shadow-2xs"
+            >
+              Book Your Session →
+            </Link>
+          </div>
         </div>
 
         {/* 🖼️ Services Swiper Carousel */}
@@ -189,7 +189,7 @@ const Services = () => {
           }}
           className="pb-16"
         >
-          {filteredServices.map((service, index) => (
+          {activeServices.map((service, index) => (
             <SwiperSlide key={service.id || service._id || service.slug || index}>
               <div
                 onClick={() => handleServiceClick(service.slug)}
@@ -202,7 +202,7 @@ const Services = () => {
                     alt={service.title}
                     fill
                     sizes="(max-width: 640px) 360px, (max-width: 1024px) 320px, 280px"
-                    quality={70}
+                    quality={75}
                     priority={index < 2}
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     onLoad={() => handleImageLoad(service.id)}
@@ -244,6 +244,64 @@ const Services = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* 🌟 Editorial Studio Story & Services Highlights */}
+        <div className="mt-4 bg-white/85 backdrop-blur-md rounded-2xl p-6 sm:p-10 border border-[#dfd2c6] shadow-sm space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
+            {/* Left Column: Scope & Styling */}
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-[#42352f] bg-[#ede4dc] px-3 py-1 rounded-full border border-[#dcd0c4]">
+                <Sparkles className="w-3.5 h-3.5 text-[#6e5445]" />
+                <span>Artistic Styling & Creative Concepts</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-serif font-bold text-stone-900 leading-snug">
+                Artistic Photography, Studio Lighting & Baby-Friendly Care
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-normal">
+                Our services include newborn photography, baby photography, maternity photoshoots, baby milestone photography, cake smash, toddler and kids photography, family portraits, creative theme photoshoots, and fashion photography. Each session combines artistic styling, professional studio lighting, customized concepts and a baby-friendly approach.
+              </p>
+            </div>
+
+            {/* Right Column: Studio Comfort & Location */}
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-[#42352f] bg-[#ede4dc] px-3 py-1 rounded-full border border-[#dcd0c4]">
+                <MapPin className="w-3.5 h-3.5 text-[#6e5445]" />
+                <span>Sushant Golf City Studio, Lucknow</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-serif font-bold text-stone-900 leading-snug">
+                Located near Centrum Hotel, Sushant Golf City
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-normal">
+                Located in Sushant Golf City, Lucknow, near Centrum Hotel, our photography studio is designed to create comfortable, personalized sessions while preserving genuine expressions, beautiful connections and meaningful memories.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Callout Banner */}
+          <div className="pt-6 border-t border-stone-200/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-2xl">
+              Whether you're looking for a newborn photographer in Lucknow, baby photographer for a milestone session, maternity photographer for your pregnancy portraits, or a family photographer for timeless family memories, explore our services and find the session that fits your story.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 w-full sm:w-auto shrink-0">
+              <Link
+                href="/contact-us"
+                className="w-full sm:w-auto"
+              >
+                <button className="w-full sm:w-auto justify-center px-5 py-3 sm:py-2.5 rounded-full bg-[#231b19] text-white hover:bg-[#3a2e2a] text-xs font-medium tracking-wide transition-all shadow-sm flex items-center">
+                  Book Your Session →
+                </button>
+              </Link>
+              <Link
+                href="/gallery"
+                className="w-full sm:w-auto"
+              >
+                <button className="w-full sm:w-auto justify-center px-5 py-3 sm:py-2.5 rounded-full border border-stone-300 hover:border-stone-500 text-stone-800 text-xs font-medium tracking-wide transition-all bg-white flex items-center">
+                  View Gallery →
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
