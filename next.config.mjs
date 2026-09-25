@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
+    qualities: [75, 85],
     deviceSizes: [360, 480, 640, 750, 828, 1080, 1200, 1600],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 320, 384, 450, 512],
     remotePatterns: [
@@ -25,6 +26,11 @@ const nextConfig = {
   // 301 Redirects mapping from 301 Redirect Mapping.xlsx
   async redirects() {
     return [
+      {
+        source: "/service/maternity-shoot",
+        destination: "/service/maternity-photoshoot-lucknow",
+        permanent: true,
+      },
       {
         source: "/service/professional-fashion-photography",
         destination: "/service/fashion-photographer-lucknow",
