@@ -221,7 +221,10 @@ export default function ContactUsUI() {
     {
       icon: <MapPin className="w-5 h-5 text-purple-700" />,
       title: "Studio Location",
-      details: ["Jaya Agnihotri Photography", "Sushant Golf City, Lucknow"],
+      details: [
+        "Jaya Agnihotri Photography",
+        "8th Floor, Tower A, Urban Woods Premium Residency, Phase 1, Sector B, Ansal API, Near Centrum Hotel, Lucknow, Uttar Pradesh 226030",
+      ],
       actionLabel: "Google Maps Navigation →",
       url: "https://share.google/3OhKy5swv2nxYiOMG",
     },
@@ -628,7 +631,7 @@ export default function ContactUsUI() {
                 Visit Our Studio in Lucknow
               </h2>
               <p className="text-xs text-gray-600 font-medium">
-                Sushant Golf City, Lucknow, Uttar Pradesh. Appointments recommended.
+                8th Floor, Tower A, Urban Woods Premium Residency, Phase 1, Sector B, Ansal API, Near Centrum Hotel, Lucknow, Uttar Pradesh 226030. Appointments recommended.
               </p>
             </div>
 
@@ -669,8 +672,8 @@ export default function ContactUsUI() {
                   <h4 className="font-serif font-bold text-xs text-gray-900 group-hover:text-purple-700 transition-colors">
                     Jaya Agnihotri Photography
                   </h4>
-                  <p className="text-[11px] text-gray-500 font-light">
-                    Sushant Golf City, Lucknow
+                  <p className="text-[11px] text-gray-500 font-light leading-snug">
+                    8th Floor, Tower A, Urban Woods, Phase 1, Sector B, Ansal API, Near Centrum Hotel, Lucknow 226030
                   </p>
                   <span className="text-[10px] text-purple-700 font-bold underline inline-block">
                     Open Google Maps

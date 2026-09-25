@@ -726,7 +726,7 @@ export default function PackagesUI() {
           </div>
 
           <p className="text-xs text-stone-400 pt-2 font-light">
-            Studio Address: Sushant Golf City, Amar Shaheed Path, Lucknow, Uttar Pradesh
+            Studio Address: 8th Floor, Tower A, Urban Woods Premium Residency, Phase 1, Sector B, Ansal API, Near Centrum Hotel, Lucknow, Uttar Pradesh 226030, India
           </p>
         </div>
       </section> */}

@@ -213,8 +213,8 @@ const Footer = () => {
                   <p className="font-medium text-white">
                     Jaya Agnihotri Photography
                   </p>
-                  <p className="text-gray-300 text-xs sm:text-sm">
-                    Sushant Golf City, Lucknow
+                  <p className="text-gray-300 text-xs leading-relaxed mt-0.5">
+                    8th Floor, Tower A, Urban Woods Premium Residency, Phase 1, Sector B, Ansal API, Near Centrum Hotel, Lucknow, Uttar Pradesh 226030
                   </p>
                   <span className="text-xs text-purple-400 group-hover:underline font-medium inline-block mt-0.5">
                     View on Google Maps →
