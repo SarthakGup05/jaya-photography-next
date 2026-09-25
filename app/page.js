@@ -6,19 +6,48 @@ import JayaAbout from "@/components/About";
 import Testimonial from "@/components/Testimonial";
 import HomeBlogSection from "@/components/HomeBlogSection";
 import CTASection from "@/components/Cta";
+import WhyTrustUs from "@/components/WhyTrustUs";
+import HomeFaq from "@/components/HomeFaq";
 import HomeJsonLd from "@/components/schema/HomeJsonLd";
+import SectionDivider from "@/components/SectionDivider";
 
 export const metadata = {
-  title: "Jaya Photography Lucknow | Luxury Baby, Newborn & Maternity Photoshoot",
+  title: "Maternity, Newborn & Baby Photographer in Lucknow | Jaya Photography",
   description:
-    "Jaya Agnihotri Photography is the premier luxury baby, newborn, maternity, cake smash, and family portrait studio in Sushant Golf City, Lucknow. 10+ years of fine-art experience.",
+    "Jaya Agnihotri Photography is a luxury photography studio in Lucknow for maternity, newborn, baby milestone, cake smash & family photography. Book your session.",
+  keywords: [
+    "photographer in Lucknow",
+    "photography studio in Lucknow",
+    "baby photographer in Lucknow",
+    "baby photography in Lucknow",
+    "baby photoshoot in Lucknow",
+    "newborn photographer in Lucknow",
+    "newborn photography in Lucknow",
+    "newborn photoshoot in Lucknow",
+    "maternity photographer in Lucknow",
+    "maternity photography in Lucknow",
+    "maternity photoshoot in Lucknow",
+    "pregnancy photoshoot in Lucknow",
+    "baby milestone photography Lucknow",
+    "cake smash photography Lucknow",
+    "family photographer in Lucknow",
+    "family photoshoot in Lucknow",
+    "toddler photographer Lucknow",
+    "kids photographer Lucknow",
+    "theme photoshoot Lucknow",
+    "luxury photography studio Lucknow",
+    "fine art photography Lucknow",
+    "photography studio in Sushant Golf City",
+    "photographer in Sushant Golf City",
+    "photographer near Centrum Hotel Lucknow",
+  ],
   alternates: {
     canonical: "https://jayaphotography.in",
   },
   openGraph: {
-    title: "Jaya Photography Lucknow | Luxury Baby, Newborn & Maternity Photoshoot",
+    title: "Maternity, Newborn & Baby Photographer in Lucknow | Jaya Photography",
     description:
-      "Premier luxury baby, newborn & maternity photography studio in Sushant Golf City, Lucknow.",
+      "Jaya Agnihotri Photography is a luxury photography studio in Lucknow for maternity, newborn, baby milestone, cake smash & family photography. Book your session.",
     url: "https://jayaphotography.in",
   },
 };
@@ -28,12 +57,22 @@ export default function Home() {
     <>
       <HomeJsonLd />
       <Hero />
+      <SectionDivider number="01" label="Signature Themes" />
       <PhotographyPortfolio />
+      <SectionDivider number="02" label="Studio Services" />
       <Services />
+      <SectionDivider number="03" label="Meet The Artist" />
       <JayaAbout />
+      <SectionDivider number="04" label="Client Stories" />
       <Testimonial />
-      <HomeBlogSection />
+      <SectionDivider number="05" label="Why Parents Trust Us" />
+      <WhyTrustUs />
+      <SectionDivider number="06" label="Reserve A Session" />
       <CTASection />
+      <SectionDivider number="07" label="Journal & Guides" />
+      <HomeBlogSection />
+      <SectionDivider number="08" label="Questions & Answers" />
+      <HomeFaq />
     </>
   );
 }
