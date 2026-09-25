@@ -150,41 +150,44 @@ const CTASection = () => {
   };
 
   return (
-    <section className="pt-10 pb-14 sm:pt-14 sm:pb-16 px-4 bg-gradient-to-br from-[#f3e6fa] via-white to-[#F0E7E5]">
+    <section className="pt-16 pb-20 sm:pt-20 sm:pb-24 px-4 bg-[#F0E7E5] border-t border-[#dfd3c9] relative overflow-hidden">
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-20 h-20 bg-purple-200/8 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-32 right-20 w-32 h-32 bg-pink-200/6 rounded-full blur-2xl"></div>
+        <div className="absolute top-10 left-10 w-96 h-96 bg-[#e6d8ce]/40 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#ebdcd3]/40 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-100 mb-6">
-            <Camera className="w-4 h-4 text-purple-600" />
-            <span className="text-sm font-medium text-gray-700">
-              Professional Photography
+          <div className="inline-flex items-center gap-2 bg-[#e8ded6] px-4 py-1.5 rounded-full border border-[#d8c8bc] mb-3.5 shadow-2xs">
+            <Camera className="w-3.5 h-3.5 text-[#6e5445]" />
+            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#42352f]">
+              Professional Photography in Lucknow
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-            Ready to Capture Your
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              {" "}
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold mb-4 text-stone-900 leading-[1.2] tracking-tight">
+            Ready to Capture Your{" "}
+            <span className="font-normal italic text-[#6e5445]">
               Special Moments?
             </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Let's create beautiful memories together. Fill out the form below
-            and we'll get in touch within 24 hours.
-          </p>
+          <div className="text-stone-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed space-y-2">
+            <p>
+              Planning a maternity, newborn, baby, milestone, cake smash, or family photoshoot in Lucknow? Let’s create beautiful, timeless memories together.
+            </p>
+            <p className="text-xs sm:text-sm text-stone-500">
+              Tell us about your photography requirements, preferred session, and vision. Our team will review your enquiry and get in touch within 24 hours to discuss availability, packages, styling, and the next steps for your session.
+            </p>
+          </div>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 p-8">
+        <div className="bg-white/85 backdrop-blur-md rounded-2xl shadow-sm border border-[#dfd2c6] p-6 sm:p-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <User className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type="text"
                   name="name"
@@ -192,12 +195,12 @@ const CTASection = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   disabled={submitting}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all disabled:opacity-50 text-gray-800 placeholder-gray-500"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#8C7355] focus:border-[#8C7355] transition-all disabled:opacity-50 text-stone-800 placeholder-stone-400 text-sm"
                   required
                 />
               </div>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Mail className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type="email"
                   name="email"
@@ -205,7 +208,7 @@ const CTASection = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   disabled={submitting}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all disabled:opacity-50 text-gray-800 placeholder-gray-500"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#8C7355] focus:border-[#8C7355] transition-all disabled:opacity-50 text-stone-800 placeholder-stone-400 text-sm"
                   required
                 />
               </div>
@@ -213,7 +216,7 @@ const CTASection = () => {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Phone className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type="tel"
                   name="phone"
@@ -221,7 +224,7 @@ const CTASection = () => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   disabled={submitting}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all disabled:opacity-50 text-gray-800 placeholder-gray-500"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#8C7355] focus:border-[#8C7355] transition-all disabled:opacity-50 text-stone-800 placeholder-stone-400 text-sm"
                   required
                 />
               </div>
@@ -234,7 +237,7 @@ const CTASection = () => {
                   value={formData.city}
                   onChange={handleInputChange}
                   disabled={submitting}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all disabled:opacity-50 text-gray-800 placeholder-gray-500"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all disabled:opacity-50 text-gray-800 placeholder-gray-500 text-sm"
                   required
                 />
               </div>
@@ -247,7 +250,7 @@ const CTASection = () => {
                 value={formData.service}
                 onChange={handleInputChange}
                 disabled={submitting || loadingServices}
-                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all appearance-none cursor-pointer disabled:opacity-50 text-gray-800"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all appearance-none cursor-pointer disabled:opacity-50 text-gray-800 text-sm"
                 required
               >
                 <option value="">
@@ -292,65 +295,39 @@ const CTASection = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-600 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none cursor-pointer"
+              className="w-full bg-[#231b19] hover:bg-[#3a2e2a] text-white font-medium py-3.5 px-8 rounded-full transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-sm sm:text-base tracking-wide"
             >
               <span className="flex items-center justify-center gap-2">
                 {submitting ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Sending...</span>
+                    <span>Submitting Enquiry...</span>
                   </>
                 ) : (
                   <>
-                    <span>Book Your Session</span>
-                    <Camera className="w-4 h-4" />
+                    <span>Book Your Photography Session →</span>
+                    <Camera className="w-4 h-4 text-stone-300" />
                   </>
                 )}
               </span>
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-center text-sm text-gray-600">
-              We'll respond within 24 hours to discuss your vision and schedule
-              your session
+          {/* Subtext and Studio Location Details */}
+          <div className="mt-8 pt-6 border-t border-stone-200/80 text-center space-y-2">
+            <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-xl mx-auto">
+              Whether you're looking for a professional photographer in Lucknow, a newborn photographer for your baby, a maternity photographer for your pregnancy portraits, or a family photographer for meaningful portraits, we’re here to help you plan a personalized experience.
             </p>
-          </div>
-        </div>
-
-        {/* Simple Feature List */}
-        {/* Why Parents Trust Our Studio */}
-        <div className="mt-16 pt-10 border-t border-gray-200">
-          <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
-            Why Parents Trust Our Studio
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8 text-center px-4">
-            <div className="space-y-2">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto text-purple-600">
-                <Camera className="w-6 h-6" />
-              </div>
-              <h4 className="font-semibold text-gray-800">Professional Quality</h4>
-              <p className="text-sm text-gray-600">Premium setups & high-end equipment</p>
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-stone-700 pt-1">
+              <span className="inline-flex items-center gap-1.5 text-stone-800">
+                <MapPin className="w-3.5 h-3.5 text-[#6e5445]" />
+                Located in Sushant Golf City, Lucknow, near Centrum Hotel
+              </span>
+              <span className="text-stone-300 hidden sm:inline">•</span>
+              <span className="text-stone-500 font-normal">
+                We’ll respond within 24 hours to discuss your vision and schedule your session.
+              </span>
             </div>
-            <div className="space-y-2">
-              <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto text-pink-600">
-                <User className="w-6 h-6" />
-              </div>
-              <h4 className="font-semibold text-gray-800">Baby-First Approach</h4>
-              <p className="text-sm text-gray-600">Safe, hygienic & comfortable environment</p>
-            </div>
-            <div className="space-y-2">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto text-blue-600">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <h4 className="font-semibold text-gray-800">Flexible & Friendly</h4>
-              <p className="text-sm text-gray-600">Guidance on posing & outfits, flexible dates</p>
-            </div>
-          </div>
-          <div className="text-center mt-8">
-            <p className="text-gray-500 italic">
-              "Because every moment of childhood and motherhood deserves to be remembered beautifully."
-            </p>
           </div>
         </div>
       </div>

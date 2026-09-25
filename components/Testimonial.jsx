@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, memo } from "react";
+import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -91,125 +92,174 @@ const Testimonials = () => {
   const t = testimonials[current];
 
   return (
-    <section className="relative flex items-center justify-center px-6 pt-12 pb-16 sm:pt-16 sm:pb-20 bg-gradient-to-b from-[#faf9fb] to-[#f5f4f6] overflow-hidden">
-      {/* Background Decorations */}
+    <section className="relative px-4 sm:px-6 lg:px-8 pt-16 pb-20 sm:pt-20 sm:pb-24 bg-[#F0E7E5] border-t border-[#dfd3c9] overflow-hidden">
+      {/* Background Ambient Glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#1DA1F2]/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#a855f7]/10 rounded-full blur-3xl" />
+        <div className="absolute top-10 right-10 w-96 h-96 bg-[#ebdcd3]/40 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#e6d8ce]/40 rounded-full blur-3xl" />
       </div>
 
-      <div className="w-full max-w-3xl text-center relative z-10">
-        {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-2.5 text-[#0f1419]">
-          What Our Clients Say
-        </h2>
-        <p className="text-[#5a5a5a] mb-8 text-base md:text-lg">
-          Real Experiences, Real Emotions
-        </p>
+      <div className="w-full max-w-4xl mx-auto relative z-10 space-y-8 sm:space-y-10">
+        {/* ===================================================
+         * 1. Section Header (Clean & Punchy)
+         * =================================================== */}
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="inline-block text-[11px] font-medium text-[#42352f] bg-[#e8ded6] border border-[#d8c8bc] px-4 py-1.5 rounded-full uppercase tracking-[0.18em] shadow-2xs">
+            What Our Clients Say
+          </span>
 
-        {/* Tweet-Style Testimonial Card */}
-        <div
-          ref={cardRef}
-          className="relative bg-white border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.06)] rounded-2xl px-6 py-8 md:px-10 md:py-10 text-left max-w-2xl mx-auto transition-all duration-700"
-        >
-          {/* Header: Profile */}
-          <div className="flex items-center mb-6">
-            {t.image ? (
-              <img
-                src={t.image}
-                alt={t.name}
-                className="w-12 h-12 rounded-full object-cover border border-gray-200"
-              />
-            ) : (
-              <div className="w-12 h-12 rounded-full bg-[#1DA1F2] flex items-center justify-center text-sm font-medium text-white">
-                {t.name?.charAt(0)}
-              </div>
-            )}
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold tracking-tight text-stone-900 leading-[1.2]">
+            Real Experiences,{" "}
+            <span className="font-normal italic text-[#6e5445]">
+              Real Emotions
+            </span>
+          </h2>
 
-            <div className="ml-4 flex flex-col">
-              <div className="flex items-center gap-1">
-                <span className="font-semibold text-[#0f1419] text-base">
-                  {t.name}
-                </span>
-                <CheckCircle2 className="w-4 h-4 text-[#1DA1F2]" />
-              </div>
-              <span className="text-sm text-gray-500">@{t.service || "client"}</span>
-            </div>
-          </div>
-
-          {/* Body: Quote */}
-          <div className="relative text-[#0f1419] text-lg md:text-xl leading-relaxed mb-6 font-normal">
-            <Quote className="absolute -top-2 -left-3 w-5 h-5 text-[#1DA1F2]/40" />
-            <p className="pl-6 italic">“{t.text}”</p>
-          </div>
-
-          {/* Rating Stars */}
-          <div className="flex items-center gap-1 mb-6">
-            {[...Array(t.rating || 5)].map((_, i) => (
-              <Star
-                key={i}
-                className="w-4 h-4 text-yellow-400 fill-yellow-400"
-              />
-            ))}
-          </div>
-
-          {/* Footer: Time or tag */}
-          <div className="text-sm text-gray-500">
-            Captured beautifully — thank you for trusting us 💫
-          </div>
-
-          {/* Twitter-style border bar */}
-          <div className="absolute left-0 right-0 bottom-0 h-[4px] bg-gradient-to-r from-[#1DA1F2] to-[#a855f7] rounded-b-2xl"></div>
+          <p className="text-stone-600 text-sm sm:text-base font-normal leading-relaxed">
+            Heartfelt stories from families who trusted Jaya Agnihotri Photography for their maternity, newborn, baby, and milestone portraits in Lucknow.
+          </p>
         </div>
 
-        {/* Navigation */}
-        {testimonials.length > 1 && (
-          <div className="flex justify-center items-center mt-10 gap-6">
-            <button
-              onClick={prev}
-              className="p-2 rounded-full border border-gray-300 hover:bg-[#1DA1F2] hover:text-white transition cursor-pointer"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            {/* Dots */}
-            <div className="flex gap-2">
-              {testimonials.map((_, i) => (
-                <button
+        {/* ===================================================
+         * 2. Luxury Fine-Art Editorial Testimonial Card
+         * =================================================== */}
+        <div
+          ref={cardRef}
+          className="relative bg-white/90 backdrop-blur-md border border-[#dfd2c6] shadow-sm hover:shadow-md rounded-3xl p-7 sm:p-10 md:p-12 text-left max-w-3xl mx-auto transition-all"
+        >
+          {/* Top Bar: Rating & Category Badge */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-stone-200/80">
+            {/* 5 Warm Gold Stars */}
+            <div className="flex items-center gap-1">
+              {[...Array(t.rating || 5)].map((_, i) => (
+                <Star
                   key={i}
-                  onClick={() => {
-                    setDirection(i > current ? 1 : -1);
-                    setCurrent(i);
-                  }}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    i === current
-                      ? "bg-[#1DA1F2] scale-110"
-                      : "bg-gray-300 hover:bg-[#1DA1F2]/50"
-                  } cursor-pointer`}
+                  className="w-4 h-4 text-amber-500 fill-amber-400"
                 />
               ))}
+              <span className="ml-2 text-xs font-semibold text-stone-700 tracking-wide">
+                5.0 Rating
+              </span>
             </div>
 
-            <button
-              onClick={next}
-              className="p-2 rounded-full border border-gray-300 hover:bg-[#1DA1F2] hover:text-white transition cursor-pointer"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+            {/* Session Tag */}
+            <span className="text-[11px] font-medium uppercase tracking-wider px-3 py-1 rounded-full bg-[#f3eae3] text-[#5e4738] border border-[#dcd0c4]">
+              {t.service || "Maternity & Newborn Session"}
+            </span>
           </div>
-        )}
-      </div>
 
-      <style jsx>{`
-        @media (max-width: 768px) {
-          section {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-          }
-        }
-      `}</style>
+          {/* Quote Body */}
+          <div className="py-6 sm:py-8 space-y-3">
+            <Quote className="w-8 h-8 text-[#8C7355]/30 -mb-1" />
+            <p className="text-lg sm:text-2xl font-serif text-stone-900 leading-relaxed italic font-normal">
+              “{t.text}”
+            </p>
+          </div>
+
+          {/* Author Profile & Navigation Footer */}
+          <div className="pt-6 border-t border-stone-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+            {/* Reviewer Details */}
+            <div className="flex items-center gap-3.5">
+              {t.image ? (
+                <img
+                  src={t.image}
+                  alt={t.name}
+                  className="w-12 h-12 rounded-full object-cover border border-[#dfd2c6]"
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-[#ede4dc] text-[#5e4738] border border-[#dcd0c4] flex items-center justify-center text-base font-serif font-bold shadow-2xs">
+                  {t.name?.charAt(0) || "P"}
+                </div>
+              )}
+
+              <div>
+                <h4 className="font-serif font-bold text-stone-900 text-base sm:text-lg leading-tight">
+                  {t.name}
+                </h4>
+                <p className="text-xs text-[#6e5445] font-medium tracking-wide mt-0.5">
+                  Verified Family • Sushant Golf City, Lucknow
+                </p>
+              </div>
+            </div>
+
+            {/* Carousel Navigation */}
+            {testimonials.length > 1 && (
+              <div className="flex items-center gap-3 self-end sm:self-center">
+                <span className="text-xs font-serif text-stone-500 tracking-widest mr-1">
+                  0{current + 1} / 0{testimonials.length}
+                </span>
+
+                <button
+                  onClick={prev}
+                  className="w-9 h-9 rounded-full border border-stone-300 bg-white/90 hover:bg-[#231b19] hover:text-white hover:border-[#231b19] transition-all text-stone-700 flex items-center justify-center cursor-pointer shadow-2xs"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                <button
+                  onClick={next}
+                  className="w-9 h-9 rounded-full border border-stone-300 bg-white/90 hover:bg-[#231b19] hover:text-white hover:border-[#231b19] transition-all text-stone-700 flex items-center justify-center cursor-pointer shadow-2xs"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ===================================================
+         * 3. Editorial Studio Information & Comfort Pillars
+         * =================================================== */}
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-[#dfd2c6] shadow-2xs space-y-5 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 text-left">
+            <div className="space-y-1.5">
+              <h3 className="text-sm sm:text-base font-serif font-bold text-stone-900">
+                Patience, Comfort & Meaningful Storytelling
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                From a baby’s first portraits and milestone moments to maternity journeys and family celebrations, every session is thoughtfully created around comfort, patience, creativity and genuine emotions.
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="text-sm sm:text-base font-serif font-bold text-stone-900">
+                Sushant Golf City Photography Studio
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                Located in Sushant Golf City, Lucknow, near Centrum Hotel, our studio offers a calm, welcoming environment designed specifically for newborn safety, maternity comfort, and memorable family photoshoots.
+              </p>
+            </div>
+          </div>
+
+          {/* Action Links */}
+          <div className="pt-4 border-t border-stone-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-medium text-center sm:text-left">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <Link
+                href="/gallery"
+                className="text-stone-800 hover:text-stone-950 underline underline-offset-4 transition-colors"
+              >
+                View Portfolio →
+              </Link>
+              <span className="text-stone-300">|</span>
+              <Link
+                href="/packages"
+                className="text-stone-800 hover:text-stone-950 underline underline-offset-4 transition-colors"
+              >
+                Explore Packages →
+              </Link>
+            </div>
+
+            <Link
+              href="/contact-us"
+              className="w-full sm:w-auto text-center px-5 py-2.5 rounded-full bg-[#231b19] text-white hover:bg-[#3a2e2a] text-xs font-medium tracking-wide transition-all shadow-2xs"
+            >
+              Book Your Session →
+            </Link>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

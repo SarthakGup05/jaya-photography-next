@@ -62,31 +62,40 @@ const HomeBlogSection = () => {
   return (
     <section className="pt-10 pb-14 sm:pt-14 sm:pb-18 bg-[#f8f4ef] text-gray-900 relative overflow-hidden border-t border-[#e0d0b8]">
       {/* Background Accent */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/50 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#ebdcd3]/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#e6d8ce]/40 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eee2d0] text-purple-900 text-xs font-bold uppercase tracking-widest">
-              <BookOpen className="w-3.5 h-3.5" />
+          <div className="space-y-3 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8ded6] border border-[#d8c8bc] text-[#42352f] text-[11px] font-medium tracking-[0.18em] uppercase shadow-2xs">
+              <BookOpen className="w-3.5 h-3.5 text-[#6e5445]" />
               <span>Behind The Lens & Guides</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-gray-900 leading-tight">
-              Latest Stories & <span className="text-purple-800">Photography Tips</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-stone-900 leading-[1.2] tracking-tight">
+              Photography Tips, Guides & Stories{" "}
+              <span className="font-normal italic text-[#6e5445]">from Lucknow</span>
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg font-normal leading-relaxed">
-              Expert advice for newborn sessions, maternity photoshoots, baby milestones, and luxury portrait styling in Lucknow.
-            </p>
+            <div className="text-stone-600 text-sm sm:text-base font-normal leading-relaxed space-y-2">
+              <p>
+                Discover helpful photography guides, expert tips, and inspiring stories for newborn photography, maternity photoshoots, baby milestones, cake smash sessions, family portraits, and creative photography in Lucknow.
+              </p>
+              <p className="hidden md:block">
+                Learn when to book a newborn photoshoot, how to prepare for a maternity session, what to wear for a family portrait, how baby milestone photography works, and how to choose the right photography style for your family.
+              </p>
+              <p className="hidden sm:block text-xs sm:text-sm text-stone-500">
+                Whether you're researching a newborn photographer in Lucknow, planning a maternity photoshoot, preparing for your baby's first birthday, or looking for family photography ideas, explore our latest articles for useful answers and inspiration.
+              </p>
+            </div>
           </div>
 
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-full sm:w-auto">
             <Link
               href="/blogs"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black text-white text-sm font-semibold hover:bg-purple-800 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:py-3 rounded-full bg-[#231b19] text-white text-xs sm:text-sm font-medium hover:bg-[#3a2e2a] transition-all duration-300 shadow-sm cursor-pointer group"
             >
-              <span>Explore All Articles</span>
+              <span>Explore All Photography Guides</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -143,37 +152,37 @@ const HomeBlogSection = () => {
 
                     {/* Article Details */}
                     <div className="p-6 space-y-3">
-                      <div className="flex items-center gap-3 text-xs text-gray-500 font-medium">
+                      <div className="flex items-center gap-3 text-xs text-stone-500 font-medium">
                         <span className="flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5 text-purple-700" />
+                          <Calendar className="w-3.5 h-3.5 text-[#6e5445]" />
                           {date}
                         </span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5 text-purple-700" />
+                          <Clock className="w-3.5 h-3.5 text-[#6e5445]" />
                           {readTime}
                         </span>
                       </div>
 
-                      <h3 className="text-xl font-serif font-bold text-gray-900 group-hover:text-purple-800 transition-colors leading-snug line-clamp-2">
+                      <h3 className="text-xl font-serif font-bold text-stone-900 group-hover:text-[#5e4738] transition-colors leading-snug line-clamp-2">
                         <Link href={`/blogs/${slug}`}>{title}</Link>
                       </h3>
 
-                      <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed">
+                      <p className="text-stone-600 text-sm line-clamp-3 leading-relaxed">
                         {excerpt}
                       </p>
                     </div>
                   </div>
 
                   {/* Card Footer */}
-                  <div className="px-6 pb-6 pt-3 border-t border-gray-100 flex items-center justify-between mt-2">
-                    <span className="text-xs font-semibold text-gray-700">
+                  <div className="px-6 pb-6 pt-3 border-t border-stone-100 flex items-center justify-between mt-2">
+                    <span className="text-xs font-medium text-stone-600">
                       By {blog.author?.name || "Jaya Agnihotri"}
                     </span>
 
                     <Link
                       href={`/blogs/${slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-black group-hover:text-purple-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-900 group-hover:text-[#5e4738] transition-colors"
                     >
                       <span>Read Story</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

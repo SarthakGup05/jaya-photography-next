@@ -303,23 +303,18 @@ const ReviewForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full group relative flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transform transition-all hover:-translate-y-1 active:translate-y-0 overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+        className="w-full group relative flex items-center justify-center gap-2 bg-[#231b19] hover:bg-[#3a2e2a] text-white font-medium py-3.5 rounded-full shadow-sm hover:shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer text-sm tracking-wide"
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
-            <span className="relative z-10">Submitting...</span>
+            <Loader2 className="w-4 h-4 animate-spin text-stone-300" />
+            <span>Submitting...</span>
           </>
         ) : (
           <>
-            <span className="relative z-10">Submit Review</span>
-            <Send className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+            <span>Submit Review</span>
+            <Send className="w-4 h-4 text-stone-300 group-hover:translate-x-1 transition-transform" />
           </>
-        )}
-        
-        {/* Button shine effect */}
-        {!isSubmitting && (
-           <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
         )}
       </button>
     </form>

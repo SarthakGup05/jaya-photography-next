@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import axiosInstance from "@/libs/axios-instance";
 import { useRouter } from "next/navigation";
-import { Camera, Star, ChevronLeft, ChevronRight, ArrowRight, ShieldCheck } from "lucide-react";
+import { Camera, Star, ChevronLeft, ChevronRight, ArrowRight, ShieldCheck, Award } from "lucide-react";
 
 const DEFAULT_SLIDES = [
   {
@@ -178,59 +178,69 @@ const Hero = () => {
         <div className="max-w-4xl w-full space-y-3 sm:space-y-5 pointer-events-auto">
           
           {/* Studio Eyebrow Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-xs font-semibold uppercase tracking-widest">
-            Jaya Photography Lucknow
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[11px] sm:text-xs font-semibold uppercase tracking-widest shadow-md">
+            Jaya Agnihotri Photography • Sushant Golf City, Lucknow
           </div>
 
           {/* Main H1 Headline */}
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-snug sm:leading-[1.12] tracking-tight drop-shadow-2xl">
-            Best Maternity & Newborn Photographer{" "}
-            <span className="bg-gradient-to-r from-purple-200 via-pink-200 to-white bg-clip-text text-transparent block sm:inline mt-0.5 sm:mt-0">
+            Maternity, Newborn & Baby Photographer{" "}
+            <span className="font-normal italic text-[#f5e8db] block sm:inline mt-0.5 sm:mt-0">
               in Lucknow
             </span>
           </h1>
 
           {/* Intro Description */}
-          <p className="text-gray-200 font-light text-xs sm:text-base leading-relaxed max-w-xl drop-shadow-sm">
-            Preserving tiny smiles, tender touches, and glowing emotions in a baby-safe studio.
-          </p>
+          <div className="text-stone-200 font-light text-xs sm:text-base leading-relaxed max-w-2xl drop-shadow-sm space-y-1.5">
+            <p>
+              Beautifully crafted maternity portraits, newborn photographs, baby milestones and family memories in a warm, baby-friendly photography studio in Sushant Golf City, Lucknow.
+            </p>
+            <p className="hidden sm:block">
+              From your pregnancy journey to your baby's first year and beyond, every session is thoughtfully planned around comfort, connection, styling and timeless storytelling.
+            </p>
+          </div>
 
           {/* Action & Trust Section */}
-          <div className="pt-2 space-y-3">
+          <div className="pt-2 space-y-3.5">
             {/* CTA Buttons Row */}
             <div className="flex flex-wrap items-center gap-3">
               <button
                 onClick={() => router.push("/contact-us")}
-                className="group flex items-center justify-center gap-2 px-5 py-3 sm:px-7 sm:py-3.5 bg-white text-black rounded-full text-xs sm:text-sm font-bold transition-all duration-300 hover:bg-purple-100 shadow-xl cursor-pointer active:scale-95"
+                className="group flex items-center justify-center gap-2 px-5 py-3 sm:px-7 sm:py-3.5 bg-white text-stone-900 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 hover:bg-stone-100 shadow-xl cursor-pointer active:scale-95"
               >
-                <span>Book Your Session</span>
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black text-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                <span>Book Your Photography Session</span>
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#231b19] text-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
                   <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </div>
               </button>
 
               <button
                 onClick={() => router.push("/gallery")}
-                className="px-5 py-3 sm:px-6 sm:py-3.5 border border-white/35 text-white rounded-full text-xs sm:text-sm font-semibold hover:bg-white/15 transition-all cursor-pointer backdrop-blur-xs text-center"
+                className="px-5 py-3 sm:px-6 sm:py-3.5 border border-white/35 text-white rounded-full text-xs sm:text-sm font-medium hover:bg-white/15 transition-all cursor-pointer backdrop-blur-xs text-center"
               >
-                Explore Gallery
+                Explore Portfolio
               </button>
             </div>
 
-            {/* Trust Badges */}
-            <div className="flex flex-wrap items-center gap-3 text-[11px] sm:text-xs text-white/80 font-medium pt-1">
-              <div className="flex items-center gap-1">
-                <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
-                <span>4.9/5 Rating</span>
+            {/* Trust Badges - 4.9/5 Client Rating | 500+ Families & Sessions | Master's in Photography | Baby-Friendly Studio */}
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-stone-200 font-medium pt-1">
+              <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/10">
+                <Star className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+                <span>4.9/5 Client Rating</span>
               </div>
-              <span className="text-white/40">•</span>
-              <div className="flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-purple-300" />
-                <span>500+ Happy Families</span>
+              <span className="text-white/40 hidden sm:inline">•</span>
+              <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/10">
+                <ShieldCheck className="w-3.5 h-3.5 text-stone-300" />
+                <span>500+ Families & Sessions</span>
               </div>
-              <span className="hidden sm:inline text-white/40">•</span>
-              <div className="hidden sm:flex items-center gap-1 text-purple-200">
-                <span>Baby-Safe Studio</span>
+              <span className="text-white/40 hidden sm:inline">•</span>
+              <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/10">
+                <Award className="w-3.5 h-3.5 text-stone-300" />
+                <span>Master's in Photography</span>
+              </div>
+              <span className="text-white/40 hidden md:inline">•</span>
+              <div className="hidden md:flex items-center gap-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/10 text-stone-200">
+                <span>Baby-Friendly Studio</span>
               </div>
             </div>
           </div>

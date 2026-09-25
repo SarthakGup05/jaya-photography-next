@@ -66,14 +66,12 @@ const FloatingModal = ({ buttonText = "Feedback" }) => {
         }`}
         ref={buttonRef}
       >
-        <div className="pulse-ring pointer-events-none absolute inset-0 rounded-full bg-indigo-500/30 blur-sm z-0"></div>
         <button
           onClick={() => setOpen(true)}
-          className="relative z-10 flex items-center gap-2 sm:gap-3 bg-gray-900 text-white pl-3.5 pr-4 py-2.5 sm:pl-5 sm:pr-6 sm:py-3.5 rounded-full shadow-[0_10px_40px_-10px_rgba(79,70,229,0.5)] border border-white/10 overflow-hidden group transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs sm:text-sm"
+          className="relative z-10 flex items-center gap-2 sm:gap-2.5 bg-[#231b19] text-white pl-4 pr-5 py-2.5 sm:py-3 rounded-full shadow-2xl border border-[#4a3b34] hover:bg-[#3a2e2a] hover:border-[#635047] transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs sm:text-sm font-medium tracking-wide"
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 opacity-90 transition-opacity group-hover:opacity-100"></div>
-          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-200 relative z-30 fill-yellow-200/20" />
-          <span className="font-medium tracking-wide relative z-30">{buttonText}</span>
+          <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 fill-amber-300" />
+          <span>Leave a Review</span>
         </button>
       </div>
 
@@ -83,27 +81,27 @@ const FloatingModal = ({ buttonText = "Feedback" }) => {
           ref={overlayRef}
           onClick={(e) => e.target === overlayRef.current && closeModal()}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 invisible"
-          style={{ background: "rgba(5, 5, 10, 0.4)", backdropFilter: "blur(12px)" }}
+          style={{ background: "rgba(25, 20, 18, 0.55)", backdropFilter: "blur(10px)" }}
         >
           {/* --- Glass Card Container --- */}
           <div
             ref={modalRef}
-            className="relative w-full max-w-lg max-h-[85vh] flex flex-col rounded-[2rem] shadow-2xl border border-white/20 bg-white/80 dark:bg-black/60"
+            className="relative w-full max-w-lg max-h-[85vh] flex flex-col rounded-3xl shadow-2xl border border-[#dfd2c6] bg-[#faf7f5]"
           >
             {/* Ambient Background Glow */}
-            <div ref={glowRef} className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-60 rounded-[2rem]">
-               <div className="absolute -top-[20%] -right-[20%] w-[80%] h-[80%] rounded-full bg-purple-400/30 blur-[60px] animate-pulse"></div>
-               <div className="absolute top-[40%] -left-[20%] w-[60%] h-[60%] rounded-full bg-blue-400/30 blur-[60px]"></div>
+            <div ref={glowRef} className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-40 rounded-3xl">
+               <div className="absolute -top-[20%] -right-[20%] w-[80%] h-[80%] rounded-full bg-[#ebdcd3] blur-[60px]"></div>
+               <div className="absolute top-[40%] -left-[20%] w-[60%] h-[60%] rounded-full bg-[#e6d8ce] blur-[60px]"></div>
             </div>
 
-            {/* --- 1. Fixed Header (FIXED: Reduced padding bottom) --- */}
+            {/* --- 1. Fixed Header --- */}
             <div className="modal-content relative z-10 flex-none flex justify-between items-center px-8 pt-8 pb-2">
               <div>
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600 dark:from-indigo-300 dark:to-pink-300">
-                  Let's Connect
+                <h2 className="text-2xl font-serif font-bold text-stone-900">
+                  Share Your Experience
                 </h2>
-                <p className="text-gray-500 dark:text-gray-300 text-sm mt-1 font-medium">
-                  We value your thoughts
+                <p className="text-stone-500 text-xs sm:text-sm mt-1 font-normal">
+                  Your feedback helps growing families in Lucknow discover our studio.
                 </p>
               </div>
               <button
