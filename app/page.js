@@ -37,8 +37,8 @@ export const metadata = {
     "theme photoshoot Lucknow",
     "luxury photography studio Lucknow",
     "fine art photography Lucknow",
-    "photography studio in Sushant Golf City",
-    "photographer in Sushant Golf City",
+    "photography studio in Ansal API Lucknow",
+    "photographer in Ansal API Lucknow",
     "photographer near Centrum Hotel Lucknow",
   ],
   alternates: {

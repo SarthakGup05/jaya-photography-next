@@ -21,7 +21,7 @@ export const metadata = {
     template: "%s | Jaya Photography Lucknow",
   },
   description:
-    "Jaya Agnihotri Photography is the premier luxury baby, newborn, maternity, cake smash, and family portrait studio in Sushant Golf City, Lucknow. 10+ years of fine-art experience.",
+    "Jaya Agnihotri Photography is the premier luxury baby, newborn, maternity, cake smash, and family portrait studio in Lucknow. 10+ years of fine-art experience.",
   keywords: [
     "baby photography lucknow",
     "newborn photoshoot lucknow",

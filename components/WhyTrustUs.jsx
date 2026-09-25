@@ -28,7 +28,7 @@ const TRUST_PILLARS = [
   {
     icon: MapPin,
     title: "Local & Convenient",
-    subtitle: "Photography studio in Sushant Golf City, Lucknow",
+    subtitle: "Photography studio in Urban Woods, Lucknow",
     description:
       "Conveniently located near Centrum Hotel, our studio welcomes families from across Lucknow for maternity, newborn, baby, milestone, and family photography.",
   },
@@ -109,7 +109,7 @@ export default function WhyTrustUs() {
               “Because every moment of childhood and motherhood deserves to be remembered beautifully.”
             </p>
             <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-[#c9b7a7] font-medium">
-              — Jaya Agnihotri Photography • Sushant Golf City, Lucknow
+              — Jaya Agnihotri Photography • Lucknow
             </div>
           </div>
         </div>

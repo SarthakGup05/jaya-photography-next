@@ -179,7 +179,7 @@ const Hero = () => {
           
           {/* Studio Eyebrow Badge */}
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[11px] sm:text-xs font-semibold uppercase tracking-widest shadow-md">
-            Jaya Agnihotri Photography • Sushant Golf City, Lucknow
+            Jaya Agnihotri Photography • Lucknow
           </div>
 
           {/* Main H1 Headline */}
@@ -193,7 +193,7 @@ const Hero = () => {
           {/* Intro Description */}
           <div className="text-stone-200 font-light text-xs sm:text-base leading-relaxed max-w-2xl drop-shadow-sm space-y-1.5">
             <p>
-              Beautifully crafted maternity portraits, newborn photographs, baby milestones and family memories in a warm, baby-friendly photography studio in Sushant Golf City, Lucknow.
+              Beautifully crafted maternity portraits, newborn photographs, baby milestones and family memories in a warm, baby-friendly luxury photography studio in Lucknow.
             </p>
             <p className="hidden sm:block">
               From your pregnancy journey to your baby's first year and beyond, every session is thoughtfully planned around comfort, connection, styling and timeless storytelling.

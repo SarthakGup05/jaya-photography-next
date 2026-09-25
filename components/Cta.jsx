@@ -321,7 +321,7 @@ const CTASection = () => {
             <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-stone-700 pt-1">
               <span className="inline-flex items-center gap-1.5 text-stone-800">
                 <MapPin className="w-3.5 h-3.5 text-[#6e5445]" />
-                Located in Sushant Golf City, Lucknow, near Centrum Hotel
+                Located at Urban Woods, Ansal API, Near Centrum Hotel, Lucknow
               </span>
               <span className="text-stone-300 hidden sm:inline">•</span>
               <span className="text-stone-500 font-normal">

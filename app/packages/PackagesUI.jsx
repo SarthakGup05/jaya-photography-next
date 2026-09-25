@@ -158,7 +158,7 @@ export default function PackagesUI() {
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-stone-600 font-light max-w-2xl mx-auto leading-relaxed">
-              Transparent packages tailored for your baby milestone, maternity journey, and newborn memories. Zero hidden costs, full RAW photos included, and private studio luxury in Sushant Golf City, Lucknow.
+              Transparent packages tailored for your baby milestone, maternity journey, and newborn memories. Zero hidden costs, full RAW photos included, and private studio luxury in Lucknow.
             </p>
           </div>
 
@@ -624,7 +624,7 @@ export default function PackagesUI() {
               Why Lucknow Families Choose Jaya Photography
             </h2>
             <p className="text-sm sm:text-base text-stone-600 font-light max-w-xl mx-auto">
-              Every detail in our Sushant Golf City studio is thoughtfully engineered for warmth, safety, and breathtaking timeless imagery.
+              Every detail in our Lucknow studio is thoughtfully engineered for warmth, safety, and breathtaking timeless imagery.
             </p>
           </div>
 

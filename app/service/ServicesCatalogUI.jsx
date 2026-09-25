@@ -77,7 +77,7 @@ export default function ServicesCatalogUI({ initialServices = [] }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-white/90 border border-stone-200 text-stone-800 shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            Fine-Art Photography Studio · Sushant Golf City, Lucknow
+            Fine-Art Photography Studio · Lucknow
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-stone-900 leading-[1.15]">

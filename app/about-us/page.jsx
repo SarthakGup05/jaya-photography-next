@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: "About Us | Jaya Photography Lucknow Fine-Art Studio",
     description:
-      "Premier luxury baby, newborn & maternity photography studio in Sushant Golf City, Lucknow.",
+      "Premier luxury baby, newborn & maternity photography studio in Lucknow.",
     url: "https://jayaphotography.in/about-us",
   },
 };

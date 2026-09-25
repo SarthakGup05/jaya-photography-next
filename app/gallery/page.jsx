@@ -3,7 +3,7 @@ import GalleryUI from "./GalleryUI";
 export const metadata = {
   title: "Fine-Art Photo Gallery | Jaya Photography Lucknow",
   description:
-    "Explore our fine-art portfolio of newborn, baby milestone, maternity, cake smash, and family portraits in Sushant Golf City, Lucknow.",
+    "Explore our fine-art portfolio of newborn, baby milestone, maternity, cake smash, and family portraits in Lucknow.",
   alternates: {
     canonical: "https://jayaphotography.in/gallery",
   },

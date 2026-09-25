@@ -647,7 +647,7 @@ export default function ContactUsUI() {
 
           <div className="relative overflow-hidden rounded-2xl border border-gray-200 h-[380px] shadow-inner">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.2441234567!2d80.9496963!3d26.8541383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfdc58e64c56d%3A0x3a1f0c8f9a2b6c1e!2sSushant%20Golf%20City%2C%20Lucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              src="https://maps.google.com/maps?q=Urban+Woods+Premium+Residency,+Phase+1,+Sector+B,+Ansal+API,+Near+Centrum+Hotel,+Lucknow+226030&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}

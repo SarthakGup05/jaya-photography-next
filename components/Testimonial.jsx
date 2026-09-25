@@ -177,7 +177,7 @@ const Testimonials = () => {
                   {t.name}
                 </h4>
                 <p className="text-xs text-[#6e5445] font-medium tracking-wide mt-0.5">
-                  Verified Family • Sushant Golf City, Lucknow
+                  Verified Family • Lucknow
                 </p>
               </div>
             </div>
@@ -225,10 +225,10 @@ const Testimonials = () => {
 
             <div className="space-y-1.5">
               <h3 className="text-sm sm:text-base font-serif font-bold text-stone-900">
-                Sushant Golf City Photography Studio
+                Urban Woods Photography Studio
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
-                Located in Sushant Golf City, Lucknow, near Centrum Hotel, our studio offers a calm, welcoming environment designed specifically for newborn safety, maternity comfort, and memorable family photoshoots.
+                Located at Urban Woods Premium Residency, Sector B, Ansal API, Near Centrum Hotel, Lucknow, our studio offers a calm, welcoming environment designed specifically for newborn safety, maternity comfort, and memorable family photoshoots.
               </p>
             </div>
           </div>

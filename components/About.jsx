@@ -128,7 +128,7 @@ const JayaAbout = () => {
               <div className="relative p-4 sm:p-5 rounded-xl bg-white/70 backdrop-blur-xs border-l-2 border-[#8C7355] border-y-0 border-r-0 shadow-2xs space-y-1.5 my-3">
                 <Quote className="w-4 h-4 text-[#8C7355]/70" />
                 <p className="text-xs sm:text-sm font-serif italic text-stone-800 leading-relaxed">
-                  Every session is thoughtfully planned around comfort, patience, natural expressions, and meaningful storytelling. Located in Sushant Golf City, Lucknow, near Centrum Hotel, my studio offers a warm and welcoming environment for maternity, newborn, baby, milestone, and family photoshoots.
+                  Every session is thoughtfully planned around comfort, patience, natural expressions, and meaningful storytelling. Located at Urban Woods Premium Residency, Sector B, Ansal API, near Centrum Hotel, Lucknow, my studio offers a warm and welcoming environment for maternity, newborn, baby, milestone, and family photoshoots.
                 </p>
               </div>
 

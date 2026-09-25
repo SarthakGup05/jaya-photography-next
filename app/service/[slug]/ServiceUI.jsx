@@ -223,7 +223,7 @@ const ServiceUI = ({ service }) => {
                     <span>Location</span>
                   </div>
                   <p className="text-xs sm:text-sm font-medium text-stone-800 truncate">
-                    Sushant Golf City
+                    Urban Woods, Lucknow
                   </p>
                 </div>
 
@@ -315,7 +315,7 @@ const ServiceUI = ({ service }) => {
                         {service.title}
                       </p>
                       <p className="text-sm font-semibold truncate">
-                        Sushant Golf City Studio · Lucknow
+                        Urban Woods Studio · Lucknow
                       </p>
                     </div>
                   </div>
@@ -384,7 +384,7 @@ const ServiceUI = ({ service }) => {
                   "Master art-retouched portraits ready for framing",
                   "Full access to studio designer wardrobe and safe props",
                   "Family & sibling participation included at no surcharge",
-                  "Private climate-controlled studio lounge in Sushant Golf City",
+                  "Private climate-controlled studio lounge in Lucknow",
                   "Print release and lifetime cloud backup",
                 ]).map((feature, idx) => (
                   <div
@@ -443,7 +443,7 @@ const ServiceUI = ({ service }) => {
                     </h4>
                   </div>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                    Sushant Golf City
+                    Urban Woods Studio
                   </span>
                 </div>
 
@@ -750,7 +750,7 @@ const ServiceUI = ({ service }) => {
             <div className="mt-4 text-center text-white">
               <p className="text-base font-medium">{service.title}</p>
               <p className="text-xs text-stone-400 mt-1">
-                Jaya Photography Lucknow · Sushant Golf City Studio
+                Jaya Photography Lucknow · Urban Woods Studio
               </p>
             </div>
           </div>

@@ -13,7 +13,7 @@ export const HOME_FAQS = [
   {
     question: "Where is Jaya Agnihotri Photography located in Lucknow?",
     answer:
-      "Our photography studio is located in Sushant Golf City, Lucknow, near Centrum Hotel. The studio provides a comfortable and professionally equipped environment for maternity, newborn, baby, and family photoshoots.",
+      "Our photography studio is located at 8th Floor, Tower A, Urban Woods Premium Residency, Phase 1, Sector B, Ansal API, Near Centrum Hotel, Lucknow. The studio provides a comfortable and professionally equipped environment for maternity, newborn, baby, and family photoshoots.",
   },
   {
     question: "How can I book a photography session in Lucknow?",
@@ -113,7 +113,7 @@ export default function HomeFaq() {
           </h2>
 
           <p className="text-stone-600 text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto">
-            Everything you need to know about booking, preparing for your photoshoot, props, outfits, and session experience at our Sushant Golf City studio.
+            Everything you need to know about booking, preparing for your photoshoot, props, outfits, and session experience at our Lucknow studio.
           </p>
         </div>
 

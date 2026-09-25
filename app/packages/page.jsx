@@ -3,7 +3,7 @@ import PackagesUI from "./PackagesUI";
 export const metadata = {
   title: "Photography Packages & Pricing | Jaya Photography Lucknow",
   description:
-    "Explore and compare luxury photoshoot packages for newborn, maternity, cake smash, and family portraits in Sushant Golf City, Lucknow.",
+    "Explore and compare luxury photoshoot packages for newborn, maternity, cake smash, and family portraits in Lucknow.",
   alternates: {
     canonical: "https://jayaphotography.in/packages",
   },

@@ -70,7 +70,7 @@ const DEFAULT_PORTFOLIO_ITEMS = [
     image: "/bg/1.jpg",
     fullImage: "/bg/1.jpg",
     alt: "Luxury Newborn Photography Lucknow",
-    location: "Sushant Golf City Studio, Lucknow",
+    location: "Urban Woods Studio, Lucknow",
     likes: 342,
     aspectRatio: "4:5 Portrait",
     tags: ["#NewbornPhotography", "#FineArtBaby", "#LucknowStudio", "#SafetyCertified"],
@@ -145,7 +145,7 @@ const DEFAULT_PORTFOLIO_ITEMS = [
     image: "/assets/images/albums/featured-images/gal-3-grid.jpg",
     fullImage: "/assets/images/albums/featured-images/gal-3-grid.jpg",
     alt: "Fashion Photography Studio Lucknow",
-    location: "Fashion Studio, Sushant Golf City",
+    location: "Fashion Studio, Lucknow",
     likes: 524,
     aspectRatio: "4:5 Portrait",
     tags: ["#FashionPortrait", "#StudioFashion", "#LucknowPortraits", "#FineArtGlamour"],
@@ -231,7 +231,7 @@ const PhotographyPortfolio = () => {
               image: image.src || image.thumb || image.cloudinaryUrl,
               fullImage: image.src || image.cloudinaryUrl || image.thumb,
               alt: image.alt || image.title || `Jaya Photography ${normalizedCat} Lucknow`,
-              location: "Sushant Golf City Studio, Lucknow",
+              location: "Urban Woods Studio, Lucknow",
               likes: image.likes || 180 + ((idx * 43) % 310),
               aspectRatio: "4:5 Portrait",
               tags: [
@@ -242,7 +242,7 @@ const PhotographyPortfolio = () => {
               ],
               description:
                 image.description ||
-                `Artistic fine-art ${normalizedCat.toLowerCase()} portrait session captured in our premier studio in Sushant Golf City, Lucknow.`,
+                `Artistic fine-art ${normalizedCat.toLowerCase()} portrait session captured in our premier studio in Lucknow.`,
             };
           })
           .filter((item) => item.fullImage || item.image);
@@ -688,7 +688,7 @@ const PhotographyPortfolio = () => {
                 </span>
               </div>
               <p className="text-xs text-stone-600">
-                10+ Years of Luxury Fine-Art in Sushant Golf City, Lucknow
+                10+ Years of Luxury Fine-Art in Lucknow
               </p>
             </div>
           </div>

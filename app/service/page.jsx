@@ -7,7 +7,7 @@ export const revalidate = 60;
 export const metadata = {
   title: "Fine-Art Photography Services Lucknow | Newborn, Maternity & Family | Jaya Photography",
   description:
-    "Explore luxury photography services by Jaya Photography in Sushant Golf City, Lucknow. Safety-first newborn milestones, maternity fine-art portraits, and timeless family collections.",
+    "Explore luxury photography services by Jaya Photography in Lucknow. Safety-first newborn milestones, maternity fine-art portraits, and timeless family collections.",
   keywords: [
     "photography services lucknow",
     "baby photoshoot lucknow",
@@ -22,7 +22,7 @@ export const metadata = {
   openGraph: {
     title: "Fine-Art Photography Services in Lucknow | Jaya Photography",
     description:
-      "Safety-certified luxury newborn, maternity, baby milestone, and family photography studio in Sushant Golf City, Lucknow.",
+      "Safety-certified luxury newborn, maternity, baby milestone, and family photography studio in Lucknow.",
     url: "https://jayaphotography.in/service",
   },
 };

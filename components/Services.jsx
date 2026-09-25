@@ -20,7 +20,7 @@ const DEFAULT_SERVICES = [
     title: "Newborn Photography",
     slug: "baby-milestone-photoshoot-lucknow",
     category: "Newborn",
-    subtitle: "Safety-first luxury newborn photography in Sushant Golf City, Lucknow.",
+    subtitle: "Safety-first luxury newborn photography in Lucknow.",
     coverImage: "/bg/1.jpg",
   },
   {
@@ -266,13 +266,13 @@ const Services = () => {
             <div className="space-y-3">
               <div className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-[#42352f] bg-[#ede4dc] px-3 py-1 rounded-full border border-[#dcd0c4]">
                 <MapPin className="w-3.5 h-3.5 text-[#6e5445]" />
-                <span>Sushant Golf City Studio, Lucknow</span>
+                <span>Urban Woods Studio, Lucknow</span>
               </div>
               <h3 className="text-lg sm:text-xl font-serif font-bold text-stone-900 leading-snug">
-                Located near Centrum Hotel, Sushant Golf City
+                Located at Urban Woods, Ansal API, Near Centrum Hotel
               </h3>
               <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-normal">
-                Located in Sushant Golf City, Lucknow, near Centrum Hotel, our photography studio is designed to create comfortable, personalized sessions while preserving genuine expressions, beautiful connections and meaningful memories.
+                Located at Urban Woods Premium Residency, Sector B, Ansal API, Near Centrum Hotel, Lucknow, our photography studio is designed to create comfortable, personalized sessions while preserving genuine expressions, beautiful connections and meaningful memories.
               </p>
             </div>
           </div>
