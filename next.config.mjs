@@ -84,7 +84,7 @@ const nextConfig = {
     return [
       {
         source: "/api/v1/:path*",
-        destination: "https://oriera-admin-main-1.onrender.com/api/v1/:path*",
+        destination: "https://oriera-admin-main.vercel.app/api/v1/:path*",
       },
     ];
   },
