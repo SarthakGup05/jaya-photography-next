@@ -9,7 +9,7 @@ const getBaseURL = () => {
   if (envUrl && envUrl.startsWith("http")) {
     return envUrl;
   }
-  return "https://oriera-admin-main-1.onrender.com/api/v1";
+  return "https://oriera-admin.vercel.app/api/v1";
 };
 
 const axiosInstance = axios.create({
